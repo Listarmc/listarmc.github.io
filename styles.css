@@ -1728,10 +1728,13 @@ footer {
   color: white;
   border-radius: 50%;
   font-weight: bold;
-  font-size: 1.2rem;
+  \
+  font-size: 1 var(--secondary);
+  );
   color: white;
   border-radius: 50%;
   font-weight: bold;
+  font-size: 1.2rem;
   flex-shrink: 0;
 }
 
