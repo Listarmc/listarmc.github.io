@@ -1305,7 +1305,7 @@ h2 {
 
 .pack-meta {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-top: auto;
 }
@@ -2294,4 +2294,18 @@ footer {
     padding: 8px 15px;
     font-size: 0.9rem;
   }
+}
+
+/* Remove any star-specific styling */
+
+.featured-rating {
+  color: #ffd700;
+}
+
+/* Adjust the pack-meta styling to account for removed ratings */
+.pack-meta {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: auto;
 }
