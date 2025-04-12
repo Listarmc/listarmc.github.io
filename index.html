@@ -1,2498 +1,780 @@
 <!DOCTYPE html>
 <html lang="en">
 
-   <!-- Google tag (gtag.js) -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H483ZYFD5"></script>
-   <script>
-       window.dataLayer = window.dataLayer || [];
-       function gtag() { dataLayer.push(arguments); }
-       gtag('js', new Date());
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H483ZYFD5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-       gtag('config', 'G-9H483ZYFD5');
-   </script>
-   </script>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Listar's Minecraft GUI Pack</title>
-   <meta name="description"
-       content="Enhance your Minecraft experience with Listar MC's custom GUI texture packs featuring popular anime themes like Naruto, One Piece, and Attack on Titan. Perfect for anime fans and gamers looking for unique, immersive textures." />
+        gtag('config', 'G-9H483ZYFD5');
+    </script>
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar's Minecraft GUI Pack</title>
+    <meta name="description"
+        content="Enhance your Minecraft experience with Listar MC's custom GUI texture packs featuring popular anime themes like Naruto, One Piece, and Attack on Titan. Perfect for anime fans and gamers looking for unique, immersive textures." />
 
-   <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 
-   <!-- Add icon library -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <!-- Favicon -->
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Favicon -->
 
-   <link rel="icon" type="image/gif" href="fav.gif">
+    <link rel="icon" type="image/gif" href="fav.gif">
 
 
-   <style>
-       /* Navbar styling */
+    <style>
+        /* Navbar styling */
 
-       .btn {
-           background-color: DodgerBlue;
-           border: none;
-           color: white;
-           padding: 12px 30px;
-           cursor: pointer;
-           font-size: 20px;
-       }
+        .btn {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 20px;
+        }
 
-       /* Darker background on mouse-over */
-       .btn:hover {
-           background-color: RoyalBlue;
-       }
+        /* Darker background on mouse-over */
+        .btn:hover {
+            background-color: RoyalBlue;
+        }
 
-       /* Styles for the search bar */
-       .search-bar {
-           width: 100%;
-           display: flex;
-           justify-content: center;
-           margin: 20px 0;
-       }
+        /* Styles for the search bar */
+        .search-bar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
 
-       .search-bar input[type="text"] {
-           width: 50%;
-           padding: 10px;
-           border-radius: 20px;
-           border: 2px solid #C977A8;
-           font-size: 16px;
-           outline: none;
-       }
+        .search-bar input[type="text"] {
+            width: 50%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 2px solid #C977A8;
+            font-size: 16px;
+            outline: none;
+        }
 
-       .search-bar input[type="text"]:focus {
-           border-color: #8FB3BB;
-       }
+        .search-bar input[type="text"]:focus {
+            border-color: #8FB3BB;
+        }
 
-       /* Navbar styling */
-       .navbar {
-           display: flex;
-           justify-content: center;
-           /* Center the navbar items */
-           background-color: #333;
-           overflow: hidden;
-       }
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            /* Center the navbar items */
+            background-color: #333;
+            overflow: hidden;
+        }
 
-       .navbar a {
-           float: left;
-           display: block;
-           color: #f2f2f2;
-           text-align: center;
-           padding: 14px 20px;
-           text-decoration: none;
-           font-size: 17px;
-       }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
 
-       .navbar a:hover {
-           background-color: #ddd;
-           color: black;
-       }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-       .navbar a.active {
-           background-color: #8A2BE2;
-           color: white;
-       }
+        .navbar a.active {
+            background-color: #8A2BE2;
+            color: white;
+        }
 
-       .navbar .icon {
-           display: none;
-       }
+        .navbar .icon {
+            display: none;
+        }
 
-       h2 {
-           margin: 0;
-           color: #fcfcfc;
-           font-weight: bold;
-           text-align: center;
-           background-color: transparent;
-           padding: 20px 0;
-           position: relative;
-           z-index: 2;
-           display: block;
-           width: 100%;
-           margin-bottom: 20px;
-           /* Increase space below the heading */
-       }
+        h2 {
+            margin: 0;
+            color: #fcfcfc;
+            font-weight: bold;
+            text-align: center;
+            background-color: transparent;
+            padding: 20px 0;
+            position: relative;
+            z-index: 2;
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            /* Increase space below the heading */
+        }
 
-       /* Section styling */
-       section {
-           padding: 40px 20px;
-           background-color: rgba(12, 20, 55, 0.8);
-           color: #8FB3BB;
-           border-radius: 10px;
-           margin: 20px auto;
-           max-width: 1200px;
-           position: relative;
-           overflow: hidden;
-           box-sizing: border-box;
-       }
+        /* Section styling */
+        section {
+            padding: 40px 20px;
+            background-color: rgba(12, 20, 55, 0.8);
+            color: #8FB3BB;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
 
-       /* Mobile adjustments */
-       @media screen and (max-width: 600px) {
-           h2 {
-               position: relative;
-               /* Remove sticky positioning */
-               top: auto;
-               /* Reset top positioning */
-               z-index: 3;
-               background-color: transparent;
-               /* Remove background color */
-               margin-top: 10px;
-               padding: 15px 0;
-           }
+        /* Mobile adjustments */
+        @media screen and (max-width: 600px) {
+            h2 {
+                position: relative;
+                /* Remove sticky positioning */
+                top: auto;
+                /* Reset top positioning */
+                z-index: 3;
+                background-color: transparent;
+                /* Remove background color */
+                margin-top: 10px;
+                padding: 15px 0;
+            }
 
-           section {
-               padding: 20px 10px;
-               margin: 10px auto;
-           }
-       }
+            section {
+                padding: 20px 10px;
+                margin: 10px auto;
+            }
+        }
 
-       /* Responsive layout for small screens */
-       @media screen and (max-width: 600px) {
-           .navbar a:not(:first-child) {
-               display: none;
-           }
+        /* Responsive layout for small screens */
+        @media screen and (max-width: 600px) {
+            .navbar a:not(:first-child) {
+                display: none;
+            }
 
-           .navbar a.icon {
-               float: right;
-               display: block;
-           }
-       }
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+        }
 
-       @media screen and (max-width: 600px) {
-           .navbar.responsive {
-               position: relative;
-           }
+        @media screen and (max-width: 600px) {
+            .navbar.responsive {
+                position: relative;
+            }
 
-           .navbar.responsive .icon {
-               position: absolute;
-               right: 0;
-               top: 0;
-           }
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
 
-           .navbar.responsive a {
-               float: none;
-               display: block;
-               text-align: left;
-           }
-       }
+            .navbar.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
 
-       /* Center section headings */
-       h2 {
-           text-align: center;
-           width: 100%;
-           /* Ensure full-width centering */
-           margin: 20px 0;
-           /* Add some margin for spacing */
-       }
+        /* Center section headings */
+        h2 {
+            text-align: center;
+            width: 100%;
+            /* Ensure full-width centering */
+            margin: 20px 0;
+            /* Add some margin for spacing */
+        }
 
-       /* Responsive layout adjustments */
-       @media screen and (max-width: 600px) {
-           #home {
-               flex-direction: column;
-               /* Stack the elements vertically */
-               align-items: center;
-               /* Center align the elements */
-               text-align: center;
-               /* Center the text */
-           }
+        /* Responsive layout adjustments */
+        @media screen and (max-width: 600px) {
+            #home {
+                flex-direction: column;
+                /* Stack the elements vertically */
+                align-items: center;
+                /* Center align the elements */
+                text-align: center;
+                /* Center the text */
+            }
 
-           #home>div:first-child {
-               margin: 0 0 20px 0;
-               /* Remove left margin and add bottom margin */
-               width: 100%;
-               /* Make it full width */
-           }
+            #home>div:first-child {
+                margin: 0 0 20px 0;
+                /* Remove left margin and add bottom margin */
+                width: 100%;
+                /* Make it full width */
+            }
 
-           #home img {
-               margin-bottom: 20px;
-               /* Add margin below the logo */
-           }
+            #home img {
+                margin-bottom: 20px;
+                /* Add margin below the logo */
+            }
 
-           .discord-widget {
-               width: 100%;
-               /* Make it full width */
-               margin: 20px 0;
-               /* Add top and bottom margin */
-           }
+            .discord-widget {
+                width: 100%;
+                /* Make it full width */
+                margin: 20px 0;
+                /* Add top and bottom margin */
+            }
 
-           /* Make the packs grid layout responsive */
-           .packs-grid {
-               grid-template-columns: 1fr;
-               /* Change to a single column layout */
-               gap: 15px;
-               /* Adjust the gap for better spacing on small screens */
-           }
+            /* Make the packs grid layout responsive */
+            .packs-grid {
+                grid-template-columns: 1fr;
+                /* Change to a single column layout */
+                gap: 15px;
+                /* Adjust the gap for better spacing on small screens */
+            }
 
-           /* Ensure images and text in the packs align well in mobile view */
-           .pack {
-               text-align: center;
-               /* Center text for a cleaner mobile layout */
-           }
+            /* Ensure images and text in the packs align well in mobile view */
+            .pack {
+                text-align: center;
+                /* Center text for a cleaner mobile layout */
+            }
 
-           .pack img {
-               max-width: 80%;
-               /* Adjust image size for mobile */
-               margin: 0 auto;
-               /* Center the images */
-           }
-       }
-   </style>
+            .pack img {
+                max-width: 80%;
+                /* Adjust image size for mobile */
+                margin: 0 auto;
+                /* Center the images */
+            }
+        }
+    </style>
 
-   <!-- <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script> -->
+    <!-- <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script> -->
 </head>
+
 <body>
-    <!-- Header -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <img src="logo.gif" alt="Listar MC Logo" class="logo">
-                    <h1 class="site-title">Listar MC</h1>
-                </div>
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav>
-                    <ul class="nav-list" id="nav-list">
-                        <li class="nav-item"><a href="#" class="active">Home</a></li>
-                        <li class="nav-item"><a href="#texture-packs">Texture Packs</a></li>
-                        <li class="nav-item"><a href="#information">Information</a></li>
-                    </ul>
-                </nav>
-            </div>
+        <div class="navbar" id="myNavbar">
+            <a href="index.html" class="active">Home</a>
+            <a href="#packs">Texture Packs</a>
+            <a href="#information">Information</a>
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+                <i class="fa fa-bars"></i>
+            </a>
         </div>
     </header>
 
-    <!-- Hero Section -->
-<section id="home" class="hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-text-container">
-                <div class="hero-logo-mobile">
-                    <img src="logo.gif" alt="Listar MC Logo" class="hero-logo-img">
-                </div>
-                <h1 class="hero-title">Transform Your Minecraft Experience with Anime-Inspired GUI Packs</h1>
-                <p class="hero-description">Discover a collection of premium custom GUI texture packs that bring your favorite anime aesthetics into Minecraft. Each pack is meticulously crafted to enhance your gameplay with stunning visuals inspired by popular anime series.</p>
-                <div class="hero-cta">
-                    <a href="#texture-packs" class="hero-btn primary-btn">Browse Packs</a>
-                    <a href="#information" class="hero-btn secondary-btn">Learn More</a>
-                </div>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">24+</span>
-                        <span class="stat-label">Texture Packs</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">100+</span>
-                        <span class="stat-label">Anime Series</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">4.8</span>
-                        <span class="stat-label">Average Rating</span>
-                    </div>
-                </div>
-            </div>
-            
-    <div class="hero-visual">
-        <div class="hero-logo-container">
-            <img src="logo.gif" alt="Listar MC Logo" class="hero-logo interactive-logo">
-            <div class="logo-glow"></div>
-            <div class="logo-particles" id="logo-particles"></div>
-        </div>
-    </div>
-
-        </div>
-    </div>
-    
-    <!-- Features Section -->
-    <div class="container">
-        <div class="features-section">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa fa-paint-brush"></i>
-                </div>
-                <h3 class="feature-title">Anime-Inspired Design</h3>
-                <p class="feature-description">Each GUI pack is carefully designed to capture the essence and aesthetic of your favorite anime series.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa fa-cogs"></i>
-                </div>
-                <h3 class="feature-title">Easy Installation</h3>
-                <p class="feature-description">Simple drag-and-drop installation works with vanilla Minecraft and most popular modpacks.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fa fa-refresh"></i>
-                </div>
-                <h3 class="feature-title">Regular Updates</h3>
-                <p class="feature-description">All packs are regularly updated to support the latest Minecraft versions and features.</p>
+    <section id="home" style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="display: flex; align-items: center; margin-top: 30px; margin-left: 25px;">
+            <img src="logo.gif" alt="My Logo" class="logo" style="width: 300px; height: auto; margin-right: 20px;">
+            <div style="width: 350px; height: auto; margin-right: 20px;">
+                <h1 style="color:#C977A8; font-size: xx-large;">Welcome to My Minecraft GUI Texture Packs</h1>
+                <p>Explore my collection of custom GUI textures for Minecraft themed around the most popular Japanese
+                    anime's.</p>
             </div>
         </div>
-    </div>
-    
-    <!-- Community Section -->
-    <div class="container">
-        <div class="community-section">
-            <div class="community-text">
-                <h2 class="community-title">Join Our Community</h2>
-                <p class="community-description">Connect with other anime and Minecraft fans, suggest new pack ideas, get installation help, and be the first to know about new releases!</p>
-                <a href="https://discord.gg/RvScgzj3Ph" target="_blank" class="community-btn">
-                    <i class="fa fa-discord"></i> Join Discord
-                </a>
-            </div>
-            <div class="community-widget">
-                <iframe src="https://discord.com/widget?id=1136933549669351434&theme=dark" width="100%" height="300"
-                    allowtransparency="true" frameborder="0"
-                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Search Bar -->
-    
-<!-- API status removed -->
-</div>
-
-  <!-- Texture Packs Section -->
-  <section id="texture-packs">
-  <div class="container">
-    <h2 class="section-title fade-in">Texture Packs</h2>
-    
-    
-
-    <!-- Featured packs section -->
-    
-<div class="featured-packs fade-in">
-    <h3 class="featured-title">Featured Packs</h3>
-    <div class="featured-slider">
-        <div class="featured-carousel" id="featured-carousel">
-            <!-- Featured packs will be dynamically inserted here by JavaScript -->
-        </div>
-        
-        <!-- Carousel Navigation -->
-        <div class="carousel-nav carousel-prev"><i class="fa fa-chevron-left"></i></div>
-        <div class="carousel-nav carousel-next"><i class="fa fa-chevron-right"></i></div>
-        
-        <!-- Carousel Indicators -->
-        <div class="carousel-indicators" id="carousel-indicators">
-            <!-- Indicators will be dynamically inserted here by JavaScript -->
-        </div>
-    </div>
-</div>
-
-<!-- Add the search bar here, after the featured packs section -->
-<div class="search-container fade-in">
-    <input type="text" id="search-input" class="search-input" placeholder="Search texture packs...">
-    <i class="fa fa-search search-icon"></i>
-    <button id="search-clear" class="search-clear"><i class="fa fa-times"></i></button>
-</div>
-
-<!-- Filter controls -->
-<div class="texture-pack-controls fade-in">
-  <div class="filter-container">
-    <div class="filter-group">
-      <label for="version-filter">Filter by Version:</label>
-      <select id="version-filter" class="filter-select">
-        <option value="all">All Versions</option>
-        <option value="1.21">1.21.x</option>
-        <option value="1.20">1.20.x</option>
-        <option value="1.19">1.19.x</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label for="theme-filter">Filter by Theme:</label>
-      <select id="theme-filter" class="filter-select">
-        <option value="all">All Themes</option>
-        <option value="action">Action</option>
-        <option value="romance">Romance</option>
-        <option value="fantasy">Fantasy</option>
-        <option value="comedy">Comedy</option>
-      </select>
-    </div>
-  </div>
-  <div class="view-options">
-    <button class="view-btn active" data-view="grid">
-      <i class="fa fa-th-large"></i> Grid
-    </button>
-    <button class="view-btn" data-view="list">
-      <i class="fa fa-list"></i> List
-    </button>
-  </div>
-</div>
-
-    <!-- Pack categories -->
-    <div class="pack-categories fade-in">
-      <div class="category-tabs">
-        <button class="category-tab active" data-category="all">All Packs</button>
-        <button class="category-tab" data-category="new">New Releases</button>
-        <button class="category-tab" data-category="popular">Most Popular</button>
-        <button class="category-tab" data-category="updated">Recently Updated</button>
-      </div>
-    </div>
-
-    <!-- Pack count and sort options -->
-    <!-- Replace the pack count section with a dynamic count -->
-<div class="packs-header fade-in">
-  <div class="packs-count">
-    <span id="pack-count">42</span> packs available
-  </div>
-  <div class="packs-sort">
-    <label for="sort-select">Sort by:</label>
-    <select id="sort-select" class="sort-select">
-      <option value="newest">Newest First</option>
-      <option value="oldest">Oldest First</option>
-      <option value="az">A-Z</option>
-      <option value="za">Z-A</option>
-    </select>
-  </div>
-</div>
-
-    <!-- Main packs grid with improved cards -->
-    <!-- Replace the existing packs grid with the complete list -->
-<div class="packs-grid" id="packs-container">
-  <!-- Pack 1 -->
-  <div class="pack-card fade-in" data-version="1.21.4" data-theme="romance" data-date="2024-03-15" data-downloads="5200">
-    <div class="pack-ribbon">New</div>
-    <div class="pack-image-container">
-      <img src="https://i.imgur.com/WMcFbW8.png" alt="Alya Sometimes Hides Her Feelings in Russian Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Alya-Sometimes-Hides-Her-Feelings-in-Russian-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Slice of Life</span>
-      </div>
-      <h3 class="pack-title">Alya Sometimes Hides Her Feelings in Russian</h3>
-      <p class="pack-description">Experience the charm of Alya Sometimes Hides Her Feelings in Russian through this stunning GUI-only Minecraft resource pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21.4</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 2 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21.4" data-theme="action" data-date="2024-03-10">
-    <div class="pack-image-container">
-      <img src="https://i.imgur.com/s0DuUIQ.jpeg" alt="Dandadan Custom Minecraft GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Dandadan-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Supernatural</span>
-      </div>
-      <h3 class="pack-title">Dandadan Custom GUI Pack</h3>
-      <p class="pack-description">Enhance your Minecraft gameplay with the Dandadan Custom GUI Pack. This resource pack brings the vibrant and dynamic visuals of the anime "Dandadan" to your game.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21.4</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 3 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="romance" data-date="2024-02-28">
-    <div class="pack-image-container">
-      <img src="https://i.imgur.com/5tOAw0b.png" alt="Date A Live Custom Minecraft GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Date-A-Live-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Sci-Fi</span>
-      </div>
-      <h3 class="pack-title">Date A Live Custom GUI Pack</h3>
-      <p class="pack-description">Immerse yourself in the vibrant world of the Date A Live Minecraft GUI Pack, featuring textures inspired by the popular anime.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 4 -->
-  <div class="pack-card fade-in" data-version="1.21" data-theme="fantasy" data-date="2024-02-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/DL6yCSG.png" alt="That Time I Got Reincarnated as a Slime" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/That-Time-I-Got-Reincarnated-as-a-Slime-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Fantasy</span>
-        <span class="pack-tag">Isekai</span>
-      </div>
-      <h3 class="pack-title">That Time I Got Reincarnated as a Slime</h3>
-      <p class="pack-description">Transform your Minecraft interface with this beautiful GUI pack inspired by the popular anime "That Time I Got Reincarnated as a Slime".</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 5 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21" data-theme="action" data-date="2024-02-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/UkAV52h.png" alt="Invincible GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Invincible-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Superhero</span>
-      </div>
-      <h3 class="pack-title">Invincible GUI Pack</h3>
-      <p class="pack-description">Bring the intense world of Invincible to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 6 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="action" data-date="2024-01-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/FIXcv9l.png" alt="Kaiju No. 8 Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Kaiju-No.8-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Sci-Fi</span>
-      </div>
-      <h3 class="pack-title">Kaiju No. 8 Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with this custom GUI pack inspired by the popular manga and anime Kaiju No. 8.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 7 -->
-  <div class="pack-card fade-in" data-version="1.20.6" data-theme="action" data-date="2024-01-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/2IKdvnv.png" alt="Solo Leveling Custom GUI" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Solo-Leveling-Custom-GUI.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">Solo Leveling Custom GUI</h3>
-      <p class="pack-description">Experience the power of Solo Leveling with this custom GUI pack that brings the dark and intense aesthetic of the popular manhwa to Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.6</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 8 -->
-  <div class="pack-card fade-in delay-1" data-version="1.20.6" data-theme="action" data-date="2024-01-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/ulkNDzb.png" alt="Kill la Kill Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Kill-la-Kill-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Comedy</span>
-      </div>
-      <h3 class="pack-title">Kill la Kill Custom GUI Pack</h3>
-      <p class="pack-description">Bring the energetic and vibrant style of Kill la Kill to your Minecraft interface with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.6</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 9 -->
-  <div class="pack-card fade-in delay-2" data-version="1.20.4" data-theme="action" data-date="2023-12-20">
-    <div class="pack-image-container">
-      <img src="thumbnails/UoRcApc.png" alt="Demon Slayer Kimetsu no Yaiba Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Demon-Slayer-Kimetsu-no-Yaiba-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">Demon Slayer Kimetsu no Yaiba Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the breathtaking visuals inspired by Demon Slayer: Kimetsu no Yaiba.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.4</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 10 -->
-  <div class="pack-card fade-in" data-version="1.20.4" data-theme="action" data-date="2023-12-10">
-    <div class="pack-image-container">
-      <img src="thumbnails/01HMDTBFYXVSHS6CM71A5TDF3T.webp" alt="Chainsaw Man Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Chainsaw-Man-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Horror</span>
-      </div>
-      <h3 class="pack-title">Chainsaw Man Custom GUI Pack</h3>
-      <p class="pack-description">Experience the chaotic and bloody world of Chainsaw Man with this custom GUI pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.4</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 11 -->
-  <div class="pack-card fade-in delay-1" data-version="1.20.4" data-theme="fantasy" data-date="2023-12-01">
-    <div class="pack-image-container">
-      <img src="thumbnails/hBmCUPA.png" alt="Mushoku Tensei Jobless Reincarnation Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Mushoku-Tensei-Jobless-Reincarnation-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Fantasy</span>
-        <span class="pack-tag">Isekai</span>
-      </div>
-      <h3 class="pack-title">Mushoku Tensei Jobless Reincarnation Custom GUI Pack</h3>
-      <p class="pack-description">Immerse yourself in the magical world of Mushoku Tensei with this beautifully crafted GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.4</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 12 -->
-  <div class="pack-card fade-in delay-2" data-version="1.20.6" data-theme="action" data-date="2023-11-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/GRaLDkC.jpg" alt="Black Clover Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Black-Clover-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">Black Clover Custom GUI Pack</h3>
-      <p class="pack-description">Enhance your Minecraft experience with the magical world of Black Clover through this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.6</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 13 -->
-  <div class="pack-card fade-in" data-version="1.20.2" data-theme="fantasy" data-date="2023-11-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/bdUUpR7.png" alt="Frieren Beyond Journey's End GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Frieren-Beyond-Journeys-End-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Fantasy</span>
-        <span class="pack-tag">Adventure</span>
-      </div>
-      <h3 class="pack-title">Frieren Beyond Journey's End GUI Pack</h3>
-      <p class="pack-description">Experience the serene and magical world of Frieren with this elegant GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.2</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 14 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21" data-theme="drama" data-date="2023-11-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/6B5ZMiu.png" alt="Wonder Egg Priority Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Wonder-Egg-Priority-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Drama</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">Wonder Egg Priority Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the colorful yet emotional aesthetic of Wonder Egg Priority.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 15 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="supernatural" data-date="2023-10-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/x4cvET9.png" alt="Charlotte Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Charlotte-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Supernatural</span>
-        <span class="pack-tag">Drama</span>
-      </div>
-      <h3 class="pack-title">Charlotte Custom GUI Pack</h3>
-      <p class="pack-description">Enhance your Minecraft experience with the supernatural world of Charlotte through this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 16 -->
-  <div class="pack-card fade-in" data-version="1.20.1" data-theme="romance" data-date="2023-10-15">
-    <div class="pack-image-container">
-      <img src="https://i.imgur.com/UKZx6tm.png" alt="Your Lie in April Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Your-Lie-in-April-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Drama</span>
-      </div>
-      <h3 class="pack-title">Your Lie in April Custom GUI Pack</h3>
-      <p class="pack-description">Experience the emotional and beautiful world of Your Lie in April with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.1</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 17 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21" data-theme="drama" data-date="2023-10-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/lr0zgwd.png" alt="A Silent Voice Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/A-Silent-Voice-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Drama</span>
-        <span class="pack-tag">Slice of Life</span>
-      </div>
-      <h3 class="pack-title">A Silent Voice Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the emotional and touching aesthetic of A Silent Voice.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 18 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="romance" data-date="2023-09-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/mFjVNPm.png" alt="Toradora! Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Toradora-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Comedy</span>
-      </div>
-      <h3 class="pack-title">Toradora! Custom GUI Pack</h3>
-      <p class="pack-description">Bring the charming and heartwarming world of Toradora! to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 19 -->
-  <div class="pack-card fade-in" data-version="1.20.1" data-theme="action" data-date="2023-09-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/image.jpg" alt="Bleach Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Bleach-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Supernatural</span>
-      </div>
-      <h3 class="pack-title">Bleach Custom GUI Pack</h3>
-      <p class="pack-description">Experience the spiritual world of Bleach with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.1</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 20 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21" data-theme="action" data-date="2023-09-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/D2eqkVh.png" alt="Jujutsu Kaisen Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Jujutsu-Kaisen-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Supernatural</span>
-      </div>
-      <h3 class="pack-title">Jujutsu Kaisen Custom GUI Pack</h3>
-      <p class="pack-description">Enhance your Minecraft gameplay with the intense visuals of Jujutsu Kaisen. This premium GUI pack transforms your interface with elements inspired by the popular anime.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 21 -->
-  <div class="pack-card fade-in delay-2" data-version="1.20.1" data-theme="romance" data-date="2023-08-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/Mg8U8XI.png" alt="Masamune-Kun's Revenge Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Masamune-Kuns-Revenge-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Comedy</span>
-      </div>
-      <h3 class="pack-title">Masamune-Kun's Revenge Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the romantic comedy aesthetic of Masamune-Kun's Revenge.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.1</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 22 -->
-  <div class="pack-card fade-in" data-version="1.20.1" data-theme="romance" data-date="2023-08-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/Xwb2E8x.png" alt="Horimiya Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Horimiya-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Slice of Life</span>
-      </div>
-      <h3 class="pack-title">Horimiya Custom GUI Pack</h3>
-      <p class="pack-description">Experience the sweet and heartwarming world of Horimiya with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.1</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 23 -->
-  <div class="pack-card fade-in delay-1" data-version="1.18.2" data-theme="comedy" data-date="2023-08-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/QTXpJWs.png" alt="Spy x Family GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Spy-x-Family-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Comedy</span>
-        <span class="pack-tag">Action</span>
-      </div>
-      <h3 class="pack-title">Spy x Family GUI Pack</h3>
-      <p class="pack-description">Bring the charming and exciting world of Spy x Family to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.18.2</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 24 -->
-  <div class="pack-card fade-in delay-2" data-version="1.20.1" data-theme="fantasy" data-date="2023-07-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/AMSbb5S.png" alt="Ranking of Kings Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Ranking-of-Kings-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Fantasy</span>
-        <span class="pack-tag">Adventure</span>
-      </div>
-      <h3 class="pack-title">Ranking of Kings Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the charming and fairy tale-like aesthetic of Ranking of Kings.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.1</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 25 -->
-  <div class="pack-card fade-in" data-version="1.20.1" data-theme="romance" data-date="2023-07-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/675da4e55e8d5179fb87ee9f1af4c12cfaee89e8.webp" alt="Shikimori's Not Just a Cutie Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Shikimoris-Not-Just-a-Cutie-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Comedy</span>
-      </div>
-      <h3 class="pack-title">Shikimori's Not Just a Cutie Custom GUI Pack</h3>
-      <p class="pack-description">Experience the sweet and cool world of Shikimori's Not Just a Cutie with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.1</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 26 -->
-  <div class="pack-card fade-in delay-1" data-version="1.20.1" data-theme="comedy" data-date="2023-07-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/Th3IY62.png" alt="Miss Kobayashi's Dragon Maid Custom Minecraft GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Miss-Kobayashis-Dragon-Maid-Custom-Minecraft-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Comedy</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">Miss Kobayashi's Dragon Maid Custom Minecraft GUI Pack</h3>
-      <p class="pack-description">Bring the colorful and whimsical world of Miss Kobayashi's Dragon Maid to your Minecraft experience.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.1</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 27 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="romance" data-date="2023-06-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/77daff16bdda27a12d787f8a3a020e4feccdcb19.webp" alt="The Quintessential Quintuplets Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/The-Quintessential-Quintuplets-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Comedy</span>
-      </div>
-      <h3 class="pack-title">The Quintessential Quintuplets Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the charming and colorful world of The Quintessential Quintuplets.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 28 -->
-  <div class="pack-card fade-in" data-version="1.21" data-theme="comedy" data-date="2023-06-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/662f94673bb57bcbfd0d969f566cf3e07270bb12.webp" alt="KonoSuba Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/KonoSuba-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Comedy</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">KonoSuba Custom GUI Pack</h3>
-      <p class="pack-description">Experience the hilarious and adventurous world of KonoSuba with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 29 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21" data-theme="drama" data-date="2023-06-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/CoBiozQ.png" alt="Oshi no ko one! Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Oshi-no-ko-one-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Drama</span>
-        <span class="pack-tag">Supernatural</span>
-      </div>
-      <h3 class="pack-title">Oshi no ko one! Custom GUI Pack</h3>
-      <p class="pack-description">Bring the glamorous yet dark world of Oshi no Ko to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 30 -->
-  <div class="pack-card fade-in delay-2" data-version="1.20.2" data-theme="fantasy" data-date="2023-05-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/61bc57a57ecb0ceb1d98eb558912e47bce462910.webp" alt="No Game No Life Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/No-Game-No-Life-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Fantasy</span>
-        <span class="pack-tag">Game</span>
-      </div>
-      <h3 class="pack-title">No Game No Life Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the vibrant and game-centric world of No Game No Life.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.2</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 31 -->
-  <div class="pack-card fade-in" data-version="1.21" data-theme="music" data-date="2023-05-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/pfOzN5K.png" alt="Bocchi the Rock! Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Bocchi-the-Rock-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Music</span>
-        <span class="pack-tag">Comedy</span>
-      </div>
-      <h3 class="pack-title">Bocchi the Rock! Custom GUI Pack</h3>
-      <p class="pack-description">Experience the musical and socially anxious world of Bocchi the Rock! with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 32 -->
-  <div class="pack-card fade-in delay-1" data-version="1.20.6" data-theme="action" data-date="2023-05-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/mwzjM2U.png" alt="Fullmetal Alchemist Brotherhood Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Fullmetal-Alchemist-Brotherhood-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">Fullmetal Alchemist Brotherhood Custom GUI Pack</h3>
-      <p class="pack-description">Bring the alchemical world of Fullmetal Alchemist Brotherhood to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.6</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 33 -->
-  <div class="pack-card fade-in delay-2" data-version="1.20.6" data-theme="sci-fi" data-date="2023-04-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/FOI6SiF.png" alt="DARLING in the FRANXX GUI Custom Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/DARLING-in-the-FRANXX-GUI-Custom-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Sci-Fi</span>
-        <span class="pack-tag">Romance</span>
-      </div>
-      <h3 class="pack-title">DARLING in the FRANXX GUI Custom Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the futuristic and emotional world of DARLING in the FRANXX.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.6</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 34 -->
-  <div class="pack-card fade-in" data-version="1.21" data-theme="romance" data-date="2023-04-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/221456a3163ec3f4b905f1926ea4a237ffaf6ef0.webp" alt="My Dress-Up Darling Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/My-Dress-Up-Darling-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Romance</span>
-        <span class="pack-tag">Slice of Life</span>
-      </div>
-      <h3 class="pack-title">My Dress-Up Darling Custom GUI Pack</h3>
-      <p class="pack-description">Experience the colorful and fashionable world of My Dress-Up Darling with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 35 -->
-  <div class="pack-card fade-in delay-1" data-version="1.20.6" data-theme="sports" data-date="2023-04-05">
-    <div class="pack-image-container">
-      <img src="https://i.imgur.com/hxWDhhE.png" alt="Blue Lock Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Blue-Lock-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Sports</span>
-        <span class="pack-tag">Action</span>
-      </div>
-      <h3 class="pack-title">Blue Lock Custom GUI Pack</h3>
-      <p class="pack-description">Bring the intense and competitive world of Blue Lock to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.20.6</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 36 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="horror" data-date="2023-03-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/sFbv6rt.png" alt="Tokyo Ghoul Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Tokyo-Ghoul-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Horror</span>
-        <span class="pack-tag">Action</span>
-      </div>
-      <h3 class="pack-title">Tokyo Ghoul Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the dark and psychological world of Tokyo Ghoul.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 37 -->
-  <div class="pack-card fade-in" data-version="1.21" data-theme="action" data-date="2023-03-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/Qh2yVTZ.png" alt="My Hero Academia Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/My-Hero-Academia-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Action</span>
-        <span class="pack-tag">Superhero</span>
-      </div>
-      <h3 class="pack-title">My Hero Academia Custom GUI Pack</h3>
-      <p class="pack-description">Experience the heroic world of My Hero Academia with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 38 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21" data-theme="fantasy" data-date="2023-03-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/SoqWkel.png" alt="The Wilder Forest Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/The-Wilder-Forest-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Fantasy</span>
-        <span class="pack-tag">Adventure</span>
-      </div>
-      <h3 class="pack-title">The Wilder Forest Custom GUI Pack</h3>
-      <p class="pack-description">Bring the mystical and enchanting world of The Wilder Forest to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 39 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="romance" data-date="2023-02-25">
-  <div class="pack-image-container">
-    <img src="thumbnails/lHYFAw6.png" alt="Rent A Girlfriend Custom GUI Pack" class="pack-image">
-    <div class="pack-overlay">
-      <a href="Packs/Rent-A-Girlfriend-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-    </div>
-  </div>
-  <div class="pack-content">
-    <div class="pack-tags">
-      <span class="pack-tag">Romance</span>
-      <span class="pack-tag">Comedy</span>
-    </div>
-    <h3 class="pack-title">Rent A Girlfriend Custom GUI Pack</h3>
-    <p class="pack-description">Transform your Minecraft interface with the romantic comedy world of Rent A Girlfriend through this custom GUI texture pack.</p>
-    
-    <div class="pack-meta">
-      <div class="pack-info">
-        <span class="pack-version">1.21</span>
-      </div>
-      <div class="pack-rating">
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star-half-o"></i>
-        <i class="fa fa-star-o"></i>
-      </div>
-    </div>
-  </div>
-</div>
-  
-  <!-- Pack 40 -->
-  <div class="pack-card fade-in" data-version="1.21" data-theme="drama" data-date="2023-02-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/QC0Wdc4.png" alt="Classroom Of The Elite Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Classroom-Of-The-Elite-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Drama</span>
-        <span class="pack-tag">Psychological</span>
-      </div>
-      <h3 class="pack-title">Classroom Of The Elite Custom GUI Pack</h3>
-      <p class="pack-description">Experience the strategic and psychological world of Classroom of the Elite with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 41 -->
-  <div class="pack-card fade-in delay-1" data-version="1.21" data-theme="adventure" data-date="2023-02-05">
-    <div class="pack-image-container">
-      <img src="thumbnails/3Auwf9G.png" alt="Pokemon Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Pokemon-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Adventure</span>
-        <span class="pack-tag">Fantasy</span>
-      </div>
-      <h3 class="pack-title">Pokemon Custom GUI Pack</h3>
-      <p class="pack-description">Bring the exciting world of Pokemon to your Minecraft experience with this custom GUI texture pack.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 42 -->
-  <div class="pack-card fade-in delay-2" data-version="1.21" data-theme="magical" data-date="2023-01-25">
-    <div class="pack-image-container">
-      <img src="thumbnails/JcmcAh0.png" alt="Puella Magi Madoka Magica Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/Puella-Magi-Madoka-Magica-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Magical</span>
-        <span class="pack-tag">Drama</span>
-      </div>
-      <h3 class="pack-title">Puella Magi Madoka Magica Custom GUI Pack</h3>
-      <p class="pack-description">Transform your Minecraft interface with the magical and emotional world of Puella Magi Madoka Magica.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Pack 43 -->
-  <div class="pack-card fade-in" data-version="1.21" data-theme="music" data-date="2023-01-15">
-    <div class="pack-image-container">
-      <img src="thumbnails/2cf3a9541375ab81ee4a1fc67ab4dd0e3e1fe82b.webp" alt="K-On!! Custom GUI Pack" class="pack-image">
-      <div class="pack-overlay">
-        <a href="Packs/K-On-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
-      </div>
-    </div>
-    <div class="pack-content">
-      <div class="pack-tags">
-        <span class="pack-tag">Music</span>
-        <span class="pack-tag">Slice of Life</span>
-      </div>
-      <h3 class="pack-title">K-On!! Custom GUI Pack</h3>
-      <p class="pack-description">Experience the musical and heartwarming world of K-On!! with this custom GUI texture pack for Minecraft.</p>
-      
-      <div class="pack-meta">
-        <div class="pack-info">
-          <span class="pack-version">1.21</span>
-        </div>
-        <div class="pack-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-half-o"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Update the pagination section to reflect the increased number of packs -->
-<div class="pagination-container fade-in">
-  <button class="pagination-btn" id="prev-page" disabled><i class="fa fa-angle-left"></i> Previous</button>
-  <div class="pagination-numbers" id="pagination-numbers">
-    <button class="page-number active" data-page="1">1</button>
-    <button class="page-number" data-page="2">2</button>
-    <button class="page-number" data-page="3">3</button>
-    <button class="page-number" data-page="4">4</button>
-    <button class="page-number" data-page="5">5</button>
-    <button class="page-number" data-page="6">6</button>
-    <button class="page-number" data-page="7">7</button>
-    <button class="page-number" data-page="8">8</button>
-  </div>
-  <button class="pagination-btn" id="next-page">Next <i class="fa fa-angle-right"></i></button>
-</div>
-  </div>
-</section>
-
-
-    <section id="information">
-        <h2 class="section-title fade-in">Support and Additional Resources</h2>
-        <div class="resources-container">
-            <!-- Introduction text -->
-            <div class="resources-intro fade-in">
-                <p>Thank you for exploring my collection of anime-inspired Minecraft GUI texture packs! Here you'll find various ways to support my work and additional resources to enhance your Minecraft experience.</p>
-            </div>
-
-            <!-- Support Options -->
-            <div class="resources-section fade-in">
-                <h3 class="resources-subtitle">Support My Work</h3>
-                <div class="support-options">
-                    <div class="support-card">
-                        <a href="https://www.buymeacoffee.com/listarMc" target="_blank" class="support-link">
-                            <img src="coffe.png" class="support-img" alt="Support via Coffee">
-                            <h4>Buy Me a Coffee</h4>
-                            <p>If you enjoy my texture packs, consider buying me a coffee to fuel more creative designs!</p>
-                        </a>
-                    </div>
-                    
-                    <div class="support-card">
-                        <a href="https://www.planetminecraft.com/member/listar/" target="_blank" class="support-link">
-                            <img src="PMC.webp" class="support-img" alt="Support via PMC">
-                            <h4>Planet Minecraft</h4>
-                            <p>Follow me on Planet Minecraft for updates and to leave ratings and comments on my work.</p>
-                        </a>
-                    </div>
-                    
-                    <div class="support-card">
-                        <a href="https://discord.gg/RvScgzj3Ph" target="_blank" class="support-link">
-                            <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg" 
-                                class="support-img" alt="Support via Discord">
-                            <h4>Join My Discord</h4>
-                            <p>Join our community to suggest new packs, get help with installation, and chat with other anime fans!</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Installation Guide -->
-            <div class="resources-section fade-in delay-1">
-                <h3 class="resources-subtitle">Installation Guide</h3>
-                <div class="guide-container">
-                    <div class="guide-steps">
-                        <div class="guide-step">
-                            <span class="step-number">1</span>
-                            <div class="step-content">
-                                <h4>Download the Pack</h4>
-                                <p>Click the "View Pack" button on any texture pack to go to its download page.</p>
-                            </div>
-                        </div>
-                        <div class="guide-step">
-                            <span class="step-number">2</span>
-                            <div class="step-content">
-                                <h4>Locate Your Resource Packs Folder</h4>
-                                <p>Open Minecraft, click "Options" → "Resource Packs" → "Open Pack Folder".</p>
-                            </div>
-                        </div>
-                        <div class="guide-step">
-                            <span class="step-number">3</span>
-                            <div class="step-content">
-                                <h4>Move the Pack</h4>
-                                <p>Move the downloaded .zip file into your resource packs folder.</p>
-                            </div>
-                        </div>
-                        <div class="guide-step">
-                            <span class="step-number">4</span>
-                            <div class="step-content">
-                                <h4>Activate the Pack</h4>
-                                <p>In Minecraft, select the pack from the available resource packs and click "Done".</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ Section -->
-            <div class="resources-section fade-in delay-2">
-                <h3 class="resources-subtitle">Frequently Asked Questions</h3>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h4>Are these packs compatible with modded Minecraft?</h4>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes! These GUI packs should work with most modded Minecraft versions, though some mod GUIs might not be affected.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h4>Can I use these packs in my videos/streams?</h4>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Feel free to use these packs in your content. Credit to "Listar MC" is appreciated but not required.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h4>Can I request a custom anime GUI pack?</h4>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes! Join my Discord server to suggest new anime themes for future GUI packs.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Request a Pack -->
-            <div class="resources-section fade-in delay-3">
-                <h3 class="resources-subtitle">Request a Custom Pack</h3>
-                <div class="request-container">
-                    <p>Have an anime you'd love to see as a Minecraft GUI? Join our Discord community to suggest new themes and vote on upcoming releases!</p>
-                    <a href="https://discord.gg/RvScgzj3Ph" class="btn request-btn" target="_blank">Join Discord to Request</a>
-                </div>
-            </div>
+        <div class="discord-widget"
+            style="flex-shrink: 0; width: 350px; padding: 20px; margin-top: 50px; margin-right: 25px;">
+            <iframe src="https://discord.com/widget?id=1136933549669351434&theme=dark" width="100%" height="250"
+                allowtransparency="true" frameborder="0"
+                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search texture packs...">
+    </div>
+
+    <section id="packs">
+        <h2>Texture Packs</h2>
+        <div class="packs-grid" id="packs-grid">
+            <div class="pack" data-href="Packs/Alya-Sometimes-Hides-Her-Feelings-in-Russian-Custom-GUI-Pack.html"
+            data-name="Alya Sometimes Hides Her Feelings in Russian Custom GUI Pack">
+            <img src="https://i.imgur.com/WMcFbW8.png" alt="Alya Sometimes Hides Her Feelings in Russian Custom GUI Packs">
+            <h3>Alya Sometimes Hides Her Feelings in Russian Custom GUI Pack</h3>
+            <span class="tag">1.21.4</span>
+        </div>
+                <div class="pack" data-href="Packs/Dandadan-Custom-GUI-Pack.html"
+                data-name="Dandadan Custom Minecraft GUI Pack">
+                <img src="https://i.imgur.com/s0DuUIQ.jpeg" alt="Dandadan Custom Minecraft GUI Pack">
+                <h3>Dandadan Custom GUI Pack</h3>
+                <span class="tag">1.21.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Date-A-Live-Custom-GUI-Pack.html"
+            data-name="Date A Live Custom Minecraft GUI Pack">
+            <img src="https://i.imgur.com/5tOAw0b.png" alt="Date A Live Custom Minecraft GUI Pack">
+            <h3>Date A Live Custom GUI Pack</h3>
+            <span class="tag">1.21</span>
+            <span class="tag">1.21.1</span>
+        </div>
+
+            <div class="pack" data-href="Packs/That-Time-I-Got-Reincarnated-as-a-Slime-GUI-Pack.html"
+                data-name="That Time I Got Reincarnated as a Slime">
+                <img src="thumbnails/DL6yCSG.png" alt="That Time I Got Reincarnated as a Slime">
+                <h3>That Time I Got Reincarnated as a Slime</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Invincible-Custom-GUI-Pack.html" data-name="Invincible GUI Pack">
+                <img src="thumbnails//UkAV52h.png" alt="Invincible GUI Pack">
+                <h3>Invincible GUI Pack</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Kaiju-No.8-Custom-GUI-Pack.html" data-name="Kaiju No. 8 Custom GUI Pack">
+                <img src="thumbnails//FIXcv9l.png" alt="Kaiju No. 8 Custom GUI Pack">
+                <h3>Kaiju No. 8 Custom GUI Pack</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Solo-Leveling-Custom-GUI.html" data-name="Solo Leveling Custom GUI">
+                <img src="thumbnails//2IKdvnv.png" alt="Solo Leveling Custom GUI">
+                <h3>Solo Leveling Custom GUI</h3>
+                <span class="tag">1.20.6</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Kill-la-Kill-Custom-GUI-Pack.html"
+                data-name="Kill la Kill Custom GUI Pack">
+                <img src="thumbnails/ulkNDzb.png" alt="Kill la Kill Custom GUI Pack">
+                <h3>Kill la Kill Custom GUI Pack</h3>
+                <span class="tag">1.20.6</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Demon-Slayer-Kimetsu-no-Yaiba-Custom-GUI-Pack.html"
+                data-name="Demon Slayer Kimetsu no Yaiba Custom GUI Pack">
+                <img src="thumbnails//UoRcApc.png" alt="Demon Slayer Kimetsu no Yaiba Custom GUI Pack">
+                <h3>Demon Slayer Kimetsu no Yaiba Custom GUI Pack</h3>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Chainsaw-Man-Custom-GUI-Pack.html"
+                data-name="Chainsaw Man Custom GUI Pack">
+                <img src="thumbnails/01HMDTBFYXVSHS6CM71A5TDF3T.webp" alt="Chainsaw Man Custom GUI Pack">
+                <h3>Chainsaw Man Custom GUI Pack</h3>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Mushoku-Tensei-Jobless-Reincarnation-Custom-GUI-Pack.html"
+                data-name="Mushoku Tensei Jobless Reincarnation Custom GUI Pack">
+                <img src="thumbnails/hBmCUPA.png" alt="Mushoku Tensei Jobless Reincarnation Custom GUI Pack">
+                <h3>Mushoku Tensei Jobless Reincarnation Custom GUI Pack</h3>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="https://listar-mc.net/Packs/Black-Clover-Custom-GUI-Pack.html"
+                data-name="Black Clover Custom GUI Pack">
+                <img src="thumbnails/GRaLDkC.jpg" alt="Black Clover Custom GUI Pack">
+                <h3>Black Clover Custom GUI Pack</h3>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Frieren-Beyond-Journey's-End-GUI-Pack.html"
+                data-name="Frieren Beyond Journey's End GUI Pack">
+                <img src="thumbnails/bdUUpR7.png" alt="Frieren Beyond Journey's End GUI Pack">
+                <h3>Frieren Beyond Journey's End GUI Pack</h3>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.3</span>
+                <span class="tag">1.20.2</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Wonder-Egg-Priority-Custom-GUI-Pack.html"
+                data-name="Wonder Egg Priority Custom GUI Pack">
+                <img src="thumbnails/6B5ZMiu.png" alt="Wonder Egg Priority Custom GUI Pack">
+                <h3>Wonder Egg Priority Custom GUI Pack</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+                <span class="tag">1.20.3</span>
+                <span class="tag">1.204</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Charlotte-Custom-GUI-Pack.html" data-name="Charlotte Custom GUI Pack">
+                <img src="thumbnails/x4cvET9.png" alt="Charlotte Custom GUI Pack">
+                <h3>Charlotte Custom GUI Pack</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Your-Lie-in-April-Custom-GUI-Pack.html"
+                data-name="Your Lie in April Custom GUI Pack">
+                <img src="https://i.imgur.com/UKZx6tm.png" alt="Your Lie in April Custom GUI Pack">
+                <h3>Your Lie in April Custom GUI Pack</h3>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="https://listar-mc.net/Packs/A-Silent-Voice-Custom-GUI-Pack.html"
+                data-name="A Silent Voice Custom GUI Pack">
+                <img src="thumbnails/lr0zgwd.png" alt="A Silent Voice Custom GUI Pack">
+                <h3>A Silent Voice Custom GUI Pack</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Toradora!-Custom-GUI-Pack.html" data-name="Toradora! Custom GUI Pack">
+                <img src="thumbnails/mFjVNPm.png" alt="Toradora! Custom GUI Pack">
+                <h3>Toradora! Custom GUI Pack</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Bleach-Custom-GUI-Pack.html" data-name="Bleach Custom GUI Pack">
+                <img src="thumbnails/image.jpg" alt="Bleach Custom GUI Pack">
+                <h3>Bleach Custom GUI Pack</h3>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Jujutsu-Kaisen-Custom-GUI-Pack.html"
+                data-name="Jujutsu Kaisen Custom GUI Pack">
+                <img src="thumbnails/D2eqkVh.png" alt="Jujutsu Kaisen Custom GUI Pack">
+                <h3>Jujutsu Kaisen Custom GUI Pack</h3>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Masamune-Kun's-Revenge-Custom-GUI-Pack.html"
+                data-name="Masamune-Kun's Revenge Custom GUI Pack">
+                <img src="thumbnails/Mg8U8XI.png" alt="Masamune-Kun's Revenge Custom GUI Pack">
+                <h3>Masamune-Kun's Revenge Custom GUI Pack</h3>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Horimiya-Custom-GUI-Pack.html" data-name="Horimiya Custom GUI Pack">
+                <img src="thumbnails/Xwb2E8x.png" alt="Horimiya Custom GUI Pack">
+                <h3>Horimiya Custom GUI Pack</h3>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Spy-X-Family-GUI-Pack.html" data-name="Spy x Family GUI Pack">
+                <img src="thumbnails/QTXpJWs.png" alt="Spy x Family GUI Pack">
+                <h3>Spy x Family GUI Pack</h3>
+                <span class="tag">1.18.2</span>
+                <span class="tag">1.19.3</span>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Ranking-of-Kings-Custom-GUI-Pack.html"
+                data-name="Ranking of Kings Custom GUI Pack">
+                <img src="thumbnails/AMSbb5S.png" alt="Ranking of Kings Custom GUI Pack">
+                <h3>Ranking of Kings Custom GUI Pack</h3>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Shikimoris-Not-Just-a-Cutie-Custom-GUI-Pack.html"
+                data-name="Shikimori's Not Just a Cutie Custom GUI Pack">
+                <img src="thumbnails/675da4e55e8d5179fb87ee9f1af4c12cfaee89e8.webp"
+                    alt="Shikimori's Not Just a Cutie Custom GUI Pack">
+                <h3>Shikimori's Not Just a Cutie Custom GUI Pack</h3>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+            </div>
+            
+            <div class="pack" data-href="Packs/Miss-Kobayashis-Dragon-Maid.html"
+                data-name="Miss Kobayashi's Dragon Maid Custom Minecraft GUI Pack">
+                <img src="thumbnails/Th3IY62.png"
+                    alt="Miss Kobayashi's Dragon Maid Custom Minecraft GUI Pack">
+                <h3>Miss Kobayashi's Dragon Maid Custom Minecraft GUI Pack</h3>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.19.4</span>
+
+            </div>
+
+            <div class="pack" data-href="Packs/The-Quintessential-Quintuplets-Custom-GUI-Pack.html"
+                data-name="The Quintessential Quintuplets Custom GUI Pack">
+                <img src="thumbnails/77daff16bdda27a12d787f8a3a020e4feccdcb19.webp"
+                    alt="The Quintessential Quintuplets Custom GUI Pack">
+                <h3>The Quintessential Quintuplets Custom GUI Pack</h3>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="https://listar-mc.net/Packs/KonoSuba-Custom-GUI-Pack.html"
+                data-name="KonoSuba Custom GUI Pack">
+                <img src="thumbnails/662f94673bb57bcbfd0d969f566cf3e07270bb12.webp" alt="KonoSuba Custom GUI Pack">
+                <h3>KonoSuba Custom GUI Pack</h3>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Oshi-no-ko-one!-Custom-GUI-Pack.html"
+                data-name="Oshi no ko one! Custom GUI Pack">
+                <img src="thumbnails/CoBiozQ.png" alt="Oshi no ko one! Custom GUI Pack">
+                <h3>Oshi no ko one! Custom GUI Pack</h3>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/No-Game-No-Life-Custom-GUI-Pack.html"
+                data-name="No Game No Life Custom GUI Pack">
+                <img src="thumbnails/61bc57a57ecb0ceb1d98eb558912e47bce462910.webp"
+                    alt="No Game No Life Custom GUI Pack">
+                <h3>No Game No Life Custom GUI Pack</h3>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Bocchi-the-Rock!-Custom-GUI-Pack.html"
+                data-name="Bocchi the Rock! Custom GUI Pack">
+                <img src="thumbnails/pfOzN5K.png" alt="Bocchi the Rock! Custom GUI Pack">
+                <h3>Bocchi the Rock! Custom GUI Pack</h3>
+                <span class="tag">1.19.3</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Fullmetal-Alchemist-Brotherhood-Custom-GUI-Pack.html"
+                data-name="Fullmetal Alchemist Brotherhood Custom GUI Pack">
+                <img src="thumbnails/mwzjM2U.png" alt="Fullmetal Alchemist Brotherhood Custom GUI Pack">
+                <h3>Fullmetal Alchemist Brotherhood Custom GUI Pack</h3>
+                <span class="tag">1.19.3</span>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+            </div>
+
+            <div class="pack" data-href="Packs/DARLING-in-the-FRANXX-GUI-Custom-Pack.html"
+                data-name="DARLING in the FRANXX GUI Custom Pack">
+                <img src="thumbnails/FOI6SiF.png" alt="DARLING in the FRANXX GUI Custom Pack">
+                <h3>DARLING in the FRANXX GUI Custom Pack</h3>
+                <span class="tag">1.19.3</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+            </div>
+
+            <div class="pack" data-href="Packs/My-Dress-Up-Darling-Custom-GUI-Pack.html"
+                data-name="My Dress-Up Darling Custom GUI Pack">
+                <img src="thumbnails/221456a3163ec3f4b905f1926ea4a237ffaf6ef0.webp"
+                    alt="My Dress-Up Darling Custom GUI Pack">
+                <h3>My Dress-Up Darling Custom GUI Pack</h3>
+                <span class="tag">1.19.1</span>
+                <span class="tag">1.20</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Blue-Lock-Custom-GUI-Pack.html" data-name="Blue Lock Custom GUI Pack">
+                <img src="https://i.imgur.com/hxWDhhE.png" alt="Blue Lock Custom GUI Pack">
+                <h3>Blue Lock Custom GUI Pack</h3>
+                <span class="tag">1.19.3</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Tokyo-Ghoul-Custom-GUI-Pack.html"
+                data-name="Tokyo Ghoul Custom GUI Pack">
+                <img src="thumbnails/sFbv6rt.png" alt="Tokyo Ghoul Custom GUI Pack">
+                <h3>Tokyo Ghoul Custom GUI Pack</h3>
+                <span class="tag">1.19.3</span>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/My-Hero-Academia-Custom-GUI-Pack.html"
+                data-name="My Hero Academia Custom GUI Pack">
+                <img src="thumbnails/Qh2yVTZ.png" alt="My Hero Academia Custom GUI Pack">
+                <h3>My Hero Academia Custom GUI Pack</h3>
+                <span class="tag">1.19.3</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/The-Wilder-Forest-Custom-GUI-Pack.html"
+                data-name="The Wilder Forest Custom GUI Pack">
+                <img src="thumbnails/SoqWkel.png" alt="The Wilder Forest Custom GUI Pack">
+                <h3>The Wilder Forest Custom GUI Pack</h3>
+                <span class="tag">1.19.2</span>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Rent-A-Girlfriend-Custom-GUI-Pack.html"
+                data-name="Rent A Girlfriend Custom GUI Pack">
+                <img src="thumbnails/lHYFAw6.png" alt="Rent A Girlfriend Custom GUI Pack">
+                <h3>Rent A Girlfriend Custom GUI Pack</h3>
+                <span class="tag">1.19.2</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Classroom-Of-The-Elite-Custom-GUI-Pack.html"
+                data-name="Classroom Of The Elite Custom GUI Pack">
+                <img src="thumbnails/QC0Wdc4.png" alt="Classroom Of The Elite Custom GUI Pack">
+                <h3>Classroom Of The Elite Custom GUI Pack</h3>
+                <span class="tag">1.19.1</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Pokemon-Custom-GUI-Pack.html" data-name="Pokemon Custom GUI Pack">
+                <img src="thumbnails/3Auwf9G.png" alt="Pokemon Custom GUI Pack">
+                <h3>Pokemon Custom GUI Pack</h3>
+                <span class="tag">1.19.1</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/Puella-Magi-Madoka-Magica-Custom-GUI-Pack.html"
+                data-name="Puella Magi Madoka Magica Custom GUI Pack">
+                <img src="thumbnails/JcmcAh0.png" alt="Puella Magi Madoka Magica Custom GUI Pack">
+                <h3>Puella Magi Madoka Magica Custom GUI Pack</h3>
+                <span class="tag">1.19.2</span>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+            <div class="pack" data-href="Packs/K-On!!-Custom-GUI-Pack.html" data-name="K-On!! Custom GUI Pack">
+                <img src="thumbnails/2cf3a9541375ab81ee4a1fc67ab4dd0e3e1fe82b.webp" alt="K-On!! Custom GUI Pack">
+                <h3>K-On!! Custom GUI Pack</h3>
+                <span class="tag">1.18.2</span>
+                <span class="tag">1.19.4</span>
+                <span class="tag">1.20.1</span>
+                <span class="tag">1.20.2</span>
+                <span class="tag">1.20.4</span>
+                <span class="tag">1.20.6</span>
+                <span class="tag">1.21</span>
+                <span class="tag">1.21.1</span>
+            </div>
+
+    </section>
+
+    <section id="information">
+        <h2>Support and Additional Resources</h2>
+        <div class="resources-grid"
+            style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <a href="https://www.buymeacoffee.com/listarMc" target="_blank">
+                <img src="coffe.png" class="coffee-img" alt="Support via Coffee">
+            </a>
+            <a href="https://www.planetminecraft.com/member/listar/" target="_blank">
+                <img src="PMC.webp" class="PMC-img" alt="Support via PMC">
+            </a>
+            <a href="https://discord.gg/RvScgzj3Ph" target="_blank">
+                <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg"
+                    class="Dis-img" alt="Support via Discord">
+            </a>
+        </div>
+    </section>
+
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="logo.gif" alt="Listar MC Logo">
-                    <span class="footer-logo-text">Listar MC</span>
-                </div>
-                
-                <div class="footer-links">
-                    <a href="#" class="footer-link">Home</a>
-                    <a href="#texture-packs" class="footer-link">Texture Packs</a>
-                    <a href="#information" class="footer-link">Information</a>
-                    <a href="Privacy Policy.html" class="footer-link">Privacy Policy</a>
-                </div>
-                
-                <div class="footer-social">
-                    <a href="https://discord.gg/RvScgzj3Ph" class="social-icon" target="_blank">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                &copy; 2024 Listar MC. All rights reserved.
-            </div>
-        </div>
+        <p>&copy; 2024 ListarMC | <a href="Privacy Policy.html">Privacy Policy</a></p>
     </footer>
-    
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  // Constants
-  const ITEMS_PER_PAGE = 6;
-  let currentPage = 1;
-  
-  // DOM Elements
-  const packCards = document.querySelectorAll('.pack-card');
-  const packCount = document.getElementById('pack-count');
-  const searchInput = document.getElementById('search-input');
-  const searchClear = document.getElementById('search-clear');
-  const pageNumbers = document.querySelectorAll('.page-number');
-  const prevPageBtn = document.getElementById('prev-page');
-  const nextPageBtn = document.getElementById('next-page');
-  const versionFilter = document.getElementById('version-filter');
-  const themeFilter = document.getElementById('theme-filter');
-  const sortSelect = document.getElementById('sort-select');
-  const categoryTabs = document.querySelectorAll('.category-tab');
-  const viewButtons = document.querySelectorAll('.view-btn');
-  
-  // Initialize pack count
-  if (packCount) {
-    packCount.textContent = packCards.length;
-  }
-  
-  // PAGINATION FUNCTIONS
-  
-  // Show packs for the current page
-  function showPage(page) {
-    // Hide all packs first
-    packCards.forEach(card => {
-      card.style.display = 'none';
-    });
-    
-    // Get visible packs (not filtered out)
-    const visiblePacks = Array.from(packCards).filter(card => {
-      return !card.hasAttribute('data-hidden');
-    });
-    
-    // Calculate start and end indices
-    const start = (page - 1) * ITEMS_PER_PAGE;
-    const end = Math.min(start + ITEMS_PER_PAGE, visiblePacks.length);
-    
-    // Show packs for current page
-    visiblePacks.slice(start, end).forEach(card => {
-      card.style.display = '';
-    });
-    
-    // Update pagination buttons
-    if (prevPageBtn) prevPageBtn.disabled = page === 1;
-    if (nextPageBtn) nextPageBtn.disabled = page >= Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-    
-    // Update active page number
-    pageNumbers.forEach(btn => {
-      const btnPage = parseInt(btn.getAttribute('data-page'));
-      btn.classList.toggle('active', btnPage === page);
-      
-      // Hide page numbers that exceed the total number of pages
-      const totalPages = Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-      btn.style.display = btnPage <= totalPages ? '' : 'none';
-    });
-    
-    // Update current page
-    currentPage = page;
-    
-    // Scroll to the top of the packs section
-    const texturePacksSection = document.getElementById('texture-packs');
-    if (texturePacksSection && !window.isFiltering) {
-      texturePacksSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-  
-  // SEARCH FUNCTIONS
-  
-  // Filter packs based on search query
-  function searchPacks(query) {
-    query = query.toLowerCase().trim();
-    
-    packCards.forEach(card => {
-      const title = card.querySelector('.pack-title').textContent.toLowerCase();
-      const description = card.querySelector('.pack-description').textContent.toLowerCase();
-      const tags = Array.from(card.querySelectorAll('.pack-tag')).map(tag => tag.textContent.toLowerCase());
-      
-      const matchesTitle = title.includes(query);
-      const matchesDescription = description.includes(query);
-      const matchesTags = tags.some(tag => tag.includes(query));
-      
-      if (matchesTitle || matchesDescription || matchesTags || query === '') {
-        card.removeAttribute('data-hidden');
-      } else {
-        card.setAttribute('data-hidden', 'true');
-      }
-    });
-    
-    // Update visible pack count
-    updateVisiblePackCount();
-    
-    // Reset to page 1
-    showPage(1);
-  }
-  
-  // Clear search
-  function clearSearch() {
-    if (searchInput) {
-      searchInput.value = '';
-      searchClear.classList.remove('visible');
-      
-      // Reset all pack cards to visible
-      packCards.forEach(card => {
-        card.removeAttribute('data-hidden');
-      });
-      
-      // Update visible pack count
-      updateVisiblePackCount();
-      
-      // Reset to page 1
-      showPage(1);
-    }
-  }
-  
-  // FILTER FUNCTIONS
-  
-  // Filter packs based on selected filters
-  function filterPacks() {
-    const versionValue = versionFilter.value;
-    const themeValue = themeFilter.value;
-    
-    packCards.forEach(card => {
-      const version = card.getAttribute('data-version');
-      const theme = card.getAttribute('data-theme');
-      
-      const versionMatch = versionValue === 'all' || (version && version.startsWith(versionValue));
-      const themeMatch = themeValue === 'all' || theme === themeValue;
-      
-      if (versionMatch && themeMatch) {
-        card.removeAttribute('data-hidden');
-      } else {
-        card.setAttribute('data-hidden', 'true');
-      }
-    });
-    
-    // Update visible pack count
-    updateVisiblePackCount();
-    
-    // Reset to page 1
-    showPage(1);
-  }
-  
-  // Filter by category
-  function filterByCategory(category) {
-    packCards.forEach(card => {
-      if (category === 'all') {
-        card.removeAttribute('data-hidden');
-      } else if (category === 'new') {
-        // Show only packs with the 'New' ribbon
-        if (card.querySelector('.pack-ribbon')) {
-          card.removeAttribute('data-hidden');
-        } else {
-          card.setAttribute('data-hidden', 'true');
-        }
-      } else if (category === 'popular') {
-        // Show packs with 4+ stars
-        const stars = card.querySelectorAll('.fa-star:not(.fa-star-o):not(.fa-star-half-o)').length;
-        if (stars >= 4) {
-          card.removeAttribute('data-hidden');
-        } else {
-          card.setAttribute('data-hidden', 'true');
-        }
-      } else if (category === 'updated') {
-        // Show only recently updated packs
-        const date = new Date(card.getAttribute('data-date') || '2000-01-01');
-        const threeMonthsAgo = new Date();
-        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-        
-        if (date > threeMonthsAgo) {
-          card.removeAttribute('data-hidden');
-        } else {
-          card.setAttribute('data-hidden', 'true');
-        }
-      }
-    });
-    
-    // Update visible pack count
-    updateVisiblePackCount();
-    
-    // Reset to page 1
-    showPage(1);
-  }
-  
-  // Sort packs
-  function sortPacks(sortBy) {
-    const packsContainer = document.getElementById('packs-container');
-    const packCards = Array.from(packsContainer.querySelectorAll('.pack-card'));
-    
-    packCards.sort((a, b) => {
-      if (sortBy === 'newest') {
-        const dateA = new Date(a.getAttribute('data-date') || '2000-01-01');
-        const dateB = new Date(b.getAttribute('data-date') || '2000-01-01');
-        return dateB - dateA;
-      } else if (sortBy === 'oldest') {
-        const dateA = new Date(a.getAttribute('data-date') || '2000-01-01');
-        const dateB = new Date(b.getAttribute('data-date') || '2000-01-01');
-        return dateA - dateB;
-      } else if (sortBy === 'az') {
-        const titleA = a.querySelector('.pack-title').textContent.trim();
-        const titleB = b.querySelector('.pack-title').textContent.trim();
-        return titleA.localeCompare(titleB);
-      } else if (sortBy === 'za') {
-        const titleA = a.querySelector('.pack-title').textContent.trim();
-        const titleB = b.querySelector('.pack-title').textContent.trim();
-        return titleB.localeCompare(titleA);
-      }
-      return 0;
-    });
-    
-    // Remove all pack cards
-    packCards.forEach(card => card.remove());
-    
-    // Add sorted pack cards back to container
-    packCards.forEach(card => packsContainer.appendChild(card));
-    
-    // Reset to page 1
-    showPage(1);
-  }
-  
-  // UTILITY FUNCTIONS
-  
-  // Update visible pack count
-  function updateVisiblePackCount() {
-    const visiblePacks = Array.from(packCards).filter(card => !card.hasAttribute('data-hidden')).length;
-    
-    if (packCount) {
-      packCount.textContent = visiblePacks;
-    }
-  }
-  
-  // EVENT LISTENERS
-  
-  // Search input
-  if (searchInput) {
-    searchInput.addEventListener('input', function() {
-      const query = this.value;
-      
-      // Show clear button if there's text
-      if (searchClear) {
-        searchClear.classList.toggle('visible', query.length > 0);
-      }
-      
-      // Filter packs based on search query
-      searchPacks(query);
-    });
-  }
-  
-  // Search clear button
-  if (searchClear) {
-    searchClear.addEventListener('click', clearSearch);
-  }
-  
-  // Page number buttons
-  pageNumbers.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const page = parseInt(this.getAttribute('data-page'));
-      window.isFiltering = false;
-      showPage(page);
-    });
-  });
-  
-  // Previous page button
-  if (prevPageBtn) {
-    prevPageBtn.addEventListener('click', function() {
-      if (currentPage > 1) {
-        window.isFiltering = false;
-        showPage(currentPage - 1);
-      }
-    });
-  }
-  
-  // Next page button
-  if (nextPageBtn) {
-    nextPageBtn.addEventListener('click', function() {
-      const visiblePacks = Array.from(packCards).filter(card => !card.hasAttribute('data-hidden'));
-      const totalPages = Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-      
-      if (currentPage < totalPages) {
-        window.isFiltering = false;
-        showPage(currentPage + 1);
-      }
-    });
-  }
-  
-  // Version filter
-  if (versionFilter) {
-    versionFilter.addEventListener('change', function() {
-      window.isFiltering = true;
-      filterPacks();
-    });
-  }
-  
-  // Theme filter
-  if (themeFilter) {
-    themeFilter.addEventListener('change', function() {
-      window.isFiltering = true;
-      filterPacks();
-    });
-  }
-  
-  // Sort select
-  if (sortSelect) {
-    sortSelect.addEventListener('change', function() {
-      window.isFiltering = true;
-      sortPacks(this.value);
-    });
-  }
-  
-  // Category tabs
-  categoryTabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      const category = this.getAttribute('data-category');
-      
-      // Remove active class from all tabs
-      categoryTabs.forEach(t => t.classList.remove('active'));
-      
-      // Add active class to clicked tab
-      this.classList.add('active');
-      
-      // Filter by category
-      filterByCategory(category);
-    });
-  });
-  
-  // View buttons
-  viewButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const view = this.getAttribute('data-view');
-      const packsGrid = document.getElementById('packs-container');
-      
-      // Remove active class from all view buttons
-      viewButtons.forEach(b => b.classList.remove('active'));
-      
-      // Add active class to clicked button
-      this.classList.add('active');
-      
-      // Update grid class
-      if (view === 'list') {
-        packsGrid.classList.add('list-view');
-      } else {
-        packsGrid.classList.remove('list-view');
-      }
-    });
-  });
-  
-  // FEATURED PACKS CAROUSEL
-  
-  function setupRandomFeaturedPacks() {
-    const allPacks = Array.from(document.querySelectorAll('.pack-card'));
-    const featuredCarousel = document.getElementById('featured-carousel');
-    const carouselIndicators = document.getElementById('carousel-indicators');
-    
-    // Clear existing content
-    if (featuredCarousel) {
-      featuredCarousel.innerHTML = '';
-    }
-    
-    if (carouselIndicators) {
-      carouselIndicators.innerHTML = '';
-    }
-    
-    // Shuffle the packs array to get random packs
-    const shuffledPacks = allPacks.sort(() => 0.5 - Math.random());
-    
-    // Select the first 3 packs (or fewer if there aren't enough)
-    const selectedPacks = shuffledPacks.slice(0, 3);
-    
-    // Create featured packs from the selected packs
-    selectedPacks.forEach((pack, index) => {
-      // Extract data from the original pack
-      const packTitle = pack.querySelector('.pack-title').textContent;
-      const packDescription = pack.querySelector('.pack-description').textContent;
-      const packVersion = pack.querySelector('.pack-version').textContent;
-      const packImage = pack.querySelector('.pack-image').src;
-      const packLink = pack.querySelector('.overlay-btn').href;
-      
-      // Count stars for rating
-      const fullStars = pack.querySelectorAll('.fa-star:not(.fa-star-o):not(.fa-star-half-o)').length;
-      const halfStars = pack.querySelectorAll('.fa-star-half-o').length;
-      
-      // Create the featured pack HTML
-      const featuredPack = document.createElement('div');
-      featuredPack.className = 'featured-pack';
-      featuredPack.innerHTML = `
-        <div class="featured-content">
-          <div class="featured-text">
-            <h3>${packTitle}</h3>
-            <p>${packDescription}</p>
-            
-            <div class="featured-meta">
-              <span class="featured-version">v${packVersion}</span>
-              <span class="featured-rating">
-                ${Array(fullStars).fill('<i class="fa fa-star"></i>').join('')}
-                ${Array(halfStars).fill('<i class="fa fa-star-half-o"></i>').join('')}
-                ${Array(5 - fullStars - halfStars).fill('<i class="fa fa-star-o"></i>').join('')}
-              </span>
-            </div>
-            <a href="${packLink}" class="featured-btn">View Pack</a>
-          </div>
-          <div class="featured-image">
-            <img src="${packImage}" alt="${packTitle}">
-          </div>
-        </div>
-      `;
-      
-      // Add to carousel
-      if (featuredCarousel) {
-        featuredCarousel.appendChild(featuredPack);
-      }
-      
-      // Add indicator
-      if (carouselIndicators) {
-        const indicator = document.createElement('div');
-        indicator.className = 'carousel-dot' + (index === 0 ? ' active' : '');
-        indicator.setAttribute('data-index', index);
-        carouselIndicators.appendChild(indicator);
-        
-        // Add click event to indicator
-        indicator.addEventListener('click', function() {
-          const slideIndex = parseInt(this.getAttribute('data-index'));
-          currentSlide = slideIndex;
-          updateCarousel();
-          resetAutoplay();
-        });
-      }
-    });
-    
-    // Initialize carousel
-    initCarousel();
-  }
-  
-  // Carousel functionality
-  let currentSlide = 0;
-  let autoplayInterval;
-  
-  function initCarousel() {
-    const carousel = document.getElementById('featured-carousel');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    
-    // Function to update carousel position
-    function updateCarousel() {
-      if (carousel) {
-        const featuredPacks = carousel.querySelectorAll('.featured-pack');
-        if (featuredPacks.length > 0) {
-          carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-          
-          // Update indicators
-          const carouselDots = document.querySelectorAll('.carousel-dot');
-          carouselDots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-          });
-        }
-      }
-    }
-    
-    // Function to go to next slide
-    function nextSlide() {
-      const featuredPacks = carousel ? carousel.querySelectorAll('.featured-pack') : [];
-      if (featuredPacks.length > 0) {
-        currentSlide = (currentSlide + 1) % featuredPacks.length;
-        updateCarousel();
-      }
-    }
-    
-    // Function to go to previous slide
-    function prevSlide() {
-      const featuredPacks = carousel ? carousel.querySelectorAll('.featured-pack') : [];
-      if (featuredPacks.length > 0) {
-        currentSlide = (currentSlide - 1 + featuredPacks.length) % featuredPacks.length;
-        updateCarousel();
-      }
-    }
-    
-    // Set up click events for navigation
-    if (prevBtn) prevBtn.addEventListener('click', function() {
-      prevSlide();
-      resetAutoplay();
-    });
-    
-    if (nextBtn) nextBtn.addEventListener('click', function() {
-      nextSlide();
-      resetAutoplay();
-    });
-    
-    // Function to start autoplay
-    function startAutoplay() {
-      autoplayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-    }
-    
-    // Function to reset autoplay
-    function resetAutoplay() {
-      clearInterval(autoplayInterval);
-      startAutoplay();
-    }
-    
-    // Initialize autoplay
-    if (carousel) {
-      startAutoplay();
-      
-      // Pause autoplay when hovering over carousel
-      carousel.addEventListener('mouseenter', function() {
-        clearInterval(autoplayInterval);
-      });
-      
-      // Resume autoplay when mouse leaves carousel
-      carousel.addEventListener('mouseleave', function() {
-        startAutoplay();
-      });
-    }
-    
-    // Make functions available globally
-    window.updateCarousel = updateCarousel;
-    window.resetAutoplay = resetAutoplay;
-    
-    // Initial update
-    updateCarousel();
-  }
-  
-  // INITIALIZATION
-  
-  // Initialize pagination
-  showPage(1);
-  
-  // Flag to track if we're filtering
-  window.isFiltering = false;
-  
-  // Call the function after all packs are loaded
-  setTimeout(setupRandomFeaturedPacks, 500);
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Create a script element to load the ad script
+    var script = document.createElement('script');
+    script.src = "//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188";
+    script.async = true;
+
+    script.onload = function() {
+        // Script loaded successfully, do nothing
+    };
+
+    script.onerror = function() {
+        // Script failed to load, likely due to ad blocker
+        document.getElementById('adblock-message').style.display = 'block';
+    };
+
+    document.head.appendChild(script);
 });
-</script>
+
+        // Toggle function for mobile navigation menu
+        function toggleNav() {
+            var x = document.getElementById("myNavbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+
+        document.querySelectorAll('.packs-grid .pack').forEach(pack => {
+            pack.addEventListener('click', function () {
+                const href = this.getAttribute('data-href');
+                if (href) {
+                    window.location.href = href;
+                }
+            });
+        });
+
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const packs = document.querySelectorAll('.packs-grid .pack');
+
+            packs.forEach(function (pack) {
+                const name = pack.getAttribute('data-name').toLowerCase();
+                const tags = Array.from(pack.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                const matchesName = name.includes(query);
+                const matchesTag = tags.some(tag => tag.includes(query));
+
+                if (matchesName || matchesTag) {
+                    pack.style.display = 'block';
+                } else {
+                    pack.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
+
+<!-- <div id="adblock-message" style="display:none;">
+    <div class="adblock-container">
+        <h2>Ad Blocker Detected</h2>
+        <p>Please disable your ad blocker to access this website.</p>
+        <img src="https://i.imgur.com/zum1ScN.png" alt="Ad Block Warning" class="adblock-image">
+        <button onclick="location.reload();" class="refresh-button">Refresh Page</button>
+    </div>
+</div> -->
+
+</body>
+
+</html>
