@@ -1056,8 +1056,10 @@ h2 {
   font-size: 0.9rem;
 }
 
+/* Remove or comment out all star rating related styles */
+.pack-rating,
 .featured-rating {
-  color: #ffd700;
+  display: none;
 }
 
 .featured-btn {
@@ -1303,9 +1305,10 @@ h2 {
   line-height: 1.5;
 }
 
+/* Adjust the pack-meta layout since we're removing the rating */
 .pack-meta {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin-top: auto;
 }
@@ -1313,7 +1316,9 @@ h2 {
 .pack-info {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 5px;
+  width: 100%;
 }
 
 .pack-version {
@@ -2308,10 +2313,6 @@ footer {
 }
 
 /* Remove any star-specific styling */
-
-.featured-rating {
-  color: #ffd700;
-}
 
 /* Adjust the pack-meta styling to account for removed ratings */
 .pack-meta {
