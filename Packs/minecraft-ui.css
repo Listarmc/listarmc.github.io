@@ -1,0 +1,1232 @@
+/* Minecraft UI Styles - Add to both pages */
+@font-face {
+  font-family: "Minecraft";
+  src: url("https://cdn.jsdelivr.net/gh/South-Paw/typeface-minecraft@master/font/minecraft.woff2") format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/South-Paw/typeface-minecraft@master/font/minecraft.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.minecraft-btn {
+  font-family: "Minecraft", sans-serif;
+  display: inline-block;
+  position: relative;
+  padding: 6px 12px;
+  background-color: #8b8b8b;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.2) 49%,
+    rgba(0, 0, 0, 0.1) 51%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  color: #ffffff;
+  text-shadow: 2px 2px #3f3f3f;
+  border: 2px solid #000000;
+  border-top-color: #bfbfbf;
+  border-left-color: #bfbfbf;
+  border-bottom-color: #575757;
+  border-right-color: #575757;
+  image-rendering: pixelated;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  min-width: 120px;
+  transition: all 0.1s;
+  text-decoration: none;
+}
+
+.minecraft-btn:hover {
+  background-color: #9b9b9b;
+}
+
+.minecraft-btn:active {
+  border-top-color: #575757;
+  border-left-color: #575757;
+  border-bottom-color: #bfbfbf;
+  border-right-color: #bfbfbf;
+  background-color: #7b7b7b;
+  transform: translate(1px, 1px);
+}
+
+.minecraft-btn.green {
+  background-color: #54a954;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.2) 49%,
+    rgba(0, 0, 0, 0.1) 51%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  border-top-color: #8bdb8b;
+  border-left-color: #8bdb8b;
+  border-bottom-color: #387d38;
+  border-right-color: #387d38;
+}
+
+.minecraft-btn.green:hover {
+  background-color: #64c964;
+}
+
+.minecraft-btn.green:active {
+  border-top-color: #387d38;
+  border-left-color: #387d38;
+  border-bottom-color: #8bdb8b;
+  border-right-color: #8bdb8b;
+  background-color: #449944;
+}
+
+.minecraft-btn.red {
+  background-color: #a95454;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.2) 49%,
+    rgba(0, 0, 0, 0.1) 51%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  border-top-color: #db8b8b;
+  border-left-color: #db8b8b;
+  border-bottom-color: #7d3838;
+  border-right-color: #7d3838;
+}
+
+.minecraft-btn.red:hover {
+  background-color: #c96464;
+}
+
+.minecraft-btn.red:active {
+  border-top-color: #7d3838;
+  border-left-color: #7d3838;
+  border-bottom-color: #db8b8b;
+  border-right-color: #db8b8b;
+  background-color: #994444;
+}
+
+.minecraft-panel {
+  background-color: #c6c6c6;
+  border: 2px solid #000000;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-bottom-color: #555555;
+  border-right-color: #555555;
+  padding: 10px;
+  image-rendering: pixelated;
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.minecraft-tooltip {
+  position: absolute;
+  background-color: rgba(16, 16, 16, 0.94);
+  color: #ffffff;
+  border: 1px solid #2c2c2c;
+  padding: 8px 12px;
+  font-family: "Minecraft", sans-serif;
+  font-size: 14px;
+  max-width: 200px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.tooltip-trigger:hover .minecraft-tooltip {
+  opacity: 1;
+}
+
+.minecraft-progress-bar {
+  height: 20px;
+  background-color: #555555;
+  border: 2px solid #000000;
+  position: relative;
+  margin: 10px 0;
+}
+
+.minecraft-progress-bar .fill {
+  height: 100%;
+  background-color: #5bbd5b;
+  width: 0%;
+  transition: width 0.5s ease-in-out;
+}
+
+.minecraft-hotbar {
+  display: flex;
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c2/Hotbar_%28empty%29.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 50px;
+  width: 450px;
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 3px;
+  justify-content: space-around;
+  image-rendering: pixelated;
+}
+
+.hotbar-slot {
+  width: 42px;
+  height: 42px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotbar-slot.selected {
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/10/Hotbar_slot_highlight.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.hotbar-slot img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+
+.minecraft-achievement {
+  position: fixed;
+  bottom: -100px;
+  right: 20px;
+  background-color: #1e1e1e;
+  border: 2px solid #2c2c2c;
+  color: #ffffff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  transition: bottom 0.5s ease-in-out;
+  font-family: "Minecraft", sans-serif;
+  max-width: 300px;
+}
+
+.minecraft-achievement.show {
+  bottom: 20px;
+}
+
+.achievement-icon {
+  width: 32px;
+  height: 32px;
+  background-color: #5e5e5e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.achievement-text {
+  flex: 1;
+}
+
+.achievement-title {
+  color: #ffff55;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.achievement-desc {
+  font-size: 12px;
+  color: #aaaaaa;
+}
+
+.xp-orb {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #7bff7b;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 0 5px #7bff7b;
+}
+
+.minecraft-item-name {
+  color: #55ffff;
+  font-family: "Minecraft", sans-serif;
+  text-shadow: 2px 2px #3f3f3f;
+}
+
+.minecraft-item-name.rare {
+  color: #ff55ff;
+}
+
+.minecraft-item-name.epic {
+  color: #ff5555;
+}
+
+.minecraft-item-name.legendary {
+  color: #ffaa00;
+}
+
+.minecraft-inventory {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border: 2px solid #5e5e5e;
+}
+
+.minecraft-inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 4px;
+}
+
+.inventory-slot {
+  width: 40px;
+  height: 40px;
+  background-color: #8b8b8b;
+  border: 2px solid #373737;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.inventory-slot:hover {
+  background-color: #9b9b9b;
+}
+
+.inventory-slot img {
+  max-width: 32px;
+  max-height: 32px;
+  image-rendering: pixelated;
+}
+
+.minecraft-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  font-family: "Minecraft", sans-serif;
+  color: white;
+}
+
+.minecraft-loading .loading-text {
+  margin-top: 20px;
+  font-size: 24px;
+  text-shadow: 2px 2px #000000;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 20px;
+  background-color: #555555;
+  border: 2px solid #000000;
+  margin-top: 20px;
+}
+
+.loading-bar .fill {
+  height: 100%;
+  background-color: #5bbd5b;
+  width: 0%;
+  transition: width 0.2s;
+}
+
+.dirt-background {
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8c/Dirt.png");
+  background-repeat: repeat;
+  image-rendering: pixelated;
+  padding: 20px;
+  border: 4px solid #8b8b8b;
+}
+
+.pixel-border {
+  border-style: solid;
+  border-width: 4px;
+  border-color: #ffffff #555555 #555555 #ffffff;
+  image-rendering: pixelated;
+}
+
+/* Floating animation for items */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.minecraft-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Breaking animation */
+@keyframes breaking {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.breaking-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/8c/Break_stage_9.png");
+  background-size: cover;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.breaking .breaking-overlay {
+  animation: breaking 0.5s forwards;
+}
+
+/* Particle effect */
+@keyframes particle-float {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+
+.minecraft-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.minecraft-particle.dirt {
+  background-color: #8b6244;
+}
+
+.minecraft-particle.stone {
+  background-color: #7b7b7b;
+}
+
+/* Minecraft-style scrollbar */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #8b8b8b;
+  border: 2px solid #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #5e5e5e;
+  border: 2px solid #000000;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 49%,
+    rgba(0, 0, 0, 0.1) 51%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6e6e6e;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #8b8b8b;
+}
+
+/* Minecraft-style form elements */
+.minecraft-input {
+  background-color: #000000;
+  border: 2px solid #5e5e5e;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-family: "Minecraft", sans-serif;
+  font-size: 16px;
+}
+
+.minecraft-input:focus {
+  outline: none;
+  border-color: #ffffff;
+}
+
+.minecraft-select {
+  background-color: #000000;
+  border: 2px solid #5e5e5e;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-family: "Minecraft", sans-serif;
+  font-size: 16px;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 30px;
+}
+
+.minecraft-select:focus {
+  outline: none;
+  border-color: #ffffff;
+}
+
+/* Minecraft-style checkbox */
+.minecraft-checkbox {
+  display: none;
+}
+
+.minecraft-checkbox + label {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #000000;
+  border: 2px solid #5e5e5e;
+  position: relative;
+  cursor: pointer;
+}
+
+.minecraft-checkbox:checked + label:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #5bbd5b;
+}
+
+/* Minecraft-style radio */
+.minecraft-radio {
+  display: none;
+}
+
+.minecraft-radio + label {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #000000;
+  border: 2px solid #5e5e5e;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+.minecraft-radio:checked + label:after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: #5bbd5b;
+  border-radius: 50%;
+}
+
+/* Minecraft-style slider */
+.minecraft-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 20px;
+  background-color: #000000;
+  border: 2px solid #5e5e5e;
+  outline: none;
+}
+
+.minecraft-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 30px;
+  background-color: #5e5e5e;
+  border: 2px solid #000000;
+  cursor: pointer;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 49%,
+    rgba(0, 0, 0, 0.1) 51%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+.minecraft-slider::-moz-range-thumb {
+  width: 16px;
+  height: 30px;
+  background-color: #5e5e5e;
+  border: 2px solid #000000;
+  cursor: pointer;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 49%,
+    rgba(0, 0, 0, 0.1) 51%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+/* Minecraft-style table */
+.minecraft-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: "Minecraft", sans-serif;
+}
+
+.minecraft-table th,
+.minecraft-table td {
+  border: 2px solid #5e5e5e;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.minecraft-table th {
+  background-color: #3e3e3e;
+  color: #ffffff;
+}
+
+.minecraft-table tr:nth-child(even) {
+  background-color: #2e2e2e;
+}
+
+.minecraft-table tr:nth-child(odd) {
+  background-color: #1e1e1e;
+}
+
+/* Minecraft-style tabs */
+.minecraft-tabs {
+  display: flex;
+  border-bottom: 2px solid #5e5e5e;
+}
+
+.minecraft-tab {
+  padding: 8px 16px;
+  background-color: #3e3e3e;
+  border: 2px solid #5e5e5e;
+  border-bottom: none;
+  margin-right: 4px;
+  cursor: pointer;
+  font-family: "Minecraft", sans-serif;
+  color: #aaaaaa;
+}
+
+.minecraft-tab.active {
+  background-color: #5e5e5e;
+  color: #ffffff;
+  position: relative;
+  top: 2px;
+}
+
+.minecraft-tab-content {
+  display: none;
+  padding: 16px;
+  background-color: #1e1e1e;
+  border: 2px solid #5e5e5e;
+  border-top: none;
+}
+
+.minecraft-tab-content.active {
+  display: block;
+}
+
+/* Minecraft-style modal */
+.minecraft-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.minecraft-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.minecraft-modal-content {
+  background-color: #1e1e1e;
+  border: 2px solid #5e5e5e;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+  position: relative;
+}
+
+.minecraft-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.minecraft-modal-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #ffff55;
+  font-size: 20px;
+}
+
+/* Minecraft-style alerts */
+.minecraft-alert {
+  background-color: #1e1e1e;
+  border: 2px solid #5e5e5e;
+  padding: 16px;
+  margin-bottom: 16px;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+}
+
+.minecraft-alert.info {
+  border-color: #5555ff;
+}
+
+.minecraft-alert.success {
+  border-color: #55ff55;
+}
+
+.minecraft-alert.warning {
+  border-color: #ffff55;
+}
+
+.minecraft-alert.error {
+  border-color: #ff5555;
+}
+
+/* Minecraft-style badges */
+.minecraft-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: #5e5e5e;
+  color: #ffffff;
+  font-family: "Minecraft", sans-serif;
+  font-size: 12px;
+  border: 1px solid #000000;
+}
+
+.minecraft-badge.info {
+  background-color: #5555ff;
+}
+
+.minecraft-badge.success {
+  background-color: #55ff55;
+  color: #000000;
+}
+
+.minecraft-badge.warning {
+  background-color: #ffff55;
+  color: #000000;
+}
+
+.minecraft-badge.error {
+  background-color: #ff5555;
+}
+
+/* Minecraft-style tooltips */
+.minecraft-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.minecraft-tooltip-wrapper .minecraft-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1e1e1e;
+  border: 2px solid #5e5e5e;
+  padding: 8px;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 1000;
+}
+
+.minecraft-tooltip-wrapper:hover .minecraft-tooltip {
+  opacity: 1;
+}
+
+/* Minecraft-style progress bar */
+.minecraft-progress {
+  height: 20px;
+  background-color: #000000;
+  border: 2px solid #5e5e5e;
+  margin-bottom: 16px;
+}
+
+.minecraft-progress-bar {
+  height: 100%;
+  background-color: #55ff55;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.minecraft-progress-bar.info {
+  background-color: #5555ff;
+}
+
+.minecraft-progress-bar.warning {
+  background-color: #ffff55;
+}
+
+.minecraft-progress-bar.error {
+  background-color: #ff5555;
+}
+
+/* Minecraft-style spinner */
+.minecraft-spinner {
+  width: 40px;
+  height: 40px;
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/f/f2/Experience_Orb_JE2_BE2.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  image-rendering: pixelated;
+}
+
+/* Minecraft-style pagination */
+.minecraft-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.minecraft-pagination-item {
+  width: 40px;
+  height: 40px;
+  background-color: #3e3e3e;
+  border: 2px solid #5e5e5e;
+  margin-right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.minecraft-pagination-item.active {
+  background-color: #5e5e5e;
+}
+
+.minecraft-pagination-item:hover {
+  background-color: #4e4e4e;
+}
+
+/* Minecraft-style cards */
+.minecraft-card {
+  background-color: #1e1e1e;
+  border: 2px solid #5e5e5e;
+  margin-bottom: 16px;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+}
+
+.minecraft-card-header {
+  padding: 16px;
+  background-color: #3e3e3e;
+  border-bottom: 2px solid #5e5e5e;
+}
+
+.minecraft-card-title {
+  margin: 0;
+  color: #ffff55;
+  font-size: 18px;
+}
+
+.minecraft-card-body {
+  padding: 16px;
+}
+
+.minecraft-card-footer {
+  padding: 16px;
+  background-color: #3e3e3e;
+  border-top: 2px solid #5e5e5e;
+}
+
+/* Minecraft-style list */
+.minecraft-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+}
+
+.minecraft-list-item {
+  padding: 8px 16px;
+  border-bottom: 2px solid #5e5e5e;
+}
+
+.minecraft-list-item:last-child {
+  border-bottom: none;
+}
+
+/* Minecraft-style accordion */
+.minecraft-accordion {
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+}
+
+.minecraft-accordion-header {
+  padding: 16px;
+  background-color: #3e3e3e;
+  border: 2px solid #5e5e5e;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.minecraft-accordion-body {
+  padding: 16px;
+  background-color: #1e1e1e;
+  border: 2px solid #5e5e5e;
+  border-top: none;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.minecraft-accordion-header.active + .minecraft-accordion-body {
+  display: block;
+}
+
+/* Minecraft-style breadcrumbs */
+.minecraft-breadcrumbs {
+  display: flex;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.minecraft-breadcrumb-item {
+  margin-right: 8px;
+}
+
+.minecraft-breadcrumb-item:after {
+  content: ">";
+  margin-left: 8px;
+}
+
+.minecraft-breadcrumb-item:last-child:after {
+  content: "";
+  margin-left: 0;
+}
+
+.minecraft-breadcrumb-item a {
+  color: #5555ff;
+  text-decoration: none;
+}
+
+.minecraft-breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+/* Minecraft-style steps */
+.minecraft-steps {
+  display: flex;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.minecraft-step {
+  flex: 1;
+  text-align: center;
+  padding: 16px;
+  background-color: #3e3e3e;
+  border: 2px solid #5e5e5e;
+  position: relative;
+}
+
+.minecraft-step:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: #3e3e3e;
+  border-top: 2px solid #5e5e5e;
+  border-right: 2px solid #5e5e5e;
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 1;
+}
+
+.minecraft-step:last-child:after {
+  display: none;
+}
+
+.minecraft-step.active {
+  background-color: #5e5e5e;
+}
+
+.minecraft-step.active:after {
+  background-color: #5e5e5e;
+}
+
+.minecraft-step.completed {
+  background-color: #55ff55;
+  color: #000000;
+}
+
+.minecraft-step.completed:after {
+  background-color: #55ff55;
+}
+
+/* Minecraft-style timeline */
+.minecraft-timeline {
+  position: relative;
+  padding-left: 30px;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+}
+
+.minecraft-timeline:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 2px;
+  height: 100%;
+  background-color: #5e5e5e;
+}
+
+.minecraft-timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.minecraft-timeline-item:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30px;
+  width: 20px;
+  height: 20px;
+  background-color: #5e5e5e;
+  border: 2px solid #000000;
+}
+
+.minecraft-timeline-item.active:before {
+  background-color: #55ff55;
+}
+
+/* Minecraft-style chat */
+.minecraft-chat {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.minecraft-chat-message {
+  margin-bottom: 8px;
+}
+
+.minecraft-chat-name {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.minecraft-chat-input {
+  display: flex;
+  margin-top: 10px;
+}
+
+.minecraft-chat-input input {
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #5e5e5e;
+  color: #ffffff;
+  padding: 8px;
+  font-family: "Minecraft", sans-serif;
+}
+
+.minecraft-chat-input button {
+  background-color: #5e5e5e;
+  border: 1px solid #000000;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-family: "Minecraft", sans-serif;
+  cursor: pointer;
+}
+
+/* Minecraft-style health bar */
+.minecraft-health-bar {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.minecraft-health {
+  width: 16px;
+  height: 16px;
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/a7/Heart_JE2_BE2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 2px;
+  image-rendering: pixelated;
+}
+
+.minecraft-health.half {
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c5/Heart_half_JE2_BE2.png");
+}
+
+.minecraft-health.empty {
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/9e/Heart_empty_JE2_BE2.png");
+}
+
+/* Minecraft-style food bar */
+.minecraft-food-bar {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.minecraft-food {
+  width: 16px;
+  height: 16px;
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/12/Hunger_JE3_BE3.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 2px;
+  image-rendering: pixelated;
+}
+
+.minecraft-food.half {
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/8/87/Hunger_half_JE3_BE3.png");
+}
+
+.minecraft-food.empty {
+  background-image: url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/7/7a/Hunger_empty_JE3_BE3.png");
+}
+
+/* Minecraft-style experience bar */
+.minecraft-xp-bar {
+  height: 10px;
+  background-color: #000000;
+  border: 1px solid #5e5e5e;
+  margin-bottom: 16px;
+}
+
+.minecraft-xp-fill {
+  height: 100%;
+  background-color: #55ff55;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.minecraft-xp-level {
+  font-family: "Minecraft", sans-serif;
+  color: #55ff55;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Minecraft-style loading screen */
+.minecraft-loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+}
+
+.minecraft-loading-screen-title {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.minecraft-loading-screen-progress {
+  width: 300px;
+  height: 20px;
+  background-color: #000000;
+  border: 2px solid #5e5e5e;
+  margin-bottom: 16px;
+}
+
+.minecraft-loading-screen-progress-bar {
+  height: 100%;
+  background-color: #55ff55;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.minecraft-loading-screen-tip {
+  font-style: italic;
+  color: #aaaaaa;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Minecraft-style death screen */
+.minecraft-death-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: "Minecraft", sans-serif;
+  color: #ffffff;
+}
+
+.minecraft-death-screen-title {
+  font-size: 32px;
+  color: #ff5555;
+  margin-bottom: 16px;
+}
+
+.minecraft-death-screen-score {
+  font-size: 24px;
+  margin-bottom: 32px;
+}
+
+.minecraft-death-screen-buttons {
+  display: flex;
+  gap: 16px;
+}
