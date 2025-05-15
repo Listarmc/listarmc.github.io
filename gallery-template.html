@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Gallery Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="gallery.css">
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Gallery Container -->
+    <div class="gallery-container">
+        <h2 class="gallery-title">Pack Screenshots</h2>
+        
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            <!-- Gallery Items - Replace with your actual images -->
+            <div class="gallery-item">
+                <img src="/placeholder.svg?height=300&width=500" alt="Screenshot 1" data-src="/path/to/actual/image1.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="/placeholder.svg?height=300&width=500" alt="Screenshot 2" data-src="/path/to/actual/image2.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="/placeholder.svg?height=300&width=500" alt="Screenshot 3" data-src="/path/to/actual/image3.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="/placeholder.svg?height=300&width=500" alt="Screenshot 4" data-src="/path/to/actual/image4.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="/placeholder.svg?height=300&width=500" alt="Screenshot 5" data-src="/path/to/actual/image5.jpg">
+            </div>
+            <div class="gallery-item">
+                <img src="/placeholder.svg?height=300&width=500" alt="Screenshot 6" data-src="/path/to/actual/image6.jpg">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Gallery -->
+    <div class="gallery-modal">
+        <div class="modal-content">
+            <div class="modal-close">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <div class="modal-image-container">
+                <img class="modal-image" src="/placeholder.svg" alt="Gallery Image">
+            </div>
+            
+            <div class="modal-nav">
+                <button class="modal-nav-btn modal-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="modal-nav-btn modal-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="modal-counter">1 / 6</div>
+            
+            <div class="modal-thumbnails">
+                <!-- Thumbnails will be added by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="gallery.js"></script>
+</body>
+</html>
