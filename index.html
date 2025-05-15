@@ -234,6 +234,43 @@
                /* Center the images */
            }
        }
+
+       /* Mobile menu styles */
+       .mobile-menu-toggle {
+           display: none;
+           background: none;
+           border: none;
+           color: white;
+           font-size: 24px;
+           cursor: pointer;
+           padding: 5px;
+       }
+
+       @media screen and (max-width: 768px) {
+           .mobile-menu-toggle {
+               display: block;
+           }
+
+           .nav-list {
+               display: none;
+               flex-direction: column;
+               position: absolute;
+               top: 100%;
+               left: 0;
+               right: 0;
+               background-color: #1a1a2e;
+               z-index: 100;
+               padding: 10px 0;
+           }
+
+           .nav-list.active {
+               display: flex;
+           }
+
+           .nav-item {
+               margin: 5px 0;
+           }
+       }
    </style>
 
    <!-- <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script> -->
@@ -903,7 +940,7 @@
     <div class="pack-image-container">
       <img src="thumbnails/mFjVNPm.png" alt="Toradora! Custom GUI Pack" class="pack-image">
       <div class="pack-overlay">
-        <a href="Packs/Toradora-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
+        <a href="Packs/Toradora!-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
       </div>
     </div>
     <div class="pack-content">
@@ -1528,7 +1565,7 @@
     <div class="pack-image-container">
       <img src="thumbnails/2cf3a9541375ab81ee4a1fc67ab4dd0e3e1fe82b.webp" alt="K-On!! Custom GUI Pack" class="pack-image">
       <div class="pack-overlay">
-        <a href="Packs/K-On-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
+        <a href="Packs/K-On!!-Custom-GUI-Pack.html" class="overlay-btn">View Details</a>
       </div>
     </div>
     <div class="pack-content">
@@ -1764,6 +1801,36 @@
     });
 </script> -->
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Mobile menu toggle functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navList = document.getElementById('nav-list');
+    
+    if (mobileMenuToggle && navList) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navList.classList.toggle('active');
+            console.log('Mobile menu toggled');
+        });
+    }
+    
+    // Adblock detection
+    setTimeout(function() {
+        var adBlockEnabled = false;
+        var testAd = document.createElement('div');
+        testAd.innerHTML = '&nbsp;';
+        testAd.className = 'adsbox';
+        document.body.appendChild(testAd);
+        window.setTimeout(function() {
+            if (testAd.offsetHeight === 0) {
+                adBlockEnabled = true;
+            }
+            testAd.remove();
+            if (adBlockEnabled) {
+                document.getElementById('adblock-message').style.display = 'block';
+            }
+        }, 100);
+    }, 2000);
+});
 document.addEventListener("DOMContentLoaded", function() {
   // Constants
   const ITEMS_PER_PAGE = 6;
