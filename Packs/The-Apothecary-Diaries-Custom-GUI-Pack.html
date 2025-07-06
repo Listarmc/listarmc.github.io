@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Apothecary Diaries Custom GUI Pack - Minecraft Resource Pack</title>
-    <meta name="description" content="Download The Apothecary Diaries Custom GUI Pack for Minecraft. Transform your game interface with beautiful anime-themed designs inspired by the popular series.">
-    <meta name="keywords" content="Minecraft, Resource Pack, GUI, The Apothecary Diaries, Anime, Custom Interface, Download">
-    <link rel="icon" type="image/gif" href="fav.gif">
+    <title>The Apothecary Diaries Custom GUI Pack</title>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="styles2.css">
+    <link rel="icon" type="image/gif" href="../fav.gif">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H483ZYFD5"></script>
     <script>
@@ -17,66 +16,10 @@
 
       gtag('config', 'G-9H483ZYFD5');
     </script>
+    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script>
+    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1098733"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .adblock-message {
-            display: none;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-        }
-        
-        .adblock-message a {
-            color: #fff;
-            text-decoration: underline;
-            margin-left: 10px;
-        }
-        
-        .support-reminder {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 9999;
-            max-width: 300px;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        .support-reminder .close-btn {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 0;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .support-reminder a {
-            color: #fff;
-            text-decoration: underline;
-        }
 /* Adblock message styles */
 #adblock-message {
     position: fixed;
@@ -418,310 +361,702 @@
 </style>
 </head>
 <body>
-    <div class="adblock-message" id="adblockMessage">
-        🚫 AdBlock Detected! Please disable your ad blocker to support our free resource packs.
-        <a href="#" onclick="location.reload()">Refresh Page</a>
-    </div>
-    
-    <div class="support-reminder" id="supportReminder">
-        <button class="close-btn" onclick="closeSupportReminder()">&times;</button>
-        <strong>💖 Support Us!</strong><br>
-        Help keep our resource packs free by disabling AdBlock or 
-        <a href="#" target="_blank">donating</a>. Thank you!
-    </div>
-
+    <!-- Header -->
     <header>
-        <nav>
-            <div class="nav-container">
-                <div class="logo">
-                    <a href="../index.html">
-                        <img src="fav.gif" alt="Logo" class="logo-img">
-                        <span>Minecraft GUI Packs</span>
-                    </a>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="../logo.gif" alt="Listar MC Logo" class="logo">
+                    <h1 class="site-title">Listar MC</h1>
                 </div>
-                <div class="nav-links">
-                    <a href="../index.html">Home</a>
-                    <a href="../index.html#packs">Packs</a>
-                    <a href="#download">Download</a>
-                </div>
-                <div class="burger-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <nav>
+                    <ul class="nav-list" id="nav-list">
+                        <li class="nav-item"><a href="../index.html">Home</a></li>
+                        <li class="nav-item"><a href="../index.html#texture-packs">Texture Packs</a></li>
+                        <li class="nav-item"><a href="../index.html#information">Information</a></li>
+                    </ul>
+                </nav>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <main class="pack-detail">
+    <!-- Pack Details Section -->
+    <section id="pack-details">
         <div class="container">
-            <div class="pack-header">
-                <div class="pack-image">
-                    <img src="QC0Wdc4.png" alt="The Apothecary Diaries Custom GUI Pack">
-                </div>
-                <div class="pack-info">
-                    <h1>The Apothecary Diaries Custom GUI Pack</h1>
-                    <p class="pack-description">
-                        🌸 Transform your Minecraft interface with The Apothecary Diaries Custom GUI Pack! 
-                        Inspired by the captivating world of Maomao and her adventures in the imperial palace, 
-                        this pack brings elegant traditional aesthetics to your game. Features beautiful 
-                        cherry blossom motifs, traditional patterns, and character-inspired elements that 
-                        perfectly capture the series' unique blend of mystery and palace intrigue.
-                    </p>
-                    <div class="pack-stats">
-                        <div class="stat">
-                            <span class="stat-label">Version:</span>
-                            <span class="stat-value">1.21.6</span>
+            <h2 class="section-title fade-in">The Apothecary Diaries Custom GUI Pack</h2>
+            
+            <div class="pack-detail-container fade-in">
+                <div class="pack-detail-hero">
+                    <img src="https://i.imgur.com/BJyAF7U.jpeg" alt="The Apothecary Diaries Custom GUI Pack" class="pack-cover">
+                    
+                    <div class="pack-meta-badges">
+                        <span class="pack-badge version">1.21.6</span>
+                        <span class="pack-badge theme">Drama</span>
+                        <span class="pack-badge theme">Historical</span>
+                    </div>
+                    
+                    <!-- Gallery thumbnails moved here -->
+                    <div class="pack-thumbnails">
+                        <h4 class="thumbnails-title">Preview Images</h4>
+                        <div class="thumbnails-grid">
+                            <div class="thumbnail-item" onclick="openModal();currentSlide(1)">
+                                <img src="https://i.imgur.com/Q5Gitbf.png" alt="Custom HUD">
+                            </div>
+                            <div class="thumbnail-item" onclick="openModal();currentSlide(2)">
+                                <img src="https://i.imgur.com/Rado3Zh.png" alt="Shulker Box">
+                            </div>
+                            <div class="thumbnail-item" onclick="openModal();currentSlide(3)">
+                                <img src="https://i.imgur.com/c9b8i8j.png" alt="Enchantment Table">
+                            </div>
+                            <div class="thumbnail-item" onclick="openModal();currentSlide(4)">
+                                <img src="https://i.imgur.com/Hm3shkl.png" alt="Large Chest">
+                            </div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-label">Downloads:</span>
-                            <span class="stat-value">2.1K+</span>
+                        <button class="view-all-btn" onclick="openModal();currentSlide(1)">
+                            <i class="fa fa-search-plus"></i> View All Screenshots
+                        </button>
+                    </div>
+                    
+                    <!-- Features section moved here -->
+                    <div class="pack-features-block">
+                        <div class="features-header">
+                            <div class="features-icon">
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <h3 class="pack-subtitle">Features</h3>
                         </div>
-                        <div class="stat">
-                            <span class="stat-label">Rating:</span>
-                            <span class="stat-value">⭐⭐⭐⭐⭐</span>
-                        </div>
+                        <ul class="features-list">
+                            <li><i class="fa fa-check-circle"></i> Custom HUD with red & green color palette</li>
+                            <li><i class="fa fa-check-circle"></i> Unique images for each interface</li>
+                            <li><i class="fa fa-check-circle"></i> Enhanced container textures</li>
+                            <li><i class="fa fa-check-circle"></i> Immersive apothecary-themed design</li>
+                            <li><i class="fa fa-check-circle"></i> Compatible with other resource packs</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-
-            <div class="pack-content">
-                <div class="content-section">
-                    <h2>📋 Description</h2>
-                    <div class="description-content">
-                        <div class="description-icon">
-                            🌸
+                
+                <div class="pack-detail-content">
+                    <div class="pack-description-block">
+                        <div class="description-header">
+                            <div class="description-icon">
+                                <i class="fa fa-flask"></i>
+                            </div>
+                            <h3 class="pack-subtitle">Description</h3>
                         </div>
-                        <div class="description-text">
-                            <p>Step into the elegant world of The Apothecary Diaries with this meticulously crafted GUI pack! 
-                            Experience Minecraft through the lens of traditional palace aesthetics, featuring:</p>
-                            <ul>
-                                <li>🏮 Traditional palace-inspired interface designs</li>
-                                <li>🌸 Beautiful cherry blossom and floral motifs</li>
-                                <li>📜 Elegant scrollwork and traditional patterns</li>
-                                <li>💊 Apothecary-themed inventory and crafting interfaces</li>
-                                <li>🎋 Soft, harmonious color palette inspired by the series</li>
-                                <li>✨ Character-inspired design elements</li>
-                            </ul>
-                            <p>Perfect for players who appreciate the sophisticated storytelling and beautiful art style of The Apothecary Diaries!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>🎮 Features</h2>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <h3>🏮 Palace Interface</h3>
-                            <p>Elegant traditional designs inspired by imperial palace aesthetics</p>
-                        </div>
-                        <div class="feature-card">
-                            <h3>🌸 Floral Motifs</h3>
-                            <p>Beautiful cherry blossom and traditional flower patterns throughout</p>
-                        </div>
-                        <div class="feature-card">
-                            <h3>💊 Apothecary Theme</h3>
-                            <p>Medicine and herb-inspired crafting and inventory interfaces</p>
-                        </div>
-                        <div class="feature-card">
-                            <h3>📜 Traditional Art</h3>
-                            <p>Scrollwork and calligraphy-inspired design elements</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>📱 Screenshots</h2>
-                    <div class="screenshots-grid">
-                        <div class="screenshot">
-                            <img src="QC0Wdc4.png" alt="Main Menu Interface">
-                            <p>Main Menu with Palace Theme</p>
-                        </div>
-                        <div class="screenshot">
-                            <img src="QC0Wdc4.png" alt="Inventory Interface">
-                            <p>Apothecary-Inspired Inventory</p>
-                        </div>
-                        <div class="screenshot">
-                            <img src="QC0Wdc4.png" alt="Crafting Interface">
-                            <p>Traditional Crafting Interface</p>
+                        <div class="description-content">
+                            <div class="description-banner">
+                                <span class="anime-title">The Apothecary Diaries</span>
+                                <span class="pack-type">GUI Resource Pack</span>
+                            </div>
+                            
+                            <p>Transform your Minecraft interface with the mystical and medicinal aesthetic of The Apothecary Diaries. This GUI-only resource pack brings the world of ancient apothecary arts to your Minecraft experience with a beautiful red and green color palette.</p>
+                            
+                            <p>The <strong>Apothecary Diaries Custom Minecraft GUI Pack</strong> features unique images for each interface, creating an immersive experience that captures the essence of traditional medicine and herbal knowledge. You can freely use it with other resource packs by placing it on top of your current setup.</p>
+                            
+                            <div class="description-highlights">
+                                <div class="highlight-item">
+                                    <div class="highlight-icon">
+                                        <i class="fa fa-paint-brush"></i>
+                                    </div>
+                                    <div class="highlight-text">
+                                        <h4>Unique Design</h4>
+                                        <p>Red and green color palette with custom textures for an authentic apothecary feel</p>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-icon">
+                                        <i class="fa fa-cog"></i>
+                                    </div>
+                                    <div class="highlight-text">
+                                        <h4>Enhanced Immersion</h4>
+                                        <p>Unique images for each interface to enhance the medicinal theme</p>
+                                    </div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-icon">
+                                        <i class="fa fa-check-circle"></i>
+                                    </div>
+                                    <div class="highlight-text">
+                                        <h4>Pack Compatibility</h4>
+                                        <p>Works seamlessly with other resource packs when placed on top</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>⚙️ Compatibility</h2>
-                    <div class="compatibility-list">
-                        <div class="compatibility-item supported">
-                            <span class="compatibility-version">1.21.6</span>
-                            <span class="compatibility-status">✅ Fully Supported</span>
-                        </div>
-                        <div class="compatibility-item supported">
-                            <span class="compatibility-version">1.21.4</span>
-                            <span class="compatibility-status">✅ Supported</span>
-                        </div>
-                        <div class="compatibility-item supported">
-                            <span class="compatibility-version">1.21.3</span>
-                            <span class="compatibility-status">✅ Supported</span>
-                        </div>
-                        <div class="compatibility-item partial">
-                            <span class="compatibility-version">1.21.1</span>
-                            <span class="compatibility-status">⚠️ Partial Support</span>
-                        </div>
-                        <div class="compatibility-item not-supported">
-                            <span class="compatibility-version">1.20.x</span>
-                            <span class="compatibility-status">❌ Not Supported</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-section" id="download">
-                    <h2>⬬ Download</h2>
+                    
                     <div class="download-section">
-                        <div class="download-buttons">
-                            <a href="#" class="download-btn primary" onclick="loadAdsAndDownload('modrinth')">
-                                <img src="modrinth.png" alt="Modrinth" class="platform-icon">
-                                Download from Modrinth
-                            </a>
-                            <a href="#" class="download-btn secondary" onclick="loadAdsAndDownload('curseforge')">
-                                <img src="curseforge-svgrepo-com.png" alt="CurseForge" class="platform-icon">
-                                Download from CurseForge
-                            </a>
+                        <div class="download-header">
+                            <h3 class="download-title">Download Now</h3>
+                            <span class="download-subtitle">Choose your preferred platform</span>
                         </div>
-                        <div class="download-info">
-                            <p>📁 File Size: ~2.5 MB</p>
-                            <p>🔄 Last Updated: December 2024</p>
-                            <p>📋 Format: .zip (Resource Pack)</p>
+                        <div class="download-buttons">
+                            <a href="https://www.curseforge.com/minecraft/texture-packs/the-apothecary-diaries-custom-gui-pack/files/all" class="download-btn curseforge" target="_blank">
+                                <img src="curseforge-svgrepo-com.png" alt="CurseForge" class="button-icon">
+                                <div class="download-btn-text">
+                                    <span class="btn-label">Download from</span>
+                                    <span class="btn-site">CurseForge</span>
+                                </div>
+                            </a>
+                            <a href="https://modrinth.com/resourcepack/the-apothecary-diaries-custom-gui-pack/versions" class="download-btn modrinth" target="_blank">
+                                <img src="modrinth.png" alt="Modrinth" class="button-icon">
+                                <div class="download-btn-text">
+                                    <span class="btn-label">Download from</span>
+                                    <span class="btn-site">Modrinth</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </div>
-
-                <div class="content-section">
-                    <h2>📖 Installation Guide</h2>
-                    <div class="installation-steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h3>Download the Pack</h3>
-                                <p>Click one of the download buttons above to get the resource pack file.</p>
+                    
+                    <div class="pack-compatibility-block">
+                        <div class="compatibility-header">
+                            <div class="compatibility-icon">
+                                <i class="fa fa-puzzle-piece"></i>
                             </div>
+                            <h3 class="pack-subtitle">Compatibility</h3>
                         </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h3>Open Minecraft</h3>
-                                <p>Launch Minecraft and go to Options → Resource Packs.</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h3>Install the Pack</h3>
-                                <p>Click "Open Pack Folder" and drag the downloaded .zip file into the folder.</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <h3>Activate the Pack</h3>
-                                <p>Return to Minecraft, find the pack in the list, and click the arrow to activate it.</p>
-                            </div>
+                        <div class="compatibility-badges">
+                            <span class="compatibility-badge">Minecraft Java Edition 1.21.6</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
+            
+    <!-- Support and Additional Resources Section - Properly structured like in index.html -->
+    <section id="information">
+        <div class="container">
+            <h2 class="section-title fade-in">Support and Additional Resources</h2>
+            <div class="resources-container">
+                <!-- Introduction text -->
+                <div class="resources-intro fade-in">
+                    <p>Thank you for exploring my collection of anime-inspired Minecraft GUI texture packs! Here you'll find various ways to support my work and additional resources to enhance your Minecraft experience.</p>
+                </div>
+    
+                <!-- Support Options -->
+                <div class="resources-section fade-in">
+                    <h3 class="resources-subtitle">Support My Work</h3>
+                    <div class="support-options">
+                        <div class="support-card">
+                            <a href="https://www.buymeacoffee.com/listarMc" target="_blank" class="support-link">
+                                <img src="coffe.png" class="support-img" alt="Support via Coffee">
+                                <h4>Buy Me a Coffee</h4>
+                                <p>If you enjoy my texture packs, consider buying me a coffee to fuel more creative designs!</p>
+                            </a>
+                        </div>
+                        
+                        <div class="support-card">
+                            <a href="https://www.planetminecraft.com/member/listar/" target="_blank" class="support-link">
+                                <img src="PMC.webp" class="support-img" alt="Support via PMC">
+                                <h4>Planet Minecraft</h4>
+                                <p>Follow me on Planet Minecraft for updates and to leave ratings and comments on my work.</p>
+                            </a>
+                        </div>
+                        
+                        <div class="support-card">
+                            <a href="https://discord.gg/RvScgzj3Ph" target="_blank" class="support-link">
+                                <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg" 
+                                    class="support-img" alt="Support via Discord">
+                                <h4>Join My Discord</h4>
+                                <p>Join our community to suggest new packs, get help with installation, and chat with other anime fans!</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Installation Guide -->
+                <div class="resources-section fade-in delay-1">
+                    <h3 class="resources-subtitle">Installation Guide</h3>
+                    <div class="guide-container">
+                        <div class="guide-steps">
+                            <div class="guide-step">
+                                <span class="step-number">1</span>
+                                <div class="step-content">
+                                    <h4>Download the Pack</h4>
+                                    <p>Click the "View Pack" button on any texture pack to go to its download page.</p>
+                                </div>
+                            </div>
+                            <div class="guide-step">
+                                <span class="step-number">2</span>
+                                <div class="step-content">
+                                    <h4>Locate Your Resource Packs Folder</h4>
+                                    <p>Open Minecraft, click "Options" → "Resource Packs" → "Open Pack Folder".</p>
+                                </div>
+                            </div>
+                            <div class="guide-step">
+                                <span class="step-number">3</span>
+                                <div class="step-content">
+                                    <h4>Move the Pack</h4>
+                                    <p>Move the downloaded .zip file into your resource packs folder.</p>
+                                </div>
+                            </div>
+                            <div class="guide-step">
+                                <span class="step-number">4</span>
+                                <div class="step-content">
+                                    <h4>Activate the Pack</h4>
+                                    <p>In Minecraft, select the pack from the available resource packs and click "Done".</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- FAQ Section -->
+                <div class="resources-section fade-in delay-2">
+                    <h3 class="resources-subtitle">Frequently Asked Questions</h3>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Are these packs compatible with modded Minecraft?</h4>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! These GUI packs should work with most modded Minecraft versions, though some mod GUIs might not be affected.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Can I use these packs in my videos/streams?</h4>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Feel free to use these packs in your content. Credit to "Listar MC" is appreciated but not required.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>Can I request a custom anime GUI pack?</h4>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! Join my Discord server to suggest new anime themes for future GUI packs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Request a Pack -->
+                <div class="resources-section fade-in delay-3">
+                    <h3 class="resources-subtitle">Request a Custom Pack</h3>
+                    <div class="request-container">
+                        <p>Have an anime you'd love to see as a Minecraft GUI? Join our Discord community to suggest new themes and vote on upcoming releases!</p>
+                        <a href="https://discord.gg/RvScgzj3Ph" class="btn request-btn" target="_blank">Join Discord to Request</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- The Modal/Lightbox -->
+    <div id="myModal" class="modal">
+        <span class="close cursor" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <div class="mySlides">
+                <img src="https://i.imgur.com/Q5Gitbf.png" style="width:100%">
+                <div id="caption">Custom HUD</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/Rado3Zh.png" style="width:100%">
+                <div id="caption">Shulker Box</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/c9b8i8j.png" style="width:100%">
+                <div id="caption">Enchantment Table</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/Hm3shkl.png" style="width:100%">
+                <div id="caption">Large Chest</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/sNownUk.png" style="width:100%">
+                <div id="caption">Dispenser</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/BaKWbeG.png" style="width:100%">
+                <div id="caption">Furnace</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/gLpkscc.png" style="width:100%">
+                <div id="caption">Loom</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/VlL6eDY.png" style="width:100%">
+                <div id="caption">Crafting Table</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/5dTnCh9.png" style="width:100%">
+                <div id="caption">Smoker</div>
+            </div>
+            
+            <!-- Next/previous controls -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Minecraft GUI Packs</h3>
-                    <p>Your destination for high-quality Minecraft resource packs and GUI customizations.</p>
+                <div class="footer-logo">
+                    <img src="../logo.gif" alt="Listar MC Logo">
+                    <span class="footer-logo-text">Listar MC</span>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="../index.html#packs">All Packs</a></li>
-                        <li><a href="#download">Download</a></li>
-                    </ul>
+                
+                <div class="footer-links">
+                    <a href="../index.html" class="footer-link">Home</a>
+                    <a href="../index.html#texture-packs" class="footer-link">Texture Packs</a>
+                    <a href="../index.html#information" class="footer-link">Information</a>
+                    <a href="../Privacy Policy.html" class="footer-link">Privacy Policy</a>
                 </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Report Issues</a></li>
-                        <li><a href="#">Donate</a></li>
-                    </ul>
+                
+                <!-- Find the footer-social section and replace it with: -->
+                <div class="footer-social">
+                    <a href="https://discord.gg/RvScgzj3Ph" class="social-icon" target="_blank">
+                        <i class="fa fa-discord"></i>
+                    </a>
+                    <a href="https://www.planetminecraft.com/member/listar/" class="social-icon" target="_blank">
+                        <i class="fa fa-cube"></i>
+                    </a>
+                    <a href="https://buymeacoffee.com/listarmc" class="social-icon" target="_blank">
+                        <i class="fa fa-coffee"></i>
+                    </a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Minecraft GUI Packs. All rights reserved.</p>
+            
+            <div class="copyright">
+                &copy; 2025 Listar MC. All rights reserved.
             </div>
         </div>
     </footer>
+    
+    <!-- Support reminder for users who dismissed adblock message -->
+<div id="support-reminder" class="support-reminder">
+    <div class="support-reminder-content">
+        <i class="fa fa-heart-o support-icon"></i>
+        <span>Support new pack development</span>
+        <button onclick="reEnableAds();" class="reenable-button">Enable Ads</button>
+        <div class="dismiss-buttons">
+            <button onclick="dismissSupportReminder();" class="dismiss-reminder-button" title="Dismiss for now">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.burger-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-            this.classList.toggle('active');
+    <!-- Adblock message -->
+<div id="adblock-message">
+    <div class="adblock-container">
+        <div class="adblock-icon">
+            <i class="fa fa-shield"></i>
+        </div>
+        <h2>Ad Blocker Detected</h2>
+        <p class="adblock-message-text">
+            I understand you value your browsing experience! Ads help support the development of <span>new anime-inspired texture packs</span> for the community.
+        </p>
+        <img src="https://i.imgur.com/zum1ScN.png" alt="Ad Block Warning" class="adblock-image">
+        <div class="adblock-buttons">
+            <button onclick="location.reload();" class="refresh-button">
+                <i class="fa fa-refresh"></i> Disable & Refresh
+            </button>
+            <button onclick="dismissAdblockMessage();" class="continue-button">
+                <i class="fa fa-arrow-right"></i> Continue Anyway
+            </button>
+        </div>
+    </div>
+</div>
+    
+<script>
+    // Run ad block detection immediately when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Run ad block detection first, before other initialization
+    checkForAdBlocker();
+    
+    // Mobile menu toggle functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navList = document.getElementById('nav-list');
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navList.classList.toggle('active');
         });
+    }
+    
+    // Show support reminder if applicable
+    showSupportReminder();
+});
 
-        // Ad block detection
-        function detectAdBlock() {
-            const adElement = document.createElement('div');
-            adElement.innerHTML = '&nbsp;';
-            adElement.className = 'adsbox';
-            adElement.style.position = 'absolute';
-            adElement.style.left = '-10000px';
-            document.body.appendChild(adElement);
+// Function to check for ad blocker - improved detection with multiple methods
+function checkForAdBlocker() {
+    // Skip check if user previously dismissed
+    if (localStorage.getItem('adblock_dismissed') === 'true') {
+        return;
+    }
+    
+    // Create multiple bait elements with different ad-related class names
+    const baitClasses = [
+        'ad-placement ad-banner adsbox',
+        'advertisement ad-box ad-slot',
+        'banner-ad ad-unit ad-zone',
+        'sponsored-content advert-container',
+        'pub_300x250 pub_300x250m pub_728x90 text-ad textAd'
+    ];
+    
+    let detectionCount = 0;
+    const baitElements = [];
+    
+    // Create and append multiple bait elements
+    baitClasses.forEach((className, index) => {
+        const bait = document.createElement('div');
+        bait.className = className;
+        bait.style.height = '1px';
+        bait.style.width = '1px';
+        bait.style.position = 'absolute';
+        bait.style.left = '-10000px';
+        bait.style.top = '-1000px';
+        bait.style.zIndex = '-1';
+        bait.textContent = ' ';
+        bait.setAttribute('aria-hidden', 'true');
+        bait.id = 'ad-bait-' + index;
+        document.body.appendChild(bait);
+        baitElements.push(bait);
+    });
+    
+    // Create a fake ad iframe as an additional check
+    const adFrame = document.createElement('iframe');
+    adFrame.id = 'ad-frame-bait';
+    adFrame.src = 'about:blank';
+    adFrame.style.display = 'none';
+    adFrame.style.width = '1px';
+    adFrame.style.height = '1px';
+    document.body.appendChild(adFrame);
+    baitElements.push(adFrame);
+    
+    // Check if the bait elements were hidden by an ad blocker
+    setTimeout(function() {
+        baitElements.forEach(bait => {
+            let isBlocked = false;
             
-            setTimeout(() => {
-                if (adElement.offsetHeight === 0) {
-                    document.getElementById('adblockMessage').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('supportReminder').style.display = 'block';
-                    }, 3000);
+            // Different checks for iframe vs div elements
+            if (bait.tagName.toLowerCase() === 'iframe') {
+                // Check if iframe was blocked
+                try {
+                    const iframeDoc = bait.contentDocument || bait.contentWindow.document;
+                    if (!iframeDoc) isBlocked = true;
+                } catch (e) {
+                    // If we can't access the iframe, it might be blocked
+                    isBlocked = true;
                 }
-                document.body.removeChild(adElement);
-            }, 100);
-        }
-
-        function closeSupportReminder() {
-            document.getElementById('supportReminder').style.display = 'none';
-        }
-
-        // Load ads only when download buttons are clicked
-        function loadAdsAndDownload(platform) {
-            // Load the ad scripts only when download is clicked
-            if (!window.adsLoaded) {
-                const script1 = document.createElement('script');
-                script1.setAttribute('data-cfasync', 'false');
-                script1.src = '//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188';
-                document.head.appendChild(script1);
+            } else {
+                // Check if div was hidden or removed
+                if (bait.offsetHeight === 0 || 
+                    bait.offsetLeft === 0 || 
+                    bait.offsetTop === 0 || 
+                    bait.offsetWidth === 0 || 
+                    bait.clientHeight === 0 || 
+                    bait.clientWidth === 0) {
+                    isBlocked = true;
+                }
                 
-                const script2 = document.createElement('script');
-                script2.setAttribute('data-cfasync', 'false');
-                script2.src = '//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1098733';
-                document.head.appendChild(script2);
-                
-                window.adsLoaded = true;
+                if (window.getComputedStyle(bait).display === 'none' ||
+                    window.getComputedStyle(bait).visibility === 'hidden' ||
+                    window.getComputedStyle(bait).opacity === '0') {
+                    isBlocked = true;
+                }
             }
             
-            // Add a small delay to allow ads to load
-            setTimeout(() => {
-                if (platform === 'modrinth') {
-                    window.open('#', '_blank');
-                } else if (platform === 'curseforge') {
-                    window.open('#', '_blank');
-                }
-            }, 1000);
+            if (isBlocked) detectionCount++;
+            
+            // Clean up
+            if (bait.parentNode) {
+                bait.parentNode.removeChild(bait);
+            }
+        });
+        
+        // Only show message if multiple bait elements were blocked (more reliable detection)
+        if (detectionCount >= 3) {
+            console.log('Ad blocker detected with confidence');
+            document.getElementById('adblock-message').style.display = 'block';
         }
+    }, 500); // Increased timeout for more reliable detection
+}
 
-        // Initialize ad block detection
-        detectAdBlock();
-    </script>
+// Function to dismiss adblock message
+function dismissAdblockMessage() {
+    const adblockMessage = document.getElementById('adblock-message');
+    adblockMessage.style.animation = 'fadeOut 0.4s ease-out forwards';
+    
+    // Add the fadeOut animation
+    if (!document.querySelector('style#fadeout-style')) {
+        const style = document.createElement('style');
+        style.id = 'fadeout-style';
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Hide after animation completes
+    setTimeout(() => {
+        adblockMessage.style.display = 'none';
+        
+        // Show the support reminder immediately after dismissing
+        document.getElementById('support-reminder').style.display = 'block';
+    }, 400);
+    
+    // Set localStorage to remember user's choice
+    localStorage.setItem('adblock_dismissed', 'true');
+    localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+}
+
+// Function to show support reminder
+function showSupportReminder() {
+    // Only show if user has dismissed adblock message
+    if (localStorage.getItem('adblock_dismissed') === 'true') {
+        // Initial display after a short delay
+        setTimeout(() => {
+            document.getElementById('support-reminder').style.display = 'block';
+        }, 3000); // Show after 3 seconds
+        
+        // Set up periodic reminders
+        setUpPeriodicReminders();
+    }
+}
+
+// Function to set up periodic reminders
+function setUpPeriodicReminders() {
+    // Check if we should show periodic reminders
+    if (localStorage.getItem('reminder_last_shown')) {
+        const lastShown = parseInt(localStorage.getItem('reminder_last_shown'));
+        const now = new Date().getTime();
+        
+        // If it's been more than 30 seconds since last shown, show it again
+        if (now - lastShown > 30 * 1000) {
+            showReminderWithDelay();
+        }
+    } else {
+        // First time, just record when it was shown
+        localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+    }
+    
+    // Also show reminder when user scrolls to bottom of page
+    window.addEventListener('scroll', handleScroll);
+    
+    // Add event listener for mouse movement to occasionally show reminder
+    window.addEventListener('mousemove', handleMouseMove);
+}
+
+// Variable to track last mouse movement check
+let lastMouseCheck = 0;
+let mouseCheckInterval = 10000; // 10 seconds between checks
+
+// Function to handle mouse movement
+function handleMouseMove(e) {
+    const now = new Date().getTime();
+    
+    // Only check occasionally to avoid performance issues
+    if (now - lastMouseCheck < mouseCheckInterval) return;
+    
+    lastMouseCheck = now;
+    
+    // 20% chance to show reminder on mouse movement check
+    if (Math.random() < 0.20 && document.getElementById('support-reminder').style.display !== 'block') {
+        document.getElementById('support-reminder').style.display = 'block';
+        localStorage.setItem('reminder_last_shown', now.toString());
+    }
+}
+
+// Function to handle scroll
+function handleScroll() {
+    // Check if user has scrolled to the bottom of the page
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
+        if (document.getElementById('support-reminder').style.display !== 'block') {
+            document.getElementById('support-reminder').style.display = 'block';
+            localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+        }
+    }
+}
+
+// Function to show reminder with a delay
+function showReminderWithDelay() {
+    setTimeout(() => {
+        document.getElementById('support-reminder').style.display = 'block';
+        localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+    }, 2000); // Show after 2 seconds
+}
+
+// Function to dismiss support reminder temporarily
+function dismissSupportReminder() {
+    document.getElementById('support-reminder').style.display = 'none';
+    // Just dismiss for now, will show again later
+    localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+}
+
+// Function to re-enable ads
+function reEnableAds() {
+    localStorage.removeItem('adblock_dismissed');
+    localStorage.removeItem('reminder_last_shown');
+    location.reload();
+}
+    
+    // Modal functionality
+    function openModal() {
+        document.getElementById("myModal").style.display = "block";
+        document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
+    }
+    
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+        document.body.style.overflow = "auto"; // Re-enable scrolling
+    }
+    
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex-1].style.display = "block";
+    }
+    
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+    
+    // Add keyboard navigation for modal
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById("myModal").style.display === "block") {
+            if (e.key === "ArrowLeft") {
+                plusSlides(-1);
+            } else if (e.key === "ArrowRight") {
+                plusSlides(1);
+            } else if (e.key === "Escape") {
+                closeModal();
+            }
+        }
+    });
+</script>
 </body>
 </html>
