@@ -16,8 +16,6 @@
 
       gtag('config', 'G-9H483ZYFD5');
     </script>
-    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script>
-    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1098733"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 /* Adblock message styles */
@@ -489,27 +487,27 @@
                     </div>
                     
                     <div class="download-section">
-                        <div class="download-header">
-                            <h3 class="download-title">Download Now</h3>
-                            <span class="download-subtitle">Choose your preferred platform</span>
-                        </div>
-                        <div class="download-buttons">
-                            <a href="https://www.curseforge.com/minecraft/texture-packs/the-apothecary-diaries-custom-gui-pack" class="download-btn curseforge" target="_blank">
-                                <img src="curseforge-svgrepo-com.png" alt="CurseForge" class="button-icon">
-                                <div class="download-btn-text">
-                                    <span class="btn-label">Download from</span>
-                                    <span class="btn-site">CurseForge</span>
-                                </div>
-                            </a>
-                            <a href="https://modrinth.com/resourcepack/the-apothecary-diaries-custom-gui-pack/versions" class="download-btn modrinth" target="_blank">
-                                <img src="modrinth.png" alt="Modrinth" class="button-icon">
-                                <div class="download-btn-text">
-                                    <span class="btn-label">Download from</span>
-                                    <span class="btn-site">Modrinth</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+    <div class="download-header">
+        <h3 class="download-title">Download Now</h3>
+        <span class="download-subtitle">Choose your preferred platform</span>
+    </div>
+    <div class="download-buttons">
+        <a href="https://www.curseforge.com/minecraft/texture-packs/the-apothecary-diaries-custom-gui-pack/files/all" class="download-btn curseforge" target="_blank" onclick="loadAdScripts()">
+            <img src="curseforge-svgrepo-com.png" alt="CurseForge" class="button-icon">
+            <div class="download-btn-text">
+                <span class="btn-label">Download from</span>
+                <span class="btn-site">CurseForge</span>
+            </div>
+        </a>
+        <a href="https://modrinth.com/resourcepack/the-apothecary-diaries-custom-gui-pack/versions" class="download-btn modrinth" target="_blank" onclick="loadAdScripts()">
+            <img src="modrinth.png" alt="Modrinth" class="button-icon">
+            <div class="download-btn-text">
+                <span class="btn-label">Download from</span>
+                <span class="btn-site">Modrinth</span>
+            </div>
+        </a>
+    </div>
+</div>
                     
                     <div class="pack-compatibility-block">
                         <div class="compatibility-header">
@@ -674,6 +672,10 @@
             </div>
             <div class="mySlides">
                 <img src="https://i.imgur.com/BaKWbeG.png" style="width:100%">
+                <div id="caption">Furnace</div>
+            </div>
+            <div class="mySlides">
+                <img src="https://i.imgur.com/gLpkscc.png" style="width:100%">
                 <div id="caption">Furnace</div>
             </div>
             <div class="mySlides">
@@ -1057,6 +1059,26 @@ function reEnableAds() {
             }
         }
     });
+
+// Function to load ad scripts only when download buttons are clicked
+let adScriptsLoaded = false;
+function loadAdScripts() {
+    if (!adScriptsLoaded) {
+        // Load first ad script
+        const script1 = document.createElement('script');
+        script1.setAttribute('data-cfasync', 'false');
+        script1.src = '//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188';
+        document.head.appendChild(script1);
+        
+        // Load second ad script
+        const script2 = document.createElement('script');
+        script2.setAttribute('data-cfasync', 'false');
+        script2.src = '//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1098733';
+        document.head.appendChild(script2);
+        
+        adScriptsLoaded = true;
+    }
+}
 </script>
 </body>
 </html>
