@@ -2021,19 +2021,25 @@ document.addEventListener("DOMContentLoaded", function() {
 function filterPacks() {
   const versionValue = versionFilter.value;
   const themeValue = themeFilter.value;
+  const scaleValue = scaleFilter.value;
+
   
   packCards.forEach(card => {
     const versions = card.getAttribute('data-version').split(' ');
     const theme = card.getAttribute('data-theme');
+    const scale = card.getAttribute('data-scale') || 'none';
     
     const versionMatch = versionValue === 'all' || versions.includes(versionValue);
     const themeMatch = themeValue === 'all' || theme === themeValue;
+    const scaleMatch = scaleValue === 'all' || scale === scaleValue;
+
     
-    if (versionMatch && themeMatch) {
+    if (versionMatch && themeMatch && scaleMatch) {
       card.removeAttribute('data-hidden');
     } else {
       card.setAttribute('data-hidden', 'true');
     }
+
   });
   
   // Update visible pack count
@@ -2196,6 +2202,14 @@ function filterPacks() {
       filterPacks();
     });
   }
+
+  if (scaleFilter) {
+  scaleFilter.addEventListener('change', function() {
+    window.isFiltering = true;
+    filterPacks();
+  });
+}
+
   
   // Sort select
   if (sortSelect) {
