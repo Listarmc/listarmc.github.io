@@ -1911,6 +1911,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const nextPageBtn = document.getElementById('next-page');
   const versionFilter = document.getElementById('version-filter');
   const themeFilter = document.getElementById('theme-filter');
+  const scaleFilter = document.getElementById('scale-filter');
   const sortSelect = document.getElementById('sort-select');
   const categoryTabs = document.querySelectorAll('.category-tab');
   const viewButtons = document.querySelectorAll('.view-btn');
@@ -2021,7 +2022,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function filterPacks() {
   const versionValue = versionFilter.value;
   const themeValue = themeFilter.value;
-  const scaleValue = scaleFilter.value;
+  const scaleValue = scaleFilter ? scaleFilter.value : 'all';
+
 
   
   packCards.forEach(card => {
