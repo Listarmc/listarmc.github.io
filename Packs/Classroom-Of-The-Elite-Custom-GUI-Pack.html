@@ -1,118 +1,285 @@
-<div class="thumbnails-grid">
-                            <div class="thumbnail-item" onclick="openModal();currentSlide(1)">
-                                <img src="https://i.imgur.com/TzfIm0d.jpeg" alt="Preview">
-                            </div>
-                            <div class="thumbnail-item" onclick="openModal();currentSlide(2)">
-                                <img src="https://i.imgur.com/LhrjHG4.png" alt="Settings">
-                            </div>
-                            <div class="thumbnail-item" onclick="openModal();currentSlide(3)">
-                                <img src="https://i.imgur.com/xZDBypK.png" alt="HUD">
-                            </div>
-                            <div class="thumbnail-item" onclick="openModal();currentSlide(4)">
-                                <img src="https://i.imgur.com/9vHmDoL.png" alt="Creative Menu">
-                            </div>
-                        </div>
-                        <button class="view-all-btn" onclick="openModal();currentSlide(1)">
-                            <i class="fa fa-search-plus"></i> View All Screenshots
-                        </button>
-                    </div>
-                    
-                    <!-- Features section moved here -->
-                    <div class="pack-features-block">
-                        <div class="features-header">
-                            <div class="features-icon">
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <h3 class="pack-subtitle">Features</h3>
-                        </div>
-                        <ul class="features-list">
-                            <li><i class="fa fa-check-circle"></i> GUI-only resource pack</li>
-                            <li><i class="fa fa-check-circle"></i> Dark purple, pink, and light blue color palette</li>
-                            <li><i class="fa fa-check-circle"></i> Scaled containers for unique visuals</li>
-                            <li><i class="fa fa-check-circle"></i> Customized hotbar and container images</li>
-                            <li><i class="fa fa-check-circle"></i> All container GUIs styled</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="pack-detail-content">
-                    <div class="pack-description-block">
-                        <div class="description-header">
-                            <div class="description-icon">
-                                <i class="fa fa-moon-o"></i>
-                            </div>
-                            <h3 class="pack-subtitle">Description</h3>
-                        </div>
-                        <div class="description-content">
-                            <div class="description-banner">
-                                <span class="anime-title">Call of the Night</span>
-                                <span class="pack-type">GUI-Only Resource Pack</span>
-                            </div>
-                            
-                            <p>This is a <strong>GUI-only resource pack</strong>, so you can freely use it with other resource packs — just place it <strong>on top</strong> of the resource pack you already use. This pack is themed after <em>"Call of the Night"</em> and features a <strong>dark purple, pink, and light blue</strong> color palette. I've customized the hot bar and added unique images to each container to better match the series' aesthetic. Like some of my newer packs, this one includes <strong>scaled containers</strong>, which required significant re-adjustments after resizing. This makes the pack visually distinct from my older releases.</p>
-                            
-                            <p>If you'd like to see alternative color schemes in the future — such as <strong>white & red</strong> or any other combinations — feel free to suggest them, and I'll consider it. If you find any bugs, please report them so I can fix them as soon as possible.</p>
-                            
-                            <div class="description-highlights">
-                                <div class="highlight-item">
-                                    <div class="highlight-icon">
-                                        <i class="fa fa-paint-brush"></i>
-                                    </div>
-                                    <div class="highlight-text">
-                                        <h4>Beautiful Design</h4>
-                                        <p>Dark purple, pink, and light blue color palette inspired by the anime's supernatural aesthetic</p>
-                                    </div>
-                                </div>
-                                <div class="highlight-item">
-                                    <div class="highlight-icon">
-                                        <i class="fa fa-cog"></i>
-                                    </div>
-                                    <div class="highlight-text">
-                                        <h4>Scaled Containers</h4>
-                                        <p>Unique resized containers for a visually distinct experience</p>
-                                    </div>
-                                </div>
-                                <div class="highlight-item">
-                                    <div class="highlight-icon">
-                                        <i class="fa fa-check-circle"></i>
-                                    </div>
-                                    <div class="highlight-text">
-                                        <h4>GUI-Only Pack</h4>
-                                        <p>Compatible with any resource pack - just layer it on top</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="download-section">
-                        <div class="download-header">
-                            <h3 class="download-title">Download Now</h3>
-                            <span class="download-subtitle">Choose your preferred platform</span>
-                        </div>
-                        <div class="download-buttons">
-                            <a href="https://modrinth.com/resourcepack/call-of-the-night-custom-gui-pack" class="download-btn modrinth" target="_blank">
-                                <img src="modrinth.png" alt="Modrinth" class="button-icon">
-                                <div class="download-btn-text">
-                                    <span class="btn-label">Download from</span>
-                                    <span class="btn-site">Modrinth</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="pack-compatibility-block">
-                        <div class="compatibility-header">
-                            <div class="compatibility-icon">
-                                <i class="fa fa-puzzle-piece"></i>
-                            </div>
-                            <h3 class="pack-subtitle">Compatibility</h3>
-                        </div>
-                        <div class="compatibility-badges">
-                            <span class="compatibility-badge">Minecraft Java Edition 1.21.1</span>
-                        </div>
-                    </div>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9H483ZYFD5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9H483ZYFD5');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom of the Elite Custom Minecraft GUI Pack - Download & Features</title>
+    <meta name="description" content="Download the Classroom of the Elite Custom Minecraft GUI Pack. Immerse yourself in a GUI inspired by the Classroom of the Elite anime, featuring a red and pink color palette. Perfect for Minecraft players who love anime.">
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/gif" href="fav.gif">
+    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script>
+    <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1098733"></script>
+    <script src="external-script.js" defer></script>
+
+    <style>
+        .btn {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .btn:hover {
+            background-color: RoyalBlue;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .navbar a.active {
+            background-color: #8A2BE2;
+            color: white;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        @media screen and (max-width: 600px) {
+            .navbar a:not(:first-child) {display: none;}
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .navbar.responsive {position: relative;}
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .navbar.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar" id="myNavbar">
+            <a href="https://listar-mc.net/index.html" class="active">Home</a>
+            <a href="https://listar-mc.net/index.html#packs">Texture Packs</a>
+            <a href="#photos">Features</a>
+            <a href="#information">Information</a>
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Modal Structure -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg" alt="Expanded GUI Image">
+        <div id="caption"></div>
+        <button class="download" id="downloadBtn">Download</button>
+        <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+        <button class="next" onclick="changeImage(1)">&#10095;</button>
+    </div>
+
+    <section id="pack-details">
+        <h2>Classroom of the Elite Custom Minecraft GUI Pack</h2>
+        <img src="https://i.imgur.com/QC0Wdc4.png" alt="Classroom of the Elite Custom Minecraft GUI Pack Cover" class="pack-cover">
+    </section> 
+
+    <section>
+        <h2>Introduction to Classroom of the Elite GUI Pack</h2>
+        <p>The <strong>Classroom of the Elite Custom Minecraft GUI Pack</strong> transforms your Minecraft interface with a theme inspired by the popular anime "Classroom of the Elite." This pack features a refined red and pink color scheme that enhances the gaming experience. The hot bar and various menu interfaces have been carefully redesigned. We welcome feedback on color choices, so if you have suggestions for other themes, please share them. Report any bugs, and we’ll resolve them swiftly.</p>
+    </section>
+
+    <section>
+        <h2>Join Our Community</h2>
+        <p>Become a part of our growing community by joining our Discord server! Here, you can suggest and vote on new GUI pack ideas, engage in anime discussions, and participate in monthly Discord Nitro giveaways. Connect with other Minecraft and anime enthusiasts and share your love for <em>Classroom of the Elite</em>. <a href="https://discord.gg/RvScgzj3Ph" target="_blank">Join the Discord Server</a></p>
+    </section>
+    <section>
+        <h2>Key Features of the Classroom of the Elite GUI Pack</h2>
+        <div id="photos" class="features">
+            <div class="feature">
+                <h3>Custom HUD</h3>
+                <img src="https://i.imgur.com/c6GXaN5.png" alt="Classroom of the Elite Custom HUD in Minecraft">
+            </div>
+            <div class="feature">
+                <h3>Settings Menu</h3>
+                <img src="https://i.imgur.com/lRieyBm.png" alt="Classroom of the Elite Themed Settings Menu">
+            </div>
+            <div class="feature">
+                <h3>Creative Menu</h3>
+                <img src="https://i.imgur.com/oTHAd7j.png" alt="Classroom of the Elite Creative Mode Interface">
+            </div>
+            <div class="feature">
+                <h3>Crafting Table Interface</h3>
+                <img src="https://i.imgur.com/NNw4L7I.png" alt="Classroom of the Elite Crafting Table GUI">
+            </div>
+            <div class="feature">
+                <h3>Anvil Interface</h3>
+                <img src="https://i.imgur.com/WbpAb1l.png" alt="Classroom of the Elite Anvil GUI">
+            </div>
+            <div class="feature">
+                <h3>Furnace GUI</h3>
+                <img src="https://i.imgur.com/VF0p3ls.png" alt="Classroom of the Elite Furnace Interface">
+            </div>
+            <div class="feature">
+                <h3>Shulker Box Interface</h3>
+                <img src="https://i.imgur.com/hUnCTdO.png" alt="Classroom of the Elite Shulker Box GUI">
+            </div>
+            <div class="feature">
+                <h3>Loom Interface</h3>
+                <img src="https://i.imgur.com/rwIx4SL.png" alt="Classroom of the Elite Loom GUI">
+            </div>
+            <div class="feature">
+                <h3>Beacon Menu</h3>
+                <img src="https://i.imgur.com/fEdiwH5.png" alt="Classroom of the Elite Beacon Menu Interface">
+            </div>
+            <div class="feature">
+                <h3>Villager Trading Menu</h3>
+                <img src="https://i.imgur.com/pKAY6vH.png" alt="Classroom of the Elite Villager Trading Menu Interface">
             </div>
         </div>
+        <div style="width: 50%; margin: 0 auto; text-align: center;">
+            <p>Download the Classroom of the Elite GUI Pack</p>
+            <a href="https://www.curseforge.com/minecraft/texture-packs/classroom-of-the-elite-custom-gui-pack/files/all?page=1&pageSize=20" target="_blank">
+                <button class="btn download-btn orange">
+                    <img src="curseforge-svgrepo-com.png" alt="CurseForge Download Icon" class="button-icon"> Download via CurseForge
+                </button>
+            </a>
+            <a href="https://modrinth.com/resourcepack/classroom-of-the-elite-custom-gui-pack/version/2" target="_blank">
+                <button class="btn download-btn green">
+                    <img src="modrinth.png" alt="Modrinth Download Icon" class="button-icon"> Download via Modrinth
+                </button>
+            </a>
+        </div>
     </section>
+
+    <section id="information">
+        <h2>Support and Additional Resources</h2>
+        <div class="resources-grid" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <a href="https://www.buymeacoffee.com/listarMc" target="_blank">
+                <img src="coffe.png" class="coffee-img" alt="Support via Buy Me a Coffee">
+            </a>
+            <a href="https://www.planetminecraft.com/member/listar/" target="_blank">
+                <img src="PMC.webp" class="PMC-img" alt="Support on Planet Minecraft">
+            </a>
+            <a href="https://discord.gg/RvScgzj3Ph" target="_blank">
+                <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg" class="Dis-img" alt="Join our Discord Server">
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 ListarMC | <a href="../Privacy Policy.html">Privacy Policy</a></p>
+    </footer>
+    
+        <script>
+            // Responsive navbar script
+            function toggleNav() {
+                var x = document.getElementById("myNavbar");
+                if (x.className === "navbar") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "navbar";
+                }
+            }
+            
+            // Modal functionality
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("modalImg");
+            var captionText = document.getElementById("caption");
+            var downloadBtn = document.getElementById("downloadBtn");
+            var currentIndex = 0;
+            
+            function openModal(imgElement) {
+                modal.style.display = "block";
+                modalImg.src = imgElement.src;
+                captionText.innerHTML = imgElement.alt;
+                downloadBtn.href = imgElement.src;
+            }
+    
+            function changeImage(n) {
+                var images = document.querySelectorAll('.feature img');
+                currentIndex = (currentIndex + n + images.length) % images.length;
+                modalImg.src = images[currentIndex].src;
+                captionText.innerHTML = images[currentIndex].alt;
+                downloadBtn.href = images[currentIndex].src;
+            }
+    
+            document.querySelectorAll('.feature img').forEach((img) => {
+                img.onclick = () => openModal(img);
+            });
+    
+            document.querySelector('.modal .close').onclick = () => {
+                modal.style.display = "none";
+            };
+        </script>
+    
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Create a script element to load the ad script
+    var script = document.createElement('script');
+    script.src = "//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188";
+    script.async = true;
+
+    script.onload = function() {
+        // Script loaded successfully, do nothing
+    };
+
+    script.onerror = function() {
+        // Script failed to load, likely due to ad blocker
+        document.getElementById('adblock-message').style.display = 'block';
+    };
+
+    document.head.appendChild(script);
+});
+</script>
+
+<div id="adblock-message" style="display:none;">
+    <div class="adblock-container">
+        <h2>Ad Blocker Detected</h2>
+        <p>Please disable your ad blocker to access this website.</p>
+        <img src="https://i.imgur.com/zum1ScN.png" alt="Ad Block Warning" class="adblock-image">
+        <button onclick="location.reload();" class="refresh-button">Refresh Page</button>
+    </div>
+</div>
+</body>
+    </html>
+    
