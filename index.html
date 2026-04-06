@@ -266,6 +266,26 @@
                margin: 5px 0;
            }
        }
+
+
+       /* Elegant page-transition animation for pack cards */
+       .pack-card {
+           will-change: transform, opacity, filter;
+       }
+
+       @keyframes packPageFadeUp {
+           0% {
+               opacity: 0;
+               transform: translateY(24px) scale(0.985);
+               filter: blur(5px);
+           }
+           100% {
+               opacity: 1;
+               transform: translateY(0) scale(1);
+               filter: blur(0);
+           }
+       }
+
    </style>
 <!-- <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script> -->
 
@@ -1749,14 +1769,41 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // PAGINATION FUNCTIONS
+
+
+  function smoothScrollToPosition(targetY, duration = 850) {
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    const startTime = performance.now();
+
+    function easeInOutCubic(t) {
+      return t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function step(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeInOutCubic(progress);
+      window.scrollTo(0, startY + distance * eased);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
   
   // Show packs for the current page
   function showPage(page) {
     // Hide all packs first
     packCards.forEach(card => {
       card.style.display = 'none';
-      // Reset animation by removing and re-adding the class
       card.style.animation = 'none';
+      card.style.opacity = '0';
     });
     
     // Get visible packs (not filtered out)
@@ -1767,13 +1814,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Calculate start and end indices
     const start = (page - 1) * ITEMS_PER_PAGE;
     const end = Math.min(start + ITEMS_PER_PAGE, visiblePacks.length);
+    const currentPageCards = visiblePacks.slice(start, end);
     
-    // Show packs for current page with bubble pop-in animation
-    visiblePacks.slice(start, end).forEach((card, index) => {
+    // Show packs for current page with a slower staggered fade-up animation
+    currentPageCards.forEach((card, index) => {
       card.style.display = '';
-      // Trigger reflow to reset animation
       void card.offsetWidth;
-      card.style.animation = '';
+      card.style.animation = `packPageFadeUp 720ms cubic-bezier(0.22, 1, 0.36, 1) ${index * 90}ms both`;
     });
     
     // Update pagination buttons
@@ -1803,30 +1850,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Update current page
     currentPage = page;
     
-    // Smart scroll to center row of grid (middle row in 3x3 layout)
-    const texturePacksSection = document.getElementById('texture-packs');
-    if (texturePacksSection && !window.isFiltering) {
-      const rect = texturePacksSection.getBoundingClientRect();
-      const isGridVisible = rect.top >= 0 && rect.top < window.innerHeight;
-      
-      // Only scroll if user has scrolled far from the grid
-      if (!isGridVisible) {
-        // Get all visible pack cards on the page
-        const displayedCards = Array.from(packCards).filter(card => card.style.display !== 'none');
-        
-        // Get the middle card in 3x3 grid (5th card, index 4)
-        if (displayedCards.length >= 5) {
-          const centerCard = displayedCards[4];
-          if (centerCard) {
-            const cardRect = centerCard.getBoundingClientRect();
-            const scrollTarget = cardRect.top + window.scrollY - (window.innerHeight / 2.5);
-            window.scrollTo({
-              top: scrollTarget,
-              behavior: 'smooth'
-            });
-          }
-        }
-      }
+    // Scroll the first visible row into a natural eyeline position when paging
+    if (!window.isFiltering && currentPageCards.length > 0) {
+      const firstCard = currentPageCards[0];
+      const firstCardTop = firstCard.getBoundingClientRect().top + window.scrollY;
+      const eyeLineOffset = Math.max(72, Math.min(120, window.innerHeight * 0.12));
+      const scrollTarget = Math.max(0, firstCardTop - eyeLineOffset);
+      smoothScrollToPosition(scrollTarget, 850);
     }
   }
   
