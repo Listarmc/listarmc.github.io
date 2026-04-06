@@ -321,7 +321,7 @@
 <img alt="Listar MC Logo" class="hero-logo-img" src="logo.gif"/>
 </div>
 <h1 class="hero-title">Bring Your Favorite Anime to Minecraft with Custom GUI Packs</h1>
-<p class="hero-description">Discover a collection of premium custom GUI texture packs that bring your favorite anime aesthetics into Minecraft. Each pack is meticulously crafted to enhance your gameplay with stunning visuals inspired by popular anime series.</p>
+<p class="hero-description">Elevate your Minecraft experience with meticulously crafted anime-inspired GUI texture packs. From Naruto to Demon Slayer, explore 42+ unique packs that authentically capture each series' visual identity.</p>
 <div class="hero-cta">
 <a class="hero-btn primary-btn" href="#texture-packs">Browse Packs</a>
 <a class="hero-btn secondary-btn" href="#information">Learn More</a>
@@ -1741,17 +1741,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 100);
     }, 2000);
 });
+
 document.addEventListener("DOMContentLoaded", function() {
-  // Constants
-  const ITEMS_PER_PAGE = 9; // 3x3 grid layout
+  const ITEMS_PER_PAGE = 9;
   let currentPage = 1;
-  
-  // DOM Elements
-  const packCards = document.querySelectorAll('.pack-card');
+
+  const packsContainer = document.getElementById('packs-container');
   const packCount = document.getElementById('pack-count');
   const searchInput = document.getElementById('search-input');
   const searchClear = document.getElementById('search-clear');
-  const pageNumbers = document.querySelectorAll('.page-number');
   const prevPageBtn = document.getElementById('prev-page');
   const nextPageBtn = document.getElementById('next-page');
   const versionFilter = document.getElementById('version-filter');
@@ -1762,14 +1760,117 @@ document.addEventListener("DOMContentLoaded", function() {
   const viewButtons = document.querySelectorAll('.view-btn');
   const jumpPageInput = document.getElementById('jump-page-input');
   const paginationJumpContainer = document.getElementById('pagination-jump');
-  
-  // Initialize pack count
-  if (packCount) {
-    packCount.textContent = packCards.length;
-  }
-  
-  // PAGINATION FUNCTIONS
 
+  const state = {
+    search: '',
+    version: versionFilter ? versionFilter.value : 'all',
+    theme: themeFilter ? themeFilter.value.toLowerCase() : 'all',
+    scale: scaleFilter ? scaleFilter.value : 'all',
+    category: document.querySelector('.category-tab.active')?.getAttribute('data-category') || 'all',
+    sort: sortSelect ? sortSelect.value : 'newest'
+  };
+
+  function getAllCards() {
+    return Array.from(packsContainer.querySelectorAll('.pack-card'));
+  }
+
+  function normaliseText(value) {
+    return (value || '').toString().trim().toLowerCase();
+  }
+
+  function parseCardDate(card) {
+    const raw = card.getAttribute('data-date') || '2000-01-01';
+    const date = new Date(raw);
+    return Number.isNaN(date.getTime()) ? new Date('2000-01-01') : date;
+  }
+
+  function getCardDownloads(card) {
+    const raw = parseInt(card.getAttribute('data-downloads') || '0', 10);
+    return Number.isNaN(raw) ? 0 : raw;
+  }
+
+  function getRibbonText(card) {
+    return normaliseText(card.querySelector('.pack-ribbon')?.textContent || '');
+  }
+
+  function getTagTexts(card) {
+    return Array.from(card.querySelectorAll('.pack-tag')).map(tag => normaliseText(tag.textContent));
+  }
+
+  function getPopularCardSet() {
+    const ranked = getAllCards()
+      .slice()
+      .sort((a, b) => getCardDownloads(b) - getCardDownloads(a));
+
+    const cardsWithDownloads = ranked.filter(card => getCardDownloads(card) > 0);
+    const source = cardsWithDownloads.length ? cardsWithDownloads : ranked;
+    return new Set(source.slice(0, Math.min(12, source.length)));
+  }
+
+  function matchesCategory(card, popularCards) {
+    const category = state.category;
+    if (category === 'all') return true;
+
+    const ribbonText = getRibbonText(card);
+    const cardDate = parseCardDate(card);
+    const recentCutoff = new Date();
+    recentCutoff.setMonth(recentCutoff.getMonth() - 12);
+
+    if (category === 'new') {
+      return ribbonText.includes('new');
+    }
+
+    if (category === 'popular') {
+      return popularCards.has(card);
+    }
+
+    if (category === 'updated') {
+      return ribbonText.includes('updated') || cardDate >= recentCutoff;
+    }
+
+    return true;
+  }
+
+  function matchesCard(card, popularCards) {
+    const query = state.search;
+    const title = normaliseText(card.querySelector('.pack-title')?.textContent || '');
+    const description = normaliseText(card.querySelector('.pack-description')?.textContent || '');
+    const tags = getTagTexts(card);
+    const theme = normaliseText(card.getAttribute('data-theme'));
+    const scale = card.getAttribute('data-scale') || '256x256';
+    const versions = (card.getAttribute('data-version') || '').split(/\s+/).filter(Boolean);
+
+    const matchesSearch =
+      !query ||
+      title.includes(query) ||
+      description.includes(query) ||
+      tags.some(tag => tag.includes(query));
+
+    const matchesVersion = state.version === 'all' || versions.includes(state.version);
+    const matchesTheme = state.theme === 'all' || theme === state.theme;
+    const matchesScale = state.scale === 'all' || scale === state.scale;
+    const matchesSelectedCategory = matchesCategory(card, popularCards);
+
+    return matchesSearch && matchesVersion && matchesTheme && matchesScale && matchesSelectedCategory;
+  }
+
+  function compareCards(a, b) {
+    if (state.sort === 'newest') {
+      return parseCardDate(b) - parseCardDate(a);
+    }
+    if (state.sort === 'oldest') {
+      return parseCardDate(a) - parseCardDate(b);
+    }
+    if (state.sort === 'az') {
+      return (a.querySelector('.pack-title')?.textContent || '').trim()
+        .localeCompare((b.querySelector('.pack-title')?.textContent || '').trim());
+    }
+    if (state.sort === 'za') {
+      return (b.querySelector('.pack-title')?.textContent || '').trim()
+        .localeCompare((a.querySelector('.pack-title')?.textContent || '').trim());
+    }
+    return 0;
+  }
 
   function smoothScrollToPosition(targetY, duration = 850) {
     const startY = window.scrollY;
@@ -1796,62 +1897,81 @@ document.addEventListener("DOMContentLoaded", function() {
     requestAnimationFrame(step);
   }
 
-  
-  // Show packs for the current page
-  function showPage(page) {
-    // Hide all packs first
-    packCards.forEach(card => {
+  function getFilteredAndSortedCards() {
+    const popularCards = getPopularCardSet();
+    return getAllCards()
+      .filter(card => matchesCard(card, popularCards))
+      .sort(compareCards);
+  }
+
+  function renderSortedOrder(sortedCards) {
+    const cardSet = new Set(sortedCards);
+    const hiddenCards = getAllCards().filter(card => !cardSet.has(card)).sort(compareCards);
+    [...sortedCards, ...hiddenCards].forEach(card => packsContainer.appendChild(card));
+  }
+
+  function updatePaginationControls(totalVisible, page) {
+    const totalPages = Math.max(1, Math.ceil(totalVisible / ITEMS_PER_PAGE));
+    const pageNumbers = document.querySelectorAll('.page-number');
+
+    if (prevPageBtn) prevPageBtn.disabled = page === 1;
+    if (nextPageBtn) nextPageBtn.disabled = page >= totalPages;
+
+    pageNumbers.forEach((btn, index) => {
+      const pageNumber = index + 1;
+      btn.setAttribute('data-page', String(pageNumber));
+      btn.textContent = String(pageNumber);
+      btn.classList.toggle('active', pageNumber === page);
+      btn.style.display = pageNumber <= totalPages ? '' : 'none';
+    });
+
+    if (paginationJumpContainer) {
+      paginationJumpContainer.style.display = totalPages > pageNumbers.length ? 'block' : 'none';
+    }
+
+    if (jumpPageInput) {
+      jumpPageInput.max = String(totalPages);
+      jumpPageInput.placeholder = `Go to page (1-${totalPages})`;
+    }
+  }
+
+  function updateVisiblePackCount(totalVisible) {
+    if (packCount) {
+      packCount.textContent = totalVisible;
+    }
+  }
+
+  function showPage(page, options = {}) {
+    const { scroll = true } = options;
+    const visibleCards = getFilteredAndSortedCards();
+
+    renderSortedOrder(visibleCards);
+    updateVisiblePackCount(visibleCards.length);
+
+    const totalPages = Math.max(1, Math.ceil(visibleCards.length / ITEMS_PER_PAGE));
+    const safePage = Math.min(Math.max(1, page), totalPages);
+    currentPage = safePage;
+
+    const start = (safePage - 1) * ITEMS_PER_PAGE;
+    const end = Math.min(start + ITEMS_PER_PAGE, visibleCards.length);
+    const currentPageCards = visibleCards.slice(start, end);
+
+    getAllCards().forEach(card => {
       card.style.display = 'none';
       card.style.animation = 'none';
       card.style.opacity = '0';
+      card.style.transform = 'translateY(18px)';
     });
-    
-    // Get visible packs (not filtered out)
-    const visiblePacks = Array.from(packCards).filter(card => {
-      return !card.hasAttribute('data-hidden');
-    });
-    
-    // Calculate start and end indices
-    const start = (page - 1) * ITEMS_PER_PAGE;
-    const end = Math.min(start + ITEMS_PER_PAGE, visiblePacks.length);
-    const currentPageCards = visiblePacks.slice(start, end);
-    
-    // Show packs for current page with a slower staggered fade-up animation
+
     currentPageCards.forEach((card, index) => {
       card.style.display = '';
       void card.offsetWidth;
       card.style.animation = `packPageFadeUp 720ms cubic-bezier(0.22, 1, 0.36, 1) ${index * 90}ms both`;
     });
-    
-    // Update pagination buttons
-    if (prevPageBtn) prevPageBtn.disabled = page === 1;
-    if (nextPageBtn) nextPageBtn.disabled = page >= Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-    
-    // Update active page number
-    pageNumbers.forEach(btn => {
-      const btnPage = parseInt(btn.getAttribute('data-page'));
-      btn.classList.toggle('active', btnPage === page);
-      
-      // Hide page numbers that exceed the total number of pages
-      const totalPages = Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-      btn.style.display = btnPage <= totalPages ? '' : 'none';
-    });
-    
-    // Show/hide jump-to-page input based on total pages
-    const totalPages = Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-    if (paginationJumpContainer) {
-      paginationJumpContainer.style.display = totalPages > 10 ? 'block' : 'none';
-      if (jumpPageInput) {
-        jumpPageInput.max = totalPages;
-        jumpPageInput.placeholder = `Go to page (1-${totalPages})`;
-      }
-    }
-    
-    // Update current page
-    currentPage = page;
-    
-    // Scroll the first visible row into a natural eyeline position when paging
-    if (!window.isFiltering && currentPageCards.length > 0) {
+
+    updatePaginationControls(visibleCards.length, safePage);
+
+    if (scroll && currentPageCards.length > 0) {
       const firstCard = currentPageCards[0];
       const firstCardTop = firstCard.getBoundingClientRect().top + window.scrollY;
       const eyeLineOffset = Math.max(72, Math.min(120, window.innerHeight * 0.12));
@@ -1859,384 +1979,172 @@ document.addEventListener("DOMContentLoaded", function() {
       smoothScrollToPosition(scrollTarget, 850);
     }
   }
-  
-  // SEARCH FUNCTIONS
-  
-  // Filter packs based on search query
-  function searchPacks(query) {
-    query = query.toLowerCase().trim();
-    
-    packCards.forEach(card => {
-      const title = card.querySelector('.pack-title').textContent.toLowerCase();
-      const description = card.querySelector('.pack-description').textContent.toLowerCase();
-      const tags = Array.from(card.querySelectorAll('.pack-tag')).map(tag => tag.textContent.toLowerCase());
-      
-      const matchesTitle = title.includes(query);
-      const matchesDescription = description.includes(query);
-      const matchesTags = tags.some(tag => tag.includes(query));
-      
-      if (matchesTitle || matchesDescription || matchesTags || query === '') {
-        card.removeAttribute('data-hidden');
-      } else {
-        card.setAttribute('data-hidden', 'true');
-      }
-    });
-    
-    // Update visible pack count
-    updateVisiblePackCount();
-    
-    // Reset to page 1
-    showPage(1);
+
+  function applyState(options = {}) {
+    const { scroll = false, page = 1 } = options;
+    showPage(page, { scroll });
   }
-  
-  // Clear search
+
   function clearSearch() {
-    if (searchInput) {
-      searchInput.value = '';
+    if (!searchInput) return;
+    searchInput.value = '';
+    state.search = '';
+    if (searchClear) {
       searchClear.classList.remove('visible');
-      
-      // Reset all pack cards to visible
-      packCards.forEach(card => {
-        card.removeAttribute('data-hidden');
-      });
-      
-      // Update visible pack count
-      updateVisiblePackCount();
-      
-      // Reset to page 1
-      showPage(1);
     }
+    applyState({ scroll: false, page: 1 });
   }
-  
-  // FILTER FUNCTIONS
-  
-  // Filter packs based on selected filters
-function filterPacks() {
-  const versionValue = versionFilter ? versionFilter.value : 'all';
-  const themeValue = themeFilter ? themeFilter.value : 'all';
-  const scaleValue = scaleFilter ? scaleFilter.value : 'all';
-  
-  packCards.forEach(card => {
-    const versions = (card.getAttribute('data-version') || '').split(' ');
-    const theme = (card.getAttribute('data-theme') || '').toLowerCase();
-    const scale = card.getAttribute('data-scale') || '256x256';
-    
-    const versionMatch = versionValue === 'all' || versions.includes(versionValue);
-    const themeMatch = themeValue === 'all' || theme === themeValue;
-    const scaleMatch = scaleValue === 'all' || scale === scaleValue;
-    
-    if (versionMatch && themeMatch && scaleMatch) {
-      card.removeAttribute('data-hidden');
-    } else {
-      card.setAttribute('data-hidden', 'true');
-    }
-  });
-  
-  // Update visible pack count
-  updateVisiblePackCount();
-  
-  // Reset to page 1
-  showPage(1);
-}
-  
-  // Filter by category
-  function filterByCategory(category) {
-    packCards.forEach(card => {
-      if (category === 'all') {
-        card.removeAttribute('data-hidden');
-      } else if (category === 'new') {
-        // Show only packs with the 'New' ribbon
-        if (card.querySelector('.pack-ribbon')) {
-          card.removeAttribute('data-hidden');
-        } else {
-          card.setAttribute('data-hidden', 'true');
-        }
-      } else if (category === 'popular') {
-        // Show packs with 4+ stars
-        const stars = card.querySelectorAll('.fa-star:not(.fa-star-o):not(.fa-star-half-o)').length;
-        if (stars >= 4) {
-          card.removeAttribute('data-hidden');
-        } else {
-          card.setAttribute('data-hidden', 'true');
-        }
-      } else if (category === 'updated') {
-        // Show only recently updated packs
-        const date = new Date(card.getAttribute('data-date') || '2000-01-01');
-        const threeMonthsAgo = new Date();
-        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-        
-        if (date > threeMonthsAgo) {
-          card.removeAttribute('data-hidden');
-        } else {
-          card.setAttribute('data-hidden', 'true');
-        }
-      }
-    });
-    
-    // Update visible pack count
-    updateVisiblePackCount();
-    
-    // Reset to page 1
-    showPage(1);
-  }
-  
-  // Sort packs
-  function sortPacks(sortBy) {
-    const packsContainer = document.getElementById('packs-container');
-    const packCards = Array.from(packsContainer.querySelectorAll('.pack-card'));
-    
-    packCards.sort((a, b) => {
-      if (sortBy === 'newest') {
-        const dateA = new Date(a.getAttribute('data-date') || '2000-01-01');
-        const dateB = new Date(b.getAttribute('data-date') || '2000-01-01');
-        return dateB - dateA;
-      } else if (sortBy === 'oldest') {
-        const dateA = new Date(a.getAttribute('data-date') || '2000-01-01');
-        const dateB = new Date(b.getAttribute('data-date') || '2000-01-01');
-        return dateA - dateB;
-      } else if (sortBy === 'az') {
-        const titleA = a.querySelector('.pack-title').textContent.trim();
-        const titleB = b.querySelector('.pack-title').textContent.trim();
-        return titleA.localeCompare(titleB);
-      } else if (sortBy === 'za') {
-        const titleA = a.querySelector('.pack-title').textContent.trim();
-        const titleB = b.querySelector('.pack-title').textContent.trim();
-        return titleB.localeCompare(titleA);
-      }
-      return 0;
-    });
-    
-    // Remove all pack cards
-    packCards.forEach(card => card.remove());
-    
-    // Add sorted pack cards back to container
-    packCards.forEach(card => packsContainer.appendChild(card));
-    
-    // Reset to page 1
-    showPage(1);
-  }
-  
-  // UTILITY FUNCTIONS
-  
-  // Update visible pack count
-  function updateVisiblePackCount() {
-    const visiblePacks = Array.from(packCards).filter(card => !card.hasAttribute('data-hidden')).length;
-    
-    if (packCount) {
-      packCount.textContent = visiblePacks;
-    }
-  }
-  
-  // EVENT LISTENERS
-  
-  // Search input
+
   if (searchInput) {
     searchInput.addEventListener('input', function() {
-      const query = this.value;
-      
-      // Show clear button if there's text
+      state.search = normaliseText(this.value);
       if (searchClear) {
-        searchClear.classList.toggle('visible', query.length > 0);
+        searchClear.classList.toggle('visible', this.value.length > 0);
       }
-      
-      // Filter packs based on search query
-      searchPacks(query);
+      applyState({ scroll: false, page: 1 });
     });
   }
-  
-  // Search clear button
+
   if (searchClear) {
     searchClear.addEventListener('click', clearSearch);
   }
-  
-  // Page number buttons
-  pageNumbers.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const page = parseInt(this.getAttribute('data-page'));
-      window.isFiltering = false;
-      showPage(page);
-    });
-  });
-  
-  // Previous page button
-  if (prevPageBtn) {
-    prevPageBtn.addEventListener('click', function() {
-      if (currentPage > 1) {
-        window.isFiltering = false;
-        showPage(currentPage - 1);
-      }
-    });
-  }
-  
-  // Next page button
-  if (nextPageBtn) {
-    nextPageBtn.addEventListener('click', function() {
-      const visiblePacks = Array.from(packCards).filter(card => !card.hasAttribute('data-hidden'));
-      const totalPages = Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-      
-      if (currentPage < totalPages) {
-        window.isFiltering = false;
-        showPage(currentPage + 1);
-      }
-    });
-  }
-  
-  // Keyboard navigation for pagination
-  document.addEventListener('keydown', function(event) {
-    const visiblePacks = Array.from(packCards).filter(card => !card.hasAttribute('data-hidden'));
-    const totalPages = Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-    
-    // Arrow keys for navigation
-    if (event.key === 'ArrowRight' && currentPage < totalPages) {
-      window.isFiltering = false;
-      showPage(currentPage + 1);
-      event.preventDefault();
-    } else if (event.key === 'ArrowLeft' && currentPage > 1) {
-      window.isFiltering = false;
-      showPage(currentPage - 1);
-      event.preventDefault();
-    }
-    // Home key to go to first page
-    else if (event.key === 'Home' && currentPage !== 1) {
-      window.isFiltering = false;
-      showPage(1);
-      event.preventDefault();
-    }
-    // End key to go to last page
-    else if (event.key === 'End' && currentPage !== totalPages) {
-      window.isFiltering = false;
-      showPage(totalPages);
-      event.preventDefault();
-    }
-  });
-  
-  // Jump-to-page input functionality
-  if (jumpPageInput) {
-    jumpPageInput.addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') {
-        const visiblePacks = Array.from(packCards).filter(card => !card.hasAttribute('data-hidden'));
-        const totalPages = Math.ceil(visiblePacks.length / ITEMS_PER_PAGE);
-        const pageNum = parseInt(this.value);
-        
-        if (pageNum >= 1 && pageNum <= totalPages) {
-          window.isFiltering = false;
-          showPage(pageNum);
-          this.value = '';
-          this.blur();
-        } else {
-          this.style.borderColor = 'rgba(255, 0, 0, 0.5)';
-          setTimeout(() => {
-            this.style.borderColor = '';
-          }, 1000);
-        }
-      }
-    });
-  }
-  
-  // Version filter
+
   if (versionFilter) {
     versionFilter.addEventListener('change', function() {
-      window.isFiltering = true;
-      filterPacks();
+      state.version = this.value;
+      applyState({ scroll: false, page: 1 });
     });
   }
-  
-  // Theme filter
+
   if (themeFilter) {
     themeFilter.addEventListener('change', function() {
-      window.isFiltering = true;
-      filterPacks();
+      state.theme = normaliseText(this.value);
+      applyState({ scroll: false, page: 1 });
     });
   }
-  
+
   if (scaleFilter) {
     scaleFilter.addEventListener('change', function() {
-      window.isFiltering = true;
-      filterPacks();
+      state.scale = this.value;
+      applyState({ scroll: false, page: 1 });
     });
   }
-  
-  // Sort select
+
   if (sortSelect) {
     sortSelect.addEventListener('change', function() {
-      window.isFiltering = true;
-      sortPacks(this.value);
+      state.sort = this.value;
+      applyState({ scroll: false, page: 1 });
     });
   }
-  
-  // Category tabs
+
   categoryTabs.forEach(tab => {
     tab.addEventListener('click', function() {
-      const category = this.getAttribute('data-category');
-      
-      // Remove active class from all tabs
       categoryTabs.forEach(t => t.classList.remove('active'));
-      
-      // Add active class to clicked tab
       this.classList.add('active');
-      
-      // Filter by category
-      filterByCategory(category);
+      state.category = this.getAttribute('data-category') || 'all';
+      applyState({ scroll: false, page: 1 });
     });
   });
-  
-  // View buttons
+
   viewButtons.forEach(btn => {
     btn.addEventListener('click', function() {
       const view = this.getAttribute('data-view');
-      const packsGrid = document.getElementById('packs-container');
-      
-      // Remove active class from all view buttons
       viewButtons.forEach(b => b.classList.remove('active'));
-      
-      // Add active class to clicked button
       this.classList.add('active');
-      
-      // Update grid class
+
       if (view === 'list') {
-        packsGrid.classList.add('list-view');
+        packsContainer.classList.add('list-view');
       } else {
-        packsGrid.classList.remove('list-view');
+        packsContainer.classList.remove('list-view');
       }
     });
   });
-  
-  // FEATURED PACKS CAROUSEL
-  
+
+  document.addEventListener('click', function(event) {
+    const target = event.target.closest('.page-number');
+    if (!target) return;
+    const page = parseInt(target.getAttribute('data-page') || '1', 10);
+    showPage(page, { scroll: true });
+  });
+
+  if (prevPageBtn) {
+    prevPageBtn.addEventListener('click', function() {
+      if (currentPage > 1) {
+        showPage(currentPage - 1, { scroll: true });
+      }
+    });
+  }
+
+  if (nextPageBtn) {
+    nextPageBtn.addEventListener('click', function() {
+      const totalVisible = getFilteredAndSortedCards().length;
+      const totalPages = Math.max(1, Math.ceil(totalVisible / ITEMS_PER_PAGE));
+      if (currentPage < totalPages) {
+        showPage(currentPage + 1, { scroll: true });
+      }
+    });
+  }
+
+  document.addEventListener('keydown', function(event) {
+    const totalVisible = getFilteredAndSortedCards().length;
+    const totalPages = Math.max(1, Math.ceil(totalVisible / ITEMS_PER_PAGE));
+
+    if (event.key === 'ArrowRight' && currentPage < totalPages) {
+      showPage(currentPage + 1, { scroll: true });
+      event.preventDefault();
+    } else if (event.key === 'ArrowLeft' && currentPage > 1) {
+      showPage(currentPage - 1, { scroll: true });
+      event.preventDefault();
+    } else if (event.key === 'Home' && currentPage !== 1) {
+      showPage(1, { scroll: true });
+      event.preventDefault();
+    } else if (event.key === 'End' && currentPage !== totalPages) {
+      showPage(totalPages, { scroll: true });
+      event.preventDefault();
+    }
+  });
+
+  if (jumpPageInput) {
+    jumpPageInput.addEventListener('keydown', function(event) {
+      if (event.key !== 'Enter') return;
+
+      const totalVisible = getFilteredAndSortedCards().length;
+      const totalPages = Math.max(1, Math.ceil(totalVisible / ITEMS_PER_PAGE));
+      const requestedPage = parseInt(this.value, 10);
+
+      if (requestedPage >= 1 && requestedPage <= totalPages) {
+        showPage(requestedPage, { scroll: true });
+        this.value = '';
+        this.blur();
+      } else {
+        this.style.borderColor = 'rgba(255, 0, 0, 0.5)';
+        setTimeout(() => {
+          this.style.borderColor = '';
+        }, 1000);
+      }
+    });
+  }
+
   function setupRandomFeaturedPacks() {
-    const allPacks = Array.from(document.querySelectorAll('.pack-card'));
+    const allPacks = getAllCards();
     const featuredCarousel = document.getElementById('featured-carousel');
     const carouselIndicators = document.getElementById('carousel-indicators');
-    
-    // Clear existing content
-    if (featuredCarousel) {
-      featuredCarousel.innerHTML = '';
-    }
-    
-    if (carouselIndicators) {
-      carouselIndicators.innerHTML = '';
-    }
-    
-    // Shuffle the packs array to get random packs
-    const shuffledPacks = allPacks.sort(() => 0.5 - Math.random());
-    
-    // Select the first 3 packs (or fewer if there aren't enough)
+
+    if (!featuredCarousel || !carouselIndicators) return;
+
+    featuredCarousel.innerHTML = '';
+    carouselIndicators.innerHTML = '';
+
+    const shuffledPacks = allPacks.slice().sort(() => 0.5 - Math.random());
     const selectedPacks = shuffledPacks.slice(0, 3);
-    
-    // Create featured packs from the selected packs
+
     selectedPacks.forEach((pack, index) => {
-      // Extract data from the original pack
-      const packTitle = pack.querySelector('.pack-title').textContent;
-      const packDescription = pack.querySelector('.pack-description').textContent;
-      const packVersion = pack.querySelector('.pack-version').textContent;
-      const packImage = pack.querySelector('.pack-image').src;
-      const packLink = pack.querySelector('.overlay-btn').href;
-      
-      // Count stars for rating
-      const fullStars = pack.querySelectorAll('.fa-star:not(.fa-star-o):not(.fa-star-half-o)').length;
-      const halfStars = pack.querySelectorAll('.fa-star-half-o').length;
-      
-      // Create the featured pack HTML
+      const packTitle = pack.querySelector('.pack-title')?.textContent || '';
+      const packDescription = pack.querySelector('.pack-description')?.textContent || '';
+      const packVersion = pack.querySelector('.pack-version')?.textContent || '';
+      const packImage = pack.querySelector('.pack-image')?.src || '';
+      const packLink = pack.querySelector('.overlay-btn')?.href || '#';
+
       const featuredPack = document.createElement('div');
       featuredPack.className = 'featured-pack';
       featuredPack.innerHTML = `
@@ -2244,14 +2152,8 @@ function filterPacks() {
           <div class="featured-text">
             <h3>${packTitle}</h3>
             <p>${packDescription}</p>
-            
             <div class="featured-meta">
               <span class="featured-version">v${packVersion}</span>
-              <span class="featured-rating">
-                ${Array(fullStars).fill('<i class="fa fa-star"></i>').join('')}
-                ${Array(halfStars).fill('<i class="fa fa-star-half-o"></i>').join('')}
-                ${Array(5 - fullStars - halfStars).fill('<i class="fa fa-star-o"></i>').join('')}
-              </span>
             </div>
             <a href="${packLink}" class="featured-btn">View Pack</a>
           </div>
@@ -2260,131 +2162,98 @@ function filterPacks() {
           </div>
         </div>
       `;
-      
-      // Add to carousel
-      if (featuredCarousel) {
-        featuredCarousel.appendChild(featuredPack);
-      }
-      
-      // Add indicator
-      if (carouselIndicators) {
-        const indicator = document.createElement('div');
-        indicator.className = 'carousel-dot' + (index === 0 ? ' active' : '');
-        indicator.setAttribute('data-index', index);
-        carouselIndicators.appendChild(indicator);
-        
-        // Add click event to indicator
-        indicator.addEventListener('click', function() {
-          const slideIndex = parseInt(this.getAttribute('data-index'));
-          currentSlide = slideIndex;
-          updateCarousel();
-          resetAutoplay();
-        });
-      }
+
+      featuredCarousel.appendChild(featuredPack);
+
+      const indicator = document.createElement('div');
+      indicator.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+      indicator.setAttribute('data-index', index);
+      carouselIndicators.appendChild(indicator);
+
+      indicator.addEventListener('click', function() {
+        currentSlide = parseInt(this.getAttribute('data-index') || '0', 10);
+        window.updateCarousel();
+        window.resetAutoplay();
+      });
     });
-    
-    // Initialize carousel
+
     initCarousel();
   }
-  
-  // Carousel functionality
+
   let currentSlide = 0;
   let autoplayInterval;
-  
+
   function initCarousel() {
     const carousel = document.getElementById('featured-carousel');
     const prevBtn = document.querySelector('.carousel-prev');
     const nextBtn = document.querySelector('.carousel-next');
-    
-    // Function to update carousel position
+
+    if (!carousel) return;
+
     function updateCarousel() {
-      if (carousel) {
-        const featuredPacks = carousel.querySelectorAll('.featured-pack');
-        if (featuredPacks.length > 0) {
-          carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-          
-          // Update indicators
-          const carouselDots = document.querySelectorAll('.carousel-dot');
-          carouselDots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-          });
-        }
-      }
+      const featuredPacks = carousel.querySelectorAll('.featured-pack');
+      if (!featuredPacks.length) return;
+
+      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+      document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
     }
-    
-    // Function to go to next slide
+
     function nextSlide() {
-      const featuredPacks = carousel ? carousel.querySelectorAll('.featured-pack') : [];
-      if (featuredPacks.length > 0) {
-        currentSlide = (currentSlide + 1) % featuredPacks.length;
-        updateCarousel();
-      }
+      const featuredPacks = carousel.querySelectorAll('.featured-pack');
+      if (!featuredPacks.length) return;
+      currentSlide = (currentSlide + 1) % featuredPacks.length;
+      updateCarousel();
     }
-    
-    // Function to go to previous slide
+
     function prevSlide() {
-      const featuredPacks = carousel ? carousel.querySelectorAll('.featured-pack') : [];
-      if (featuredPacks.length > 0) {
-        currentSlide = (currentSlide - 1 + featuredPacks.length) % featuredPacks.length;
-        updateCarousel();
-      }
+      const featuredPacks = carousel.querySelectorAll('.featured-pack');
+      if (!featuredPacks.length) return;
+      currentSlide = (currentSlide - 1 + featuredPacks.length) % featuredPacks.length;
+      updateCarousel();
     }
-    
-    // Set up click events for navigation
-    if (prevBtn) prevBtn.addEventListener('click', function() {
-      prevSlide();
-      resetAutoplay();
-    });
-    
-    if (nextBtn) nextBtn.addEventListener('click', function() {
-      nextSlide();
-      resetAutoplay();
-    });
-    
-    // Function to start autoplay
+
     function startAutoplay() {
-      autoplayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-    }
-    
-    // Function to reset autoplay
-    function resetAutoplay() {
       clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function resetAutoplay() {
       startAutoplay();
     }
-    
-    // Initialize autoplay
-    if (carousel) {
-      startAutoplay();
-      
-      // Pause autoplay when hovering over carousel
-      carousel.addEventListener('mouseenter', function() {
-        clearInterval(autoplayInterval);
-      });
-      
-      // Resume autoplay when mouse leaves carousel
-      carousel.addEventListener('mouseleave', function() {
-        startAutoplay();
-      });
+
+    if (prevBtn) {
+      prevBtn.onclick = function() {
+        prevSlide();
+        resetAutoplay();
+      };
     }
-    
-    // Make functions available globally
+
+    if (nextBtn) {
+      nextBtn.onclick = function() {
+        nextSlide();
+        resetAutoplay();
+      };
+    }
+
+    carousel.addEventListener('mouseenter', function() {
+      clearInterval(autoplayInterval);
+    });
+
+    carousel.addEventListener('mouseleave', function() {
+      startAutoplay();
+    });
+
     window.updateCarousel = updateCarousel;
     window.resetAutoplay = resetAutoplay;
-    
-    // Initial update
+
     updateCarousel();
+    startAutoplay();
   }
-  
-  // INITIALIZATION
-  
-  // Initialize pagination
-  showPage(1);
-  
-  // Flag to track if we're filtering
-  window.isFiltering = false;
-  
-  // Call the function after all packs are loaded
-  setTimeout(setupRandomFeaturedPacks, 500);
+
+  applyState({ scroll: false, page: 1 });
+  setTimeout(setupRandomFeaturedPacks, 300);
 });
 </script>
 </section></body></meta></html>
