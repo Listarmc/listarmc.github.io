@@ -512,6 +512,51 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- P5 Placement: After You Download - Native Integration -->
+                    <div class="after-download-section">
+                        <div class="download-next-step">
+                            <div class="step-indicator">
+                                <span class="step-number">Next Step</span>
+                            </div>
+                            <h3 class="step-heading">Set Up Your Server & Play with Friends</h3>
+                            <p class="step-subtext">Complete the experience with reliable Minecraft hosting</p>
+                        </div>
+
+                        <div class="hosting-recommendation">
+                            <div class="host-card-left">
+                                <div class="host-logo-container">
+                                    <svg class="host-lightning" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8Z"/>
+                                    </svg>
+                                    <span class="host-brand">ShockByte</span>
+                                </div>
+                                <div class="host-details">
+                                    <h4 class="host-title">Premium Minecraft Hosting</h4>
+                                    <p class="host-description">High-performance servers perfect for custom texture packs</p>
+                                    <ul class="host-features">
+                                        <li>99.9% Uptime Guarantee</li>
+                                        <li>Instant Setup & Support</li>
+                                        <li>Free Custom Java Args</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="host-card-right">
+                                <div class="discount-highlight">
+                                    <div class="discount-code-box">
+                                        <span class="code-label">Use Code</span>
+                                        <span class="code-display">FIRE</span>
+                                    </div>
+                                    <span class="discount-amount">25% OFF</span>
+                                </div>
+                                <a href="https://shockbyte.com/billing/aff.php?aff=9239" class="host-cta" target="_blank" rel="noopener noreferrer">
+                                    Start Your Server
+                                </a>
+                                <p class="host-disclosure">Affiliate partner. Commission at no extra cost to you.</p>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="pack-compatibility-block">
                         <div class="compatibility-header">
@@ -795,135 +840,28 @@
     </div>
 </div>
     
-    <script>
-    // Run ad block detection immediately
-    setTimeout(function() {
-        checkForAdBlocker();
-    }, 300); // Reduced timeout for faster detection
+<script>
+    // Run ad block detection immediately when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Run ad block detection first, before other initialization
+    checkForAdBlocker();
     
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const navList = document.getElementById('nav-list');
-        
-        if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', function() {
-                navList.classList.toggle('active');
-            });
-        }
-        
-        // Show support reminder if applicable
-        showSupportReminder();
-    });
+    // Mobile menu toggle functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navList = document.getElementById('nav-list');
     
-    // Function to dismiss adblock message
-    function dismissAdblockMessage() {
-    const adblockMessage = document.getElementById('adblock-message');
-    adblockMessage.style.animation = 'fadeOut 0.4s ease-out forwards';
-    
-    // Add the fadeOut animation
-    if (!document.querySelector('style#fadeout-style')) {
-        const style = document.createElement('style');
-        style.id = 'fadeout-style';
-        style.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navList.classList.toggle('active');
+        });
     }
     
-    // Hide after animation completes
-    setTimeout(() => {
-        adblockMessage.style.display = 'none';
-    }, 400);
-    
-    // Set localStorage to remember user's choice
-    localStorage.setItem('adblock_dismissed', 'true');
-}
+    // Show support reminder if applicable
+    showSupportReminder();
+});
 
-// Update the showSupportReminder function to make it appear more frequently
-function showSupportReminder() {
-    // Only show if user has dismissed adblock message
-    if (localStorage.getItem('adblock_dismissed') === 'true') {
-        // Initial display after a shorter delay
-        setTimeout(() => {
-            document.getElementById('support-reminder').style.display = 'block';
-        }, 8000); // Show after 8 seconds instead of 15
-        
-        // Set up periodic reminders
-        setUpPeriodicReminders();
-    }
-}
-
-// Add a new function to set up periodic reminders
-function setUpPeriodicReminders() {
-    // Check if we should show periodic reminders
-    if (localStorage.getItem('reminder_last_shown')) {
-        const lastShown = parseInt(localStorage.getItem('reminder_last_shown'));
-        const now = new Date().getTime();
-        
-        // If it's been more than 1 minute since last shown, show it again (reduced from 3 minutes)
-        if (now - lastShown > 1 * 60 * 1000) {
-            showReminderWithDelay();
-        }
-    } else {
-        // First time, just record when it was shown
-        localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
-    }
-    
-    // Also show reminder when user scrolls to bottom of page
-    window.addEventListener('scroll', handleScroll);
-    
-    // Add event listener for mouse movement to occasionally show reminder
-    window.addEventListener('mousemove', handleMouseMove);
-}
-
-// Add a variable to track last mouse movement check
-let lastMouseCheck = 0;
-let mouseCheckInterval = 20000; // 20 seconds between checks
-
-// Function to handle mouse movement
-function handleMouseMove(e) {
-    const now = new Date().getTime();
-    
-    // Only check occasionally to avoid performance issues
-    if (now - lastMouseCheck < mouseCheckInterval) return;
-    
-    lastMouseCheck = now;
-    
-    // 15% chance to show reminder on mouse movement check
-    if (Math.random() < 0.15 && document.getElementById('support-reminder').style.display !== 'block') {
-        document.getElementById('support-reminder').style.display = 'block';
-        localStorage.setItem('reminder_last_shown', now.toString());
-    }
-}
-
-// Function to show reminder with a delay
-function showReminderWithDelay() {
-    setTimeout(() => {
-        document.getElementById('support-reminder').style.display = 'block';
-        localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
-    }, 5000); // Reduced from 15000 (15 seconds) to 5000 (5 seconds)
-}
-
-// Update the dismissSupportReminder function to only dismiss temporarily
-function dismissSupportReminder() {
-    document.getElementById('support-reminder').style.display = 'none';
-    // Just dismiss for now, will show again later
-    localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
-}
-
-// Update the reEnableAds function to clear all related localStorage items
-function reEnableAds() {
-    localStorage.removeItem('adblock_dismissed');
-    localStorage.removeItem('reminder_last_shown');
-    location.reload();
-}
-    
-    // Function to check for ad blocker
-    function checkForAdBlocker() {
+// Function to check for ad blocker - improved detection with multiple methods
+function checkForAdBlocker() {
     // Skip check if user previously dismissed
     if (localStorage.getItem('adblock_dismissed') === 'true') {
         return;
@@ -1015,6 +953,127 @@ function reEnableAds() {
             document.getElementById('adblock-message').style.display = 'block';
         }
     }, 500); // Increased timeout for more reliable detection
+}
+
+// Function to dismiss adblock message
+function dismissAdblockMessage() {
+    const adblockMessage = document.getElementById('adblock-message');
+    adblockMessage.style.animation = 'fadeOut 0.4s ease-out forwards';
+    
+    // Add the fadeOut animation
+    if (!document.querySelector('style#fadeout-style')) {
+        const style = document.createElement('style');
+        style.id = 'fadeout-style';
+        style.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Hide after animation completes
+    setTimeout(() => {
+        adblockMessage.style.display = 'none';
+        
+        // Show the support reminder immediately after dismissing
+        document.getElementById('support-reminder').style.display = 'block';
+    }, 400);
+    
+    // Set localStorage to remember user's choice
+    localStorage.setItem('adblock_dismissed', 'true');
+    localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+}
+
+// Function to show support reminder
+function showSupportReminder() {
+    // Only show if user has dismissed adblock message
+    if (localStorage.getItem('adblock_dismissed') === 'true') {
+        // Initial display after a short delay
+        setTimeout(() => {
+            document.getElementById('support-reminder').style.display = 'block';
+        }, 3000); // Show after 3 seconds
+        
+        // Set up periodic reminders
+        setUpPeriodicReminders();
+    }
+}
+
+// Function to set up periodic reminders
+function setUpPeriodicReminders() {
+    // Check if we should show periodic reminders
+    if (localStorage.getItem('reminder_last_shown')) {
+        const lastShown = parseInt(localStorage.getItem('reminder_last_shown'));
+        const now = new Date().getTime();
+        
+        // If it's been more than 30 seconds since last shown, show it again
+        if (now - lastShown > 30 * 1000) {
+            showReminderWithDelay();
+        }
+    } else {
+        // First time, just record when it was shown
+        localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+    }
+    
+    // Also show reminder when user scrolls to bottom of page
+    window.addEventListener('scroll', handleScroll);
+    
+    // Add event listener for mouse movement to occasionally show reminder
+    window.addEventListener('mousemove', handleMouseMove);
+}
+
+// Variable to track last mouse movement check
+let lastMouseCheck = 0;
+let mouseCheckInterval = 10000; // 10 seconds between checks
+
+// Function to handle mouse movement
+function handleMouseMove(e) {
+    const now = new Date().getTime();
+    
+    // Only check occasionally to avoid performance issues
+    if (now - lastMouseCheck < mouseCheckInterval) return;
+    
+    lastMouseCheck = now;
+    
+    // 20% chance to show reminder on mouse movement check
+    if (Math.random() < 0.20 && document.getElementById('support-reminder').style.display !== 'block') {
+        document.getElementById('support-reminder').style.display = 'block';
+        localStorage.setItem('reminder_last_shown', now.toString());
+    }
+}
+
+// Function to handle scroll
+function handleScroll() {
+    // Check if user has scrolled to the bottom of the page
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
+        if (document.getElementById('support-reminder').style.display !== 'block') {
+            document.getElementById('support-reminder').style.display = 'block';
+            localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+        }
+    }
+}
+
+// Function to show reminder with a delay
+function showReminderWithDelay() {
+    setTimeout(() => {
+        document.getElementById('support-reminder').style.display = 'block';
+        localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+    }, 2000); // Show after 2 seconds
+}
+
+// Function to dismiss support reminder temporarily
+function dismissSupportReminder() {
+    document.getElementById('support-reminder').style.display = 'none';
+    // Just dismiss for now, will show again later
+    localStorage.setItem('reminder_last_shown', new Date().getTime().toString());
+}
+
+// Function to re-enable ads
+function reEnableAds() {
+    localStorage.removeItem('adblock_dismissed');
+    localStorage.removeItem('reminder_last_shown');
+    location.reload();
 }
     
     // Modal functionality
