@@ -287,7 +287,8 @@
        }
 
    </style>
-<!-- <script data-cfasync="false" src="//dcbbwymp1bhlf.cloudfront.net/?wbbcd=1084188"></script> -->
+<!-- Google AdSense loader: powers Auto ads AND the manual ad units below.
+     Auto ads must also be toggled ON in the AdSense dashboard: Ads -> By site -> your site -> Auto ads ON -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3081415097971230"
      crossorigin="anonymous"></script>
 </head>
@@ -1068,7 +1069,7 @@
 <div class="pack-image-container">
 <img alt="Spy x Family GUI Pack" class="pack-image" src="thumbnails/QTXpJWs.png"/>
 <div class="pack-overlay">
-<a class="overlay-btn" href="Packs/Spy-x-Family-GUI-Pack.html">View Details</a>
+<a class="overlay-btn" href="Packs/Spy-X-Family-GUI-Pack.html">View Details</a>
 </div>
 </div>
 <div class="pack-content">
@@ -1131,7 +1132,7 @@
 <div class="pack-image-container">
 <img alt="Miss Kobayashi's Dragon Maid Custom Minecraft GUI Pack" class="pack-image" src="thumbnails/Th3IY62.png"/>
 <div class="pack-overlay">
-<a class="overlay-btn" href="Packs/Miss-Kobayashis-Dragon-Maid-Custom-Minecraft-GUI-Pack.html">View Details</a>
+<a class="overlay-btn" href="Packs/Miss-Kobayashis-Dragon-Maid.html">View Details</a>
 </div>
 </div>
 <div class="pack-content">
@@ -1196,7 +1197,7 @@
 <div class="pack-image-container">
 <img alt="Oshi no ko one! Custom GUI Pack" class="pack-image" src="thumbnails/CoBiozQ.png"/>
 <div class="pack-overlay">
-<a class="overlay-btn" href="Packs/Oshi-no-ko-one-Custom-GUI-Pack.html">View Details</a>
+<a class="overlay-btn" href="Packs/Oshi-no-ko-one!-Custom-GUI-Pack.html">View Details</a>
 </div>
 </div>
 <div class="pack-content">
@@ -1736,8 +1737,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 adBlockEnabled = true;
             }
             testAd.remove();
-            if (adBlockEnabled) {
-                document.getElementById('adblock-message').style.display = 'block';
+            var adblockMsg = document.getElementById('adblock-message');
+            if (adBlockEnabled && adblockMsg) {
+                adblockMsg.style.display = 'block';
             }
         }, 100);
     }, 2000);
@@ -2257,4 +2259,4 @@ document.addEventListener("DOMContentLoaded", function() {
   setTimeout(setupRandomFeaturedPacks, 300);
 });
 </script>
-</section></body></meta></html>
+</section></body></html>
