@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src https://cdnjs.cloudflare.com; img-src * data: blob:; frame-src 'self'; connect-src 'none'; object-src 'none'; form-action 'none'">
+    <title>Visual Editor — Listar MC</title>
+    <link rel="icon" type="image/gif" href="fav.gif">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/editor.css">
+</head>
+<body>
+
+<!-- ── Disconnected banner (hidden until hub goes away) ─────────────────── -->
+<div id="disconnected-banner" hidden>
+    <i class="fa fa-exclamation-triangle"></i>
+    Admin tab closed or disconnected.
+    <a href="admin.html" target="_blank">Reopen admin</a>
+    — edits are paused.
+</div>
+
+<!-- ── Main layout ──────────────────────────────────────────────────────── -->
+<div id="editor-shell">
+
+    <!-- Toolbar -->
+    <div id="editor-toolbar">
+        <!-- Left group: brand + file switcher -->
+        <div class="tb-group tb-left">
+            <span class="tb-brand">
+                <img src="logo.gif" alt="" width="24" height="24">
+                Visual Editor
+            </span>
+            <select id="file-select" title="Switch pack">
+                <option value="">— loading —</option>
+            </select>
+        </div>
+
+        <!-- Centre group: edit mode toggle -->
+        <div class="tb-group tb-centre">
+            <label class="toggle-label" title="Toggle between edit and preview mode">
+                <input type="checkbox" id="edit-toggle" checked>
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
+                <span id="edit-toggle-label">Editing</span>
+            </label>
+        </div>
+
+        <!-- Right group: actions + status -->
+        <div class="tb-group tb-right">
+            <button id="page-settings-btn" class="btn small" title="Page title, meta description, download links">
+                <i class="fa fa-cog"></i> Page settings
+            </button>
+            <button id="screenshots-btn" class="btn small" title="Manage screenshot slides">
+                <i class="fa fa-image"></i> Screenshots
+            </button>
+            <span class="tb-sep"></span>
+            <button id="undo-btn" class="btn icon small" title="Undo (Ctrl+Z)" disabled>
+                <i class="fa fa-undo"></i>
+            </button>
+            <button id="redo-btn" class="btn icon small" title="Redo (Ctrl+Y)" disabled>
+                <i class="fa fa-repeat"></i>
+            </button>
+            <span class="tb-sep"></span>
+            <button id="publish-btn" class="btn primary small" disabled>
+                <i class="fa fa-cloud-upload"></i>
+                Publish
+                <span id="pending-badge" class="count" hidden>0</span>
+            </button>
+            <span id="conn-dot" class="conn-dot conn-off" title="Not connected"></span>
+        </div>
+    </div>
+
+    <!-- Editor iframe -->
+    <div id="editor-area">
+        <iframe
+            id="editor-frame"
+            sandbox="allow-same-origin"
+            title="Pack page visual editor"
+        ></iframe>
+
+        <!-- Loading overlay -->
+        <div id="editor-loading">
+            <i class="fa fa-spinner fa-spin"></i>
+            <span>Connecting to admin tab…</span>
+        </div>
+    </div>
+
+</div><!-- /#editor-shell -->
+
+<!-- ── Page settings drawer — content injected by editor.js ──────────────── -->
+<div id="page-settings-drawer" class="drawer" hidden></div>
+
+<!-- ── Screenshots drawer — content injected by editor.js ────────────────── -->
+<div id="screenshots-drawer" class="drawer" hidden></div>
+
+<!-- Publish dialog + popovers are created dynamically by editor.js -->
+
+<!-- ── Toast ─────────────────────────────────────────────────────────────── -->
+<div id="lmc-toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- ── Module script ─────────────────────────────────────────────────────── -->
+<script type="module" src="assets/js/admin/editor.js"></script>
+
+</body>
+</html>
