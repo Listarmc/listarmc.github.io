@@ -363,42 +363,80 @@ function handleEditorMessage(msg) {
     }
 }
 
-function sendState(file) {
+// ── Display copy of a page (editor iframe + quick preview) ────────────────
+// CSS is read from the repo through the API and inlined as <style>, because
+// raw.githubusercontent.com serves .css as text/plain (browsers refuse it) and
+// the live site may not have the same CSS deployed yet.
+
+const cssCache = new Map(); // `${headSha}:${path}` -> css text
+
+function repoAssetUrl(path) {
+    const up = S.uploads.get(decodeURIComponent(path));
+    if (up) return up.url;
+    return `https://raw.githubusercontent.com/${S.cfg.owner}/${S.cfg.repo}/${S.headSha}/${path.split('/').map(encodeURIComponent).join('/')}`;
+}
+
+function resolveFrom(src, dir) {
+    if (!src || /^(https?:)?\/\//.test(src) || /^(data|blob|#|mailto|javascript):?/i.test(src)) return src;
+    const path = new URL(src, 'https://x/' + dir).pathname.slice(1);
+    return repoAssetUrl(decodeURIComponent(path));
+}
+
+async function readCss(path) {
+    const key = S.headSha + ':' + path;
+    if (cssCache.has(key)) return cssCache.get(key);
+    const raw = await readText(S.cfg, S.tree, path).catch(() => null);
+    if (raw == null) return null;
+    const dir = path.replace(/[^/]+$/, '');
+    // Rewrite url(...) relative to the CSS file's own folder
+    const css = raw.replace(/url\(\s*(['"]?)([^'")]+)\1\s*\)/g, (m, q, u) => `url("${resolveFrom(u.trim(), dir)}")`);
+    cssCache.set(key, css);
+    return css;
+}
+
+async function buildDisplayHtml(file) {
+    const f = S.files.get(file);
+    if (!f || f.kind !== 'html') return '';
+    const doc2 = parseHTML(serialize(f.doc));
+    doc2.querySelectorAll('script').forEach(s => s.remove());
+    const dir = file.replace(/[^/]+$/, '');
+
+    // Inline local stylesheets (keep CDN ones like Font Awesome as links)
+    for (const link of [...doc2.querySelectorAll('link[rel~="stylesheet"][href]')]) {
+        const href = link.getAttribute('href');
+        if (/^(https?:)?\/\//.test(href)) continue;
+        const path = decodeURIComponent(new URL(href, 'https://x/' + dir).pathname.slice(1));
+        const css = await readCss(path);
+        if (css == null) { console.warn('[editor] stylesheet not found in repo:', path); continue; }
+        const style = doc2.createElement('style');
+        style.setAttribute('data-src', path);
+        style.textContent = css;
+        link.replaceWith(style);
+    }
+
+    // Inline <style> blocks may also use relative url(...)
+    doc2.querySelectorAll('style:not([data-src])').forEach(st => {
+        st.textContent = st.textContent.replace(/url\(\s*(['"]?)([^'")]+)\1\s*\)/g, (m, q, u) => `url("${resolveFrom(u.trim(), dir)}")`);
+    });
+
+    // Images and favicons
+    doc2.querySelectorAll('img[src]').forEach(img => img.setAttribute('src', resolveFrom(img.getAttribute('src'), dir)));
+    doc2.querySelectorAll('link[rel~="icon"][href]').forEach(l => l.setAttribute('href', resolveFrom(l.getAttribute('href'), dir)));
+
+    return serialize(doc2);
+}
+
+async function sendState(file) {
     if (!S.channel) return;
     let html = '';
-    if (file && S.files.has(file)) {
-        const f = S.files.get(file);
-        if (f.kind === 'html') {
-            // Strip scripts/ads for the editor display copy
-            const doc2 = parseHTML(serialize(f.doc));
-            doc2.querySelectorAll('script').forEach(s => s.remove());
-
-            // Helper: resolve a relative URL to an absolute one (raw GitHub or upload blob)
-            const pageDir = 'https://x/' + file.replace(/[^/]+$/, '');
-            const resolveRelative = src => {
-                if (!src || /^(https?:)?\/\//.test(src) || src.startsWith('data:') || src.startsWith('blob:')) return src;
-                const path = new URL(src, pageDir).pathname.slice(1);
-                const up = S.uploads.get(decodeURIComponent(path));
-                if (up) return up.url;
-                return `https://raw.githubusercontent.com/${S.cfg.owner}/${S.cfg.repo}/${S.headSha}/${path}`;
-            };
-
-            // Resolve stylesheet hrefs so they load cross-origin inside the iframe
-            doc2.querySelectorAll('link[rel="stylesheet"][href], link[rel~="stylesheet"][href]').forEach(link => {
-                const resolved = resolveRelative(link.getAttribute('href'));
-                if (resolved) link.setAttribute('href', resolved);
-            });
-
-            // Resolve images
-            doc2.querySelectorAll('img[src]').forEach(img => {
-                const resolved = resolveRelative(img.getAttribute('src'));
-                if (resolved) img.setAttribute('src', resolved);
-            });
-
-            // No <base> needed — all URLs are now absolute
-            html = serialize(doc2);
-        }
+    if (file && !S.files.has(file) && S.headSha && pageExists(file)) {
+        await loadHtmlFile(file).catch(() => {});
     }
+    if (file && S.files.has(file)) {
+        try { html = await buildDisplayHtml(file); }
+        catch (e) { console.error('[editor] building display HTML failed', e); }
+    }
+    if (!S.channel) return;
     const changes = pendingChanges();
     S.channel.send('state', {
         file,
@@ -938,25 +976,17 @@ function htmlForm(p, page) {
 
 // ── Read-only preview ─────────────────────────────────────────────────────
 
-function previewPage(p) {
-    const f = S.files.get(p.file);
-    if (!f) return;
-    const doc = parseHTML(serialize(f.doc));
-    const base = doc.createElement('base');
-    base.href = new URL(p.file.replace(/[^/]+$/, ''), location.protocol.startsWith('http') ? location.href : S.siteUrl).href;
-    doc.head.prepend(base);
-    doc.querySelectorAll('script').forEach(el => el.remove());
-    doc.querySelectorAll('img[src]').forEach(img => {
-        const src = img.getAttribute('src');
-        if (!/^(https?:)?\/\//.test(src)) {
-            const path = new URL(src, 'https://x/' + p.file).pathname.slice(1);
-            const up = S.uploads.get(decodeURIComponent(path));
-            if (up) img.setAttribute('src', up.url);
-        }
-    });
-    const blob = new Blob([serialize(doc)], { type: 'text/html' });
+async function previewPage(p) {
+    if (!S.files.get(p.file)) return;
+    // Open the tab synchronously (popup blockers), fill it once the HTML is built
+    const win = window.open('', '_blank');
+    let html;
+    try { html = await buildDisplayHtml(p.file); }
+    catch (e) { toast(e.message, true); if (win) win.close(); return; }
+    const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
-    window.open(url, '_blank', 'noopener');
+    if (win) { win.opener = null; win.location.href = url; }
+    else window.open(url, '_blank', 'noopener');
     setTimeout(() => URL.revokeObjectURL(url), 60000);
 }
 
