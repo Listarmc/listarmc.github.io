@@ -298,12 +298,43 @@ document.querySelectorAll('.thumbnails-grid .thumbnail-item').forEach((thumb, i)
     }, true);
 });
 
-// Close modal when clicking outside of it
-window.onclick = function(event) {
-    var modal = document.getElementById("myModal");
-    if (event.target == modal) {
-        closeModal();
-    }
+// Close on backdrop clicks without overriding unrelated window click handlers.
+const galleryModal = document.getElementById('myModal');
+if (galleryModal) {
+    galleryModal.addEventListener('click', (event) => {
+        if (event.target === galleryModal) closeModal();
+    });
+
+    // Trackpad/mouse-wheel navigation: one step per deliberate scroll gesture.
+    let lastWheelNavigation = 0;
+    galleryModal.addEventListener('wheel', (event) => {
+        if (galleryModal.style.display !== 'block') return;
+        if (Math.abs(event.deltaY) < 8 && Math.abs(event.deltaX) < 8) return;
+        event.preventDefault();
+        const now = performance.now();
+        if (now - lastWheelNavigation < 420) return;
+        lastWheelNavigation = now;
+        const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+        plusSlides(delta > 0 ? 1 : -1);
+    }, { passive: false });
+
+    // Swipe left/right on touch screens; ignore primarily vertical swipes.
+    let touchStartX = null;
+    let touchStartY = null;
+    galleryModal.addEventListener('touchstart', (event) => {
+        if (event.touches.length !== 1) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+    }, { passive: true });
+    galleryModal.addEventListener('touchend', (event) => {
+        if (touchStartX === null || !event.changedTouches.length) return;
+        const deltaX = event.changedTouches[0].clientX - touchStartX;
+        const deltaY = event.changedTouches[0].clientY - touchStartY;
+        touchStartX = touchStartY = null;
+        if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) {
+            plusSlides(deltaX < 0 ? 1 : -1);
+        }
+    }, { passive: true });
 }
 
 // Add keyboard navigation for modal

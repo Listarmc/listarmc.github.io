@@ -1886,3 +1886,126 @@
   font-weight: 600;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
+
+/* v3: Pack screenshot lightbox — center the image and give its caption a
+   separate row.  Legacy pages use id="caption" for every slide, while new
+   editor pages use class="caption"; support both without editing 47 pages. */
+#myModal {
+  overscroll-behavior: contain;
+}
+
+#myModal .modal-content {
+  box-sizing: border-box;
+  width: min(94vw, 1500px);
+  max-width: none;
+  height: min(90dvh, 980px);
+  max-height: none;
+  padding: 22px 76px;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(180, 135, 255, 0.18);
+  background: rgba(30, 26, 65, 0.97);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.48);
+}
+
+#myModal .mySlides {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+#myModal .mySlides img {
+  display: block;
+  width: auto !important; /* overrides width:100% inline on old pages */
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: calc(min(90dvh, 980px) - 108px);
+  flex: 0 1 auto;
+  object-fit: contain;
+}
+
+#myModal .mySlides .caption,
+#myModal .mySlides [id="caption"] {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 22px;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0 6px;
+  color: #e4a0ee;
+  font-size: clamp(0.9rem, 1.7vw, 1.2rem);
+  line-height: 1.35;
+  font-weight: 600;
+  text-align: center;
+  overflow-wrap: anywhere;
+  -webkit-text-fill-color: currentColor;
+}
+
+#myModal .prev,
+#myModal .next {
+  box-sizing: border-box;
+  z-index: 2;
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  margin-top: 0;
+  padding: 0;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: rgba(8, 8, 28, 0.85);
+  line-height: 1;
+}
+#myModal .prev { left: 12px; right: auto; }
+#myModal .next { right: 12px; left: auto; }
+#myModal .prev:hover,
+#myModal .next:hover {
+  transform: translateY(-50%) scale(1.08);
+}
+
+#myModal .close {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  line-height: 1;
+  z-index: 4;
+}
+
+@media (max-width: 650px) {
+  #myModal .modal-content {
+    width: 98vw;
+    height: auto;
+    max-height: 84dvh;
+    padding: 16px 40px;
+    border-radius: 10px;
+  }
+  #myModal .mySlides {
+    height: auto;
+    gap: 10px;
+  }
+  #myModal .mySlides img {
+    max-height: calc(min(84dvh, 800px) - 74px);
+    border-radius: 7px;
+  }
+  #myModal .prev, #myModal .next {
+    width: 34px;
+    height: 40px;
+    font-size: 24px;
+  }
+  #myModal .prev { left: 3px; }
+  #myModal .next { right: 3px; }
+  #myModal .mySlides .caption,
+  #myModal .mySlides [id="caption"] {
+    font-size: 0.88rem;
+  }
+}
