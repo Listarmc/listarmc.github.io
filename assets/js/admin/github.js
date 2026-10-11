@@ -131,7 +131,7 @@ export async function watchDeploy(cfg, commitSha, onStep, eventFilter, since) {
             runs = (await gh('GET', `${rp}/actions/runs?${q}`, null, cfg.token)).workflow_runs || [];
         } catch (e) {
             if (e.status === 403 || e.status === 404) {
-                onStep({ id: 'deploy', state: 'done', text: 'Published. This token can't read Actions — check the Actions tab.', link: actionsUrl });
+                onStep({ id: 'deploy', state: 'done', text: "Published. This token can't read Actions — check the Actions tab.", link: actionsUrl });
                 return;
             }
             throw e;
