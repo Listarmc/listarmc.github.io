@@ -2,214 +2,25 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9H483ZYFD5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H483ZYFD5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-9H483ZYFD5');
-</script>
+      gtag('config', 'G-9H483ZYFD5');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/site.css">
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Favicon -->
-
     <link rel="icon" type="image/gif" href="fav.gif">
 
-    <style>
-        /* Navbar styling */
-
-        .btn {
-            background-color: DodgerBlue;
-            border: none;
-            color: white;
-            padding: 12px 30px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        /* Darker background on mouse-over */
-        .btn:hover {
-            background-color: RoyalBlue;
-        }
-
-        /* Styles for the search bar */
-        .search-bar {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .search-bar input[type="text"] {
-            width: 50%;
-            padding: 10px;
-            border-radius: 20px;
-            border: 2px solid #C977A8;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .search-bar input[type="text"]:focus {
-            border-color: #8FB3BB;
-        }
-
-        /* Navbar styling */
-        .navbar {
-            display: flex;
-            justify-content: center; /* Center the navbar items */
-            background-color: #333;
-            overflow: hidden;
-        }
-
-        .navbar a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
-        .navbar a.active {
-            background-color: #8A2BE2;
-            color: white;
-        }
-
-        .navbar .icon {
-            display: none;
-        }
-        h3 {
-    margin-top: 20px; /* Adjust the value to your preference */
-    padding-top: 20px; /* Optional: Add padding if you need more space */
-    scroll-margin-top: 60px; /* Adjusts scroll position to prevent clipping when using anchor links */
-}
-
-
-        h2 {
-            margin: 0;
-            color: #fcfcfc;
-            font-weight: bold;
-            text-align: center;
-            background-color: transparent;
-            padding: 20px 0;
-            position: relative;
-            z-index: 2;
-            display: block;
-            width: 100%;
-            margin-bottom: 20px; /* Increase space below the heading */
-        }
-
-        /* Section styling */
-        section {
-            padding: 40px 20px;
-            background-color: rgba(12, 20, 55, 0.8);
-            color: #8FB3BB;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 1200px;
-            position: relative;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-
-        /* Mobile adjustments */
-        @media screen and (max-width: 600px) {
-            h2 {
-                position: relative; /* Remove sticky positioning */
-                top: auto; /* Reset top positioning */
-                z-index: 3;
-                background-color: transparent; /* Remove background color */
-                margin-top: 10px;
-                padding: 15px 0;
-            }
-
-            section {
-                padding: 20px 10px;
-                margin: 10px auto;
-            }
-        }
-
-        /* Responsive layout for small screens */
-        @media screen and (max-width: 600px) {
-            .navbar a:not(:first-child) {display: none;}
-            .navbar a.icon {
-                float: right;
-                display: block;
-            }
-        }
-
-        @media screen and (max-width: 600px) {
-            .navbar.responsive {position: relative;}
-            .navbar.responsive .icon {
-                position: absolute;
-                right: 0;
-                top: 0;
-            }
-            .navbar.responsive a {
-                float: none;
-                display: block;
-                text-align: left;
-            }
-        }
-
-        /* Center section headings */
-        h2 {
-            text-align: center;
-            width: 100%; /* Ensure full-width centering */
-            margin: 20px 0; /* Add some margin for spacing */
-        }
-
-        /* Responsive layout adjustments */
-        @media screen and (max-width: 600px) {
-            #home {
-                flex-direction: column; /* Stack the elements vertically */
-                align-items: center; /* Center align the elements */
-                text-align: center; /* Center the text */
-            }
-
-            #home > div:first-child {
-                margin: 0 0 20px 0; /* Remove left margin and add bottom margin */
-                width: 100%; /* Make it full width */
-            }
-
-            #home img {
-                margin-bottom: 20px; /* Add margin below the logo */
-            }
-
-            .discord-widget {
-                width: 100%; /* Make it full width */
-                margin: 20px 0; /* Add top and bottom margin */
-            }
-
-            /* Make the packs grid layout responsive */
-            .packs-grid {
-                grid-template-columns: 1fr; /* Change to a single column layout */
-                gap: 15px; /* Adjust the gap for better spacing on small screens */
-            }
-
-            /* Ensure images and text in the packs align well in mobile view */
-            .pack {
-                text-align: center; /* Center text for a cleaner mobile layout */
-            }
-
-            .pack img {
-                max-width: 80%; /* Adjust image size for mobile */
-                margin: 0 auto; /* Center the images */
-            }
-        }
-    </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3081415097971230" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="assets/css/privacy.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3081415097971230" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -430,42 +241,6 @@
         <p>&copy; 2024 ListarMC</p>
     </footer>
 
-    <script>
-        
-
-        // Toggle function for mobile navigation menu
-        function toggleNav() {
-            var x = document.getElementById("myNavbar");
-            if (x.className === "navbar") {
-                x.className += " responsive";
-            } else {
-                x.className = "navbar";
-            }
-        }
-
-        document.querySelectorAll('.packs-grid .pack').forEach(pack => {
-            pack.addEventListener('click', function() {
-                const href = this.getAttribute('data-href');
-                if (href) {
-                    window.location.href = href;
-                }
-            });
-        });
-
-        // Search functionality
-        document.getElementById('search-input').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            const packs = document.querySelectorAll('.packs-grid .pack');
-
-            packs.forEach(function(pack) {
-                const name = pack.getAttribute('data-name').toLowerCase();
-                if (name.includes(query)) {
-                    pack.style.display = 'block';
-                } else {
-                    pack.style.display = 'none';
-                }
-            });
-        });
-    </script>
+    <script src="assets/js/privacy.js"></script>
 </body>
 </html>
