@@ -114,6 +114,7 @@ label.check input { width: auto; margin: 0; }
 .badge.edited { background: rgba(255, 181, 71, .2); color: var(--warn); }
 .badge.new { background: rgba(61, 220, 151, .2); color: var(--ok); }
 .badge.warn { background: rgba(255, 107, 107, .2); color: var(--bad); }
+.badge.editor-open { background: rgba(138, 43, 226, .25); color: var(--primary-light); }
 
 .editor { overflow: auto; padding: 18px 22px 60px; min-width: 0; }
 .empty-state { height: 100%; display: grid; place-content: center; text-align: center; color: var(--muted); }
@@ -172,6 +173,13 @@ label.check input { width: auto; margin: 0; }
 .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--panel-2); border: 1px solid var(--line); padding: 10px 16px; border-radius: 10px; opacity: 0; pointer-events: none; transition: .25s; z-index: 60; max-width: 90vw; }
 .toast.show { opacity: 1; transform: translateX(-50%); }
 .toast.bad { border-color: var(--bad); }
+
+/* ── Visual editor flash animation (field sync feedback) ── */
+@keyframes lmc-flash {
+    0%   { background: rgba(138, 43, 226, .45); }
+    100% { background: transparent; }
+}
+.flash { animation: lmc-flash .6s ease-out; border-radius: 4px; }
 
 @media (max-width: 800px) {
     .layout { grid-template-columns: 1fr; grid-template-rows: 40vh 1fr; }
