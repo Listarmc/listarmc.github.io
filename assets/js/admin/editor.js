@@ -45,11 +45,14 @@ const E = {
     rev: 0,
     pending: 0,
     packs: [],
+    pageData: null, // Canonical relative image paths (never use rewritten iframe URLs for edits).
     siteUrl: 'https://listar-mc.net/',
     connected: false,
     missedPings: 0,
     editMode: true,
     publishInProgress: false,
+    // Unique to this tab: the hub must acknowledge edits without rebuilding their source DOM.
+    clientId: crypto.randomUUID(),
 };
 
 let channel;
@@ -116,6 +119,7 @@ function handleHubMessage(msg) {
         E.rev = msg.rev ?? 0;
         E.pending = msg.pending ?? 0;
         E.packs = msg.packs || [];
+        E.pageData = msg.pageData || null;
         if (msg.siteUrl) E.siteUrl = msg.siteUrl;
         updateConnectionUI();
         updatePendingUI();
@@ -128,9 +132,32 @@ function handleHubMessage(msg) {
 
     if (msg.type === 'changed') {
         if (msg.file !== E.file) return;
-        // Don't update a field if we sent this change ourselves
-        // (hub already applied it and sent it back; the iframe already reflects it)
-        applyChangedToIframe(msg);
+        // Keep canonical field values in sync, including native relative asset paths.
+        const priorSlides = E.pageData?.slides || [];
+        const priorPreviews = E.pageData?.previews || [];
+        const previewsFollowSlides = msg.field === 'slides' && priorPreviews.length > 0 &&
+            priorPreviews.every((x, i) => x.src === priorSlides[i]?.src);
+        if (E.pageData && Object.hasOwn(E.pageData, msg.field)) {
+            if (msg.index == null) E.pageData[msg.field] = msg.value;
+            else if (Array.isArray(E.pageData[msg.field])) {
+                const arr = [...E.pageData[msg.field]];
+                arr[msg.index] = msg.value;
+                E.pageData[msg.field] = arr;
+            } else E.pageData[msg.field] = msg.value;
+        }
+        if (previewsFollowSlides && Array.isArray(E.pageData?.slides)) {
+            E.pageData.previews = E.pageData.slides.filter(x => x.src)
+                .slice(0, priorPreviews.length).map(x => ({src:x.src, alt:x.caption || ''}));
+        }
+        // The live contenteditable already holds its own text. Never re-render it
+        // in response to a keystroke. Structural changes and gallery changes must
+        // update the iframe even when initiated by this very editor tab.
+        const own = msg.clientId === E.clientId;
+        if (!own || msg.structural || ['slides', 'previews'].includes(msg.field))
+            applyChangedToIframe(msg);
+        const drawer = screenshotsDrawer();
+        if (!drawer.hidden && ['slides', 'previews'].includes(msg.field) && drawer.dataset.mode === msg.field)
+            renderScreenshotsDrawer(drawer);
         return;
     }
 
@@ -159,11 +186,14 @@ function handleHubMessage(msg) {
 function renderIframe(html) {
     const fr = iframe();
     // Use srcdoc to avoid navigation history entries and cross-origin issues
+    const scrollTop = (() => { try { return fr.contentWindow?.scrollY || 0; } catch { return 0; } })();
     fr.srcdoc = html;
     fr.addEventListener('load', () => {
+        if (scrollTop) fr.contentWindow?.scrollTo(0, scrollTop);
         // Hide the loading overlay once the iframe has content
         const loading = document.getElementById('editor-loading');
         if (loading) loading.hidden = true;
+        attachIframePreviewInteractions();
         if (E.editMode) annotateIframe();
     }, { once: true });
 }
@@ -171,6 +201,63 @@ function renderIframe(html) {
 function iframeDoc() {
     const fr = iframe();
     try { return fr.contentDocument; } catch (e) { return null; }
+}
+
+/**
+ * The editor iframe intentionally does not allow scripts. Provide a minimal
+ * gallery preview through listeners installed by the trusted parent instead.
+ * Delegation handles galleries whose thumbnail nodes change while editing.
+ */
+function attachIframePreviewInteractions() {
+    const doc = iframeDoc();
+    if (!doc || doc.documentElement.dataset.lmcGalleryBound) return;
+    doc.documentElement.dataset.lmcGalleryBound = 'true';
+    const modal = doc.getElementById('myModal');
+    if (!modal) return;
+    let slideIndex = 0;
+    const show = idx => {
+        const slides = [...modal.querySelectorAll('.mySlides')];
+        if (!slides.length) return;
+        slideIndex = (idx % slides.length + slides.length) % slides.length;
+        slides.forEach((x, i) => x.style.display = i === slideIndex ? 'flex' : 'none');
+    };
+    const open = idx => {
+        show(idx);
+        modal.style.display = 'block';
+        doc.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+        modal.style.display = 'none';
+        doc.body.style.overflow = '';
+    };
+    show(0);
+    doc.addEventListener('click', e => {
+        const thumb = e.target.closest('.thumbnails-grid .thumbnail-item');
+        const all = e.target.closest('.view-all-btn');
+        if ((thumb && !E.editMode) || all) {
+            e.preventDefault();
+            e.stopPropagation();
+            let idx = 0;
+            if (thumb) {
+                const slides = [...modal.querySelectorAll('.mySlides img')];
+                const source = thumb.querySelector('img')?.src;
+                const matching = slides.findIndex(img => img.src === source);
+                idx = matching >= 0 ? matching : [...thumb.parentElement.children].indexOf(thumb);
+            }
+            open(idx);
+            return;
+        }
+        if (e.target.closest('#myModal .close')) { e.preventDefault(); close(); }
+        else if (e.target.closest('#myModal .prev')) { e.preventDefault(); show(slideIndex - 1); }
+        else if (e.target.closest('#myModal .next')) { e.preventDefault(); show(slideIndex + 1); }
+        else if (e.target === modal) close();
+    }, true);
+    doc.addEventListener('keydown', e => {
+        if (modal.style.display !== 'block') return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(slideIndex - 1);
+        if (e.key === 'ArrowRight') show(slideIndex + 1);
+    });
 }
 
 /** Mark editable elements in the iframe and attach input/click handlers. */
@@ -186,11 +273,15 @@ function annotateIframe() {
     });
 
     // Inject editor CSS
-    const style = doc.createElement('style');
-    style.textContent = EDITOR_IFRAME_CSS;
-    doc.head.appendChild(style);
+    if (!doc.getElementById('lmc-editor-style')) {
+        const style = doc.createElement('style');
+        style.id = 'lmc-editor-style';
+        style.textContent = EDITOR_IFRAME_CSS;
+        doc.head.appendChild(style);
+    }
 
     if (!E.editMode) return;
+    doc.querySelectorAll('.lmc-list-controls, .lmc-add-btn').forEach(el => el.hidden = false);
 
     // Plain text fields
     makePlainText(doc, SELECTORS.heading, 'heading');
@@ -221,12 +312,19 @@ function annotateIframe() {
 
     // Previews: click thumbnails to open screenshots drawer
     doc.querySelectorAll(SELECTORS.thumbnailItems).forEach((img, i) => {
-        img.closest('.thumbnail-item')?.classList.add('lmc-editable', 'lmc-preview');
-        img.closest('.thumbnail-item')?.setAttribute('data-lmc-index', i);
-        img.closest('.thumbnail-item')?.addEventListener('click', e => {
-            e.preventDefault();
-            openScreenshotsDrawer(i);
-        });
+        const thumb = img.closest('.thumbnail-item');
+        if (!thumb) return;
+        thumb.classList.add('lmc-editable', 'lmc-preview');
+        thumb.setAttribute('data-lmc-index', i);
+        if (thumb.dataset.lmcBound !== 'previews') {
+            thumb.dataset.lmcBound = 'previews';
+            // Preview thumbnails are a separate field from the full-size slides.
+            thumb.addEventListener('click', e => {
+                if (!E.editMode) return;
+                e.preventDefault(); e.stopPropagation();
+                openPreviewsDrawer();
+            }, true);
+        }
     });
 
     // Download links
@@ -240,6 +338,8 @@ function makePlainText(doc, selector, field) {
     el.setAttribute('contenteditable', 'plaintext-only');
     el.setAttribute('data-lmc-field', field);
     el.classList.add('lmc-editable');
+    if (el.dataset.lmcBound === field) return;
+    el.dataset.lmcBound = field;
     let debounceT;
     el.addEventListener('input', () => {
         clearTimeout(debounceT);
@@ -261,25 +361,22 @@ function makeRichList(doc, selector, field, getValue) {
         el.setAttribute('data-lmc-field', field);
         el.setAttribute('data-lmc-index', i);
         el.classList.add('lmc-editable', 'lmc-rich');
+        if (el.dataset.lmcBound === field) return;
+        el.dataset.lmcBound = field;
 
         // Paste as plain text
         el.addEventListener('paste', e => {
             e.preventDefault();
             const text = e.clipboardData.getData('text/plain');
-            document.execCommand('insertText', false, text);
+            doc.execCommand('insertText', false, text);
         });
 
         let debounceT;
         const commit = () => {
             clearTimeout(debounceT);
             const val = sanitizeRichText(getValue(el));
-            // Send the whole array
-            const allEls = [...doc.querySelectorAll(selector)];
-            const arr = allEls.map((e2, j) => {
-                if (j === i) return val;
-                return sanitizeRichText(getValue(e2));
-            });
-            sendEdit(field, arr);
+            // Index-based changes don't rebuild siblings (and preserve the caret).
+            sendEdit(field, val, i);
         };
         el.addEventListener('input', () => { clearTimeout(debounceT); debounceT = setTimeout(commit, 250); });
         el.addEventListener('blur', commit);
@@ -293,14 +390,20 @@ function makeRichList(doc, selector, field, getValue) {
     });
 
     // Add button
-    const addBtn = doc.createElement('button');
-    addBtn.className = 'lmc-add-btn';
-    addBtn.textContent = '+ Add';
-    addBtn.addEventListener('click', () => {
-        sendListOp(field, 'insert', els.length, null, '');
-    });
-    const container = els[0]?.parentElement;
-    if (container) container.append(addBtn);
+    const container = els[0]?.parentElement || doc.querySelector(field === 'features' ? SELECTORS.featuresList : '.description-content');
+    if (container && !container.querySelector(`[data-lmc-add-for="${field}"]`)) {
+        const addBtn = doc.createElement('button');
+        addBtn.type = 'button';
+        addBtn.className = 'lmc-add-btn';
+        addBtn.dataset.lmcAddFor = field;
+        addBtn.textContent = '+ Add ' + (field === 'paragraphs' ? 'paragraph' : 'feature');
+        addBtn.addEventListener('click', e => {
+            e.preventDefault();
+            const val = prompt('New ' + (field === 'paragraphs' ? 'paragraph' : 'feature') + ':');
+            if (val?.trim()) sendListOp(field, 'insert', doc.querySelectorAll(selector).length, null, sanitizeRichText(val.trim()));
+        });
+        container.append(addBtn);
+    }
 }
 
 function makeTagList(doc, selector, field) {
@@ -310,21 +413,19 @@ function makeTagList(doc, selector, field) {
         el.setAttribute('data-lmc-field', field);
         el.setAttribute('data-lmc-index', i);
         el.classList.add('lmc-editable', 'lmc-tag');
+        if (el.dataset.lmcBound === field) return;
+        el.dataset.lmcBound = field;
 
         let debounceT;
         el.addEventListener('input', () => {
             clearTimeout(debounceT);
             debounceT = setTimeout(() => {
-                const allEls = [...doc.querySelectorAll(selector)];
-                const arr = allEls.map(e2 => e2.textContent.trim());
-                sendEdit(field, arr);
+                sendEdit(field, el.textContent.trim(), i);
             }, 250);
         });
         el.addEventListener('blur', () => {
             clearTimeout(debounceT);
-            const allEls = [...doc.querySelectorAll(selector)];
-            const arr = allEls.map(e2 => e2.textContent.trim());
-            sendEdit(field, arr);
+            sendEdit(field, el.textContent.trim(), i);
         });
         el.addEventListener('keydown', e => {
             if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
@@ -336,6 +437,19 @@ function makeTagList(doc, selector, field) {
         });
         el.after(controls);
     });
+    const box = doc.querySelector(field === 'themes' ? '.pack-meta-badges' : '.compatibility-badges');
+    if (box && !box.querySelector(`[data-lmc-add-for="${field}"]`)) {
+        const btn = doc.createElement('button');
+        btn.type = 'button'; btn.className = 'lmc-add-btn lmc-add-tag';
+        btn.dataset.lmcAddFor = field;
+        btn.textContent = '+ Add ' + (field === 'themes' ? 'theme' : 'version');
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            const val = prompt('New ' + (field === 'themes' ? 'theme' : 'compatibility version') + ':');
+            if (val?.trim()) sendListOp(field, 'insert', doc.querySelectorAll(selector).length, null, val.trim());
+        });
+        box.append(btn);
+    }
 }
 
 function makeImageElement(doc, selector, field) {
@@ -343,6 +457,8 @@ function makeImageElement(doc, selector, field) {
     if (!el) return;
     el.classList.add('lmc-editable', 'lmc-img');
     el.setAttribute('data-lmc-field', field);
+    if (el.dataset.lmcBound === field) return;
+    el.dataset.lmcBound = field;
     el.addEventListener('click', e => {
         e.preventDefault();
         showImagePopover(el, field, null);
@@ -359,6 +475,8 @@ function makeHighlightFields(doc) {
             h4.setAttribute('data-lmc-field', 'highlights');
             h4.setAttribute('data-lmc-index', i);
             h4.classList.add('lmc-editable');
+            if (h4.dataset.lmcBound === 'highlights') return;
+            h4.dataset.lmcBound = 'highlights';
             let t;
             h4.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => commitHighlights(doc, items), 250); });
             h4.addEventListener('blur', () => { clearTimeout(t); commitHighlights(doc, items); });
@@ -369,6 +487,8 @@ function makeHighlightFields(doc) {
             p.setAttribute('data-lmc-field', 'highlights');
             p.setAttribute('data-lmc-index', i);
             p.classList.add('lmc-editable');
+            if (p.dataset.lmcBound === 'highlights') return;
+            p.dataset.lmcBound = 'highlights';
             let t;
             p.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => commitHighlights(doc, items), 250); });
             p.addEventListener('blur', () => { clearTimeout(t); commitHighlights(doc, items); });
@@ -390,6 +510,8 @@ function makeDownloadLink(doc, selector, field) {
     if (!el) return;
     el.classList.add('lmc-editable', 'lmc-link');
     el.setAttribute('data-lmc-field', field);
+    if (el.dataset.lmcBound === field) return;
+    el.dataset.lmcBound = field;
     el.addEventListener('click', e => {
         e.preventDefault();
         showLinkPopover(el, field, el.getAttribute('href') || '');
@@ -432,14 +554,16 @@ function applyChangedToIframe(msg) {
     const doc = iframeDoc();
     if (!doc) return;
 
-    // Don't patch an element that has focus (avoid clobbering the user's cursor)
+    // Never destroy a list being edited while it has focus.
     const active = doc.activeElement;
+    if (active?.dataset?.lmcField === field) return;
 
     // For array fields with an index, only update that element if it's not focused
     if (index != null) {
         const el = doc.querySelector(`[data-lmc-field="${field}"][data-lmc-index="${index}"]`);
         if (el && el !== active) {
-            el.textContent = typeof value === 'object' ? (value?.[index] || '') : value;
+            if (['features', 'paragraphs'].includes(field)) el.innerHTML = sanitizeRichText(String(value ?? ''));
+            else el.textContent = typeof value === 'object' ? (value?.[index] || '') : String(value ?? '');
         }
         return;
     }
@@ -452,9 +576,22 @@ function applyChangedToIframe(msg) {
             const iDoc = iframeDoc();
             if (!iDoc) return;
             try {
+                // The PAGE setters remove their own target elements. The editor's
+                // injected +/- controls are siblings, so remove them first to avoid
+                // accumulating duplicate controls after repeated list operations.
+                const containers = {
+                    features: SELECTORS.featuresList,
+                    paragraphs: '.description-content',
+                    themes: '.pack-meta-badges',
+                    compat: SELECTORS.compatBox,
+                    highlights: SELECTORS.highlightsBox,
+                    previews: SELECTORS.thumbnailsGrid,
+                    slides: SELECTORS.modalContent,
+                };
+                const scope = iDoc.querySelector(containers[field] || 'nonexistent-selector');
+                scope?.querySelectorAll('.lmc-list-controls, .lmc-add-btn').forEach(el => el.remove());
                 PAGE.set[field]?.(iDoc, value);
-                // Re-annotate the newly rendered elements
-                setTimeout(() => annotateIframe(), 50);
+                annotateIframe();
             } catch (e) { /* ignore */ }
         }
         return;
@@ -571,21 +708,23 @@ function renderPageSettingsDrawer(drawer) {
     // The fields are in the hub's canonical doc; send via channel
     // For now show inputs that send edit messages
     drawer.innerHTML = `
-        <h3>Page settings</h3>
-        <label>Browser title
-            <input id="ps-title" type="text" placeholder="Pack Name | Listar MC">
-        </label>
+        <div class="drawer-inner"><div class="drawer-head"><h3>Page settings</h3><button id="ps-close" type="button">✕</button></div><div class="drawer-body">
+        <div class="drawer-field"><label>Browser title</label>
+            <input id="ps-title" type="text" placeholder="Pack Name | Listar MC"></div>
         <p class="ps-hint">~50–60 characters recommended. <span id="ps-title-count">0</span></p>
-        <label>Meta description
-            <textarea id="ps-meta" rows="3" placeholder="Describe the pack for Google…"></textarea>
-        </label>
+        <div class="drawer-field"><label>Meta description</label><textarea id="ps-meta" rows="3" placeholder="Describe the pack for Google…"></textarea></div>
         <p class="ps-hint">~140–160 characters recommended. <span id="ps-meta-count">0</span></p>
-        <button id="ps-close">Close</button>
+        </div></div>
     `;
     const titleInp = drawer.querySelector('#ps-title');
     const metaInp = drawer.querySelector('#ps-meta');
+    const currentDoc = iframeDoc();
+    titleInp.value = currentDoc?.title || '';
+    metaInp.value = currentDoc?.querySelector('meta[name="description"]')?.content || '';
     const titleCount = drawer.querySelector('#ps-title-count');
     const metaCount = drawer.querySelector('#ps-meta-count');
+    titleCount.textContent = titleInp.value.length;
+    metaCount.textContent = metaInp.value.length;
 
     titleInp.addEventListener('input', () => {
         titleCount.textContent = titleInp.value.length;
@@ -600,101 +739,112 @@ function renderPageSettingsDrawer(drawer) {
     });
 }
 
-function openScreenshotsDrawer(focusIndex) {
+function openScreenshotsDrawer(focusIndex = 0, mode = 'slides') {
     closePopovers();
     const drawer = screenshotsDrawer();
+    drawer.dataset.mode = mode;
     drawer.hidden = false;
     renderScreenshotsDrawer(drawer, focusIndex);
 }
+function openPreviewsDrawer() { openScreenshotsDrawer(0, 'previews'); }
 
-function renderScreenshotsDrawer(drawer, focusIndex) {
-    // Gather current slide data from iframe
-    const doc = iframeDoc();
-    const slides = doc ? [...doc.querySelectorAll(SELECTORS.slides)].map(s => ({
-        src: s.querySelector('img')?.getAttribute('src') || '',
-        caption: s.querySelector('#caption, .caption')?.textContent.trim() || '',
-    })) : [];
-
+function renderScreenshotsDrawer(drawer, focusIndex = -1) {
+    // Never derive paths from the iframe; its URLs were rewritten for previewing
+    // and would permanently replace ../images/foo.png with raw GitHub URLs.
+    const mode = drawer.dataset.mode === 'previews' ? 'previews' : 'slides';
+    const previews = mode === 'previews';
+    const field = mode;
+    const labelKey = previews ? 'alt' : 'caption';
+    const entries = (E.pageData?.[field] || []).map(x => ({...x}));
     drawer.innerHTML = `
-        <div class="ss-header">
-            <h3>Screenshots (${slides.length})</h3>
-            <button id="ss-close">✕</button>
+        <div class="drawer-inner"><div class="ss-header">
+            <h3>Images (${entries.length})</h3>
+            <button id="ss-close" type="button" aria-label="Close">✕</button>
         </div>
+        <div class="ss-tabs" role="group" aria-label="Image collection">
+            <button type="button" data-mode="previews" class="${previews ? 'active' : ''}">Preview thumbnails</button>
+            <button type="button" data-mode="slides" class="${previews ? '' : 'active'}">Full screenshots</button>
+        </div>
+        <p class="ss-hint">${previews ? 'These are the small thumbnails visible on the pack page.' : 'These appear in the View All Screenshots popup.'}</p>
         <div class="ss-list" id="ss-list"></div>
-        <button id="ss-add" class="lmc-add-btn">+ Add screenshot</button>
-    `;
-
+        <div class="ss-footer">
+            ${previews ? '<button type="button" id="ss-sync" class="lmc-add-btn">↻ Use first 4 full screenshots</button>' : ''}
+            <button type="button" id="ss-upload-new" class="lmc-add-btn">↑ Upload image</button>
+            <button type="button" id="ss-add" class="lmc-add-btn">+ Add by URL</button>
+        </div></div>`;
+    drawer.querySelector('#ss-close').onclick = () => { drawer.hidden = true; };
+    drawer.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => {
+        drawer.dataset.mode = b.dataset.mode;
+        renderScreenshotsDrawer(drawer);
+    });
     const list = drawer.querySelector('#ss-list');
-    const renderSlides = () => {
-        list.innerHTML = '';
-        slides.forEach((slide, i) => {
+    const renderRows = () => {
+        list.replaceChildren();
+        entries.forEach((item, i) => {
             const row = document.createElement('div');
             row.className = 'ss-row' + (i === focusIndex ? ' ss-focus' : '');
             row.innerHTML = `
-                <img src="${esc(slide.src)}" alt="">
+                <img alt="Preview ${i + 1}">
                 <div class="ss-fields">
-                    <input type="text" placeholder="Image URL" value="${esc(slide.src)}">
-                    <input type="text" placeholder="Caption (optional)" value="${esc(slide.caption)}">
+                    <input type="text" aria-label="Image URL" placeholder="Image URL">
+                    <input type="text" aria-label="Image description" placeholder="${previews ? 'Alt text (optional)' : 'Caption (optional)'}">
                 </div>
                 <div class="ss-actions">
-                    ${i > 0 ? '<button class="lmc-ctrl" data-dir="-1">↑</button>' : ''}
-                    ${i < slides.length - 1 ? '<button class="lmc-ctrl" data-dir="1">↓</button>' : ''}
-                    <button class="lmc-ctrl lmc-ctrl-remove" data-rm>✕</button>
-                    <button class="lmc-ctrl" data-upload>↑ Upload</button>
-                </div>
-            `;
-            const [srcInp, capInp] = row.querySelectorAll('input');
-            srcInp.addEventListener('change', () => {
-                slides[i].src = srcInp.value;
-                sendEdit('slides', [...slides]);
-                row.querySelector('img').src = srcInp.value;
+                    ${i > 0 ? '<button type="button" class="lmc-ctrl" data-dir="-1" title="Move up">↑</button>' : ''}
+                    ${i < entries.length-1 ? '<button type="button" class="lmc-ctrl" data-dir="1" title="Move down">↓</button>' : ''}
+                    <button type="button" class="lmc-ctrl" data-upload>↑ Replace</button>
+                    <button type="button" class="lmc-ctrl lmc-ctrl-remove" data-rm>✕ Remove</button>
+                </div>`;
+            const srcInp = row.querySelector('input[aria-label="Image URL"]');
+            const textInp = row.querySelector('input[aria-label="Image description"]');
+            srcInp.value = item.src || '';
+            textInp.value = item[labelKey] || '';
+            // Show an image from the current iframe when possible; otherwise
+            // resolve a relative source from its pack page directory.
+            const canonical = item.src || '';
+            const iframeSelector = previews ? SELECTORS.thumbnailItems : SELECTORS.slides + ' img';
+            const matching = iframeDoc()?.querySelectorAll(iframeSelector)[i];
+            row.querySelector('img').src = matching?.src || new URL(canonical, new URL(E.file.replace(/[^/]+$/, ''), E.siteUrl)).href;
+            const commit = () => sendEdit(field, entries.map(x => ({...x})));
+            srcInp.addEventListener('change', () => { entries[i].src = srcInp.value.trim(); commit(); });
+            textInp.addEventListener('change', () => { entries[i][labelKey] = textInp.value.trim(); commit(); });
+            row.querySelectorAll('[data-dir]').forEach(btn => btn.onclick = () => {
+                const j = i + Number(btn.dataset.dir);
+                [entries[i], entries[j]] = [entries[j], entries[i]];
+                commit(); renderRows();
             });
-            capInp.addEventListener('change', () => {
-                slides[i].caption = capInp.value;
-                sendEdit('slides', [...slides]);
-            });
-            row.querySelectorAll('[data-dir]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const dir = parseInt(btn.dataset.dir);
-                    const j = i + dir;
-                    [slides[i], slides[j]] = [slides[j], slides[i]];
-                    sendEdit('slides', [...slides]);
-                    renderSlides();
-                });
-            });
-            row.querySelector('[data-rm]').addEventListener('click', () => {
-                slides.splice(i, 1);
-                sendEdit('slides', [...slides]);
-                renderSlides();
-            });
-            row.querySelector('[data-upload]').addEventListener('click', () => {
-                const fi = document.createElement('input');
-                fi.type = 'file';
-                fi.accept = 'image/*';
-                fi.onchange = () => {
-                    const file = fi.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        const b64 = reader.result.split(',')[1];
-                        const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0)).buffer;
-                        channel.send('upload', { file: E.file, field: 'slides', index: i, name: file.name, mime: file.type, bytes });
-                    };
-                    reader.readAsDataURL(file);
-                };
-                fi.click();
-            });
+            row.querySelector('[data-rm]').onclick = () => {
+                entries.splice(i, 1); commit(); renderRows();
+            };
+            row.querySelector('[data-upload]').onclick = () => pickImage(i);
             list.append(row);
         });
     };
-    renderSlides();
-
-    drawer.querySelector('#ss-close').addEventListener('click', () => { drawer.hidden = true; });
-    drawer.querySelector('#ss-add').addEventListener('click', () => {
-        slides.push({ src: '', caption: '' });
-        sendEdit('slides', [...slides]);
-        renderSlides();
-    });
+    function pickImage(index) {
+        const picker = document.createElement('input');
+        picker.type = 'file'; picker.accept = 'image/*';
+        picker.onchange = async () => {
+            const f = picker.files?.[0]; if (!f) return;
+            channel.send('upload', { file: E.file, field, clientId: E.clientId,
+                index, name: f.name, mime: f.type, bytes: await f.arrayBuffer() });
+        };
+        picker.click();
+    }
+    renderRows();
+    drawer.querySelector('#ss-upload-new').onclick = () => pickImage(entries.length);
+    drawer.querySelector('#ss-add').onclick = () => {
+        const src = prompt('Image URL:', '');
+        if (!src?.trim()) return;
+        entries.push({src: src.trim(), [labelKey]: ''});
+        sendEdit(field, entries.map(x => ({...x})));
+        renderRows();
+        list.lastElementChild?.scrollIntoView({ block: 'nearest' });
+    };
+    if (previews) drawer.querySelector('#ss-sync').onclick = () => {
+        const slides = E.pageData?.slides || [];
+        if (!slides.length) { alert('Add full screenshots first.'); return; }
+        sendEdit('previews', slides.slice(0, 4).filter(x => x.src).map(x => ({ src: x.src, alt: x.caption || '' })));
+    };
 }
 
 // ── Publish dialog ─────────────────────────────────────────────────────────
@@ -808,8 +958,9 @@ function disableEditing() {
 // ── Send helpers ───────────────────────────────────────────────────────────
 
 function sendEdit(field, value, index) {
-    if (!channel) return;
+    if (!channel || !E.connected) return;
     channel.send('edit', {
+        clientId: E.clientId,
         file: E.file,
         field,
         value,
@@ -818,8 +969,9 @@ function sendEdit(field, value, index) {
 }
 
 function sendListOp(field, op, index, to, value) {
-    if (!channel) return;
+    if (!channel || !E.connected) return;
     channel.send('list-op', {
+        clientId: E.clientId,
         file: E.file,
         field,
         op,
@@ -836,6 +988,8 @@ function bindToolbar() {
     if (sel) {
         sel.addEventListener('change', () => {
             E.file = sel.value;
+            pageSettingsDrawer().hidden = true;
+            screenshotsDrawer().hidden = true;
             // Update our origin ID
             if (channel) {
                 channel.close();
@@ -874,7 +1028,7 @@ function bindToolbar() {
                 // Remove edit annotations
                 doc.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
                 doc.querySelectorAll('.lmc-editable').forEach(el => el.classList.remove('lmc-editable'));
-                doc.querySelectorAll('.lmc-list-controls, .lmc-add-btn').forEach(el => el.remove());
+                doc.querySelectorAll('.lmc-list-controls, .lmc-add-btn').forEach(el => el.hidden = true);
             }
         });
     }

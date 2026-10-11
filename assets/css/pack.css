@@ -1547,10 +1547,9 @@
 }
 
 .mySlides {
-  display: none;
+  display: none; /* Keep hidden until a slide is selected. Do not override with flex here. */
   text-align: center;
   height: 80vh;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -1877,4 +1876,13 @@
   position: absolute;
   left: -9999px;
   visibility: hidden;
+}
+/* Captions created by the visual editor must look like legacy #caption nodes. */
+#myModal .caption {
+  margin: 20px auto;
+  color: white;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

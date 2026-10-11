@@ -272,14 +272,31 @@ function currentSlide(n) {
 function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("mySlides");
-    var captionText = document.getElementById("caption");
+    if (!slides.length) return;
     if (n > slides.length) {slideIndex = 1}
     if (n < 1) {slideIndex = slides.length}
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
-    slides[slideIndex-1].style.display = "block";
+    if (!slides.length) return;
+    slides[slideIndex-1].style.display = "flex";
 }
+
+// Match preview thumbnails to their actual screenshot even when a pack uses
+// a curated selection/order different from the full gallery.
+document.querySelectorAll('.thumbnails-grid .thumbnail-item').forEach((thumb, i) => {
+    thumb.addEventListener('click', e => {
+        const src = thumb.querySelector('img')?.src;
+        const slides = [...document.querySelectorAll('#myModal .mySlides img')];
+        const match = slides.findIndex(img => img.src === src);
+        if (match >= 0) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            openModal();
+            currentSlide(match + 1);
+        }
+    }, true);
+});
 
 // Close modal when clicking outside of it
 window.onclick = function(event) {

@@ -227,6 +227,12 @@ export const PAGE = {
 </div>`), '    ');
         },
         slides: (d, list) => {
+            // Normally the preview thumbnails are the first 4 slides. Keep that
+            // relationship when the full gallery is edited. Respect packs with
+            // a deliberately different selection of preview images.
+            const previous = PAGE.get(d);
+            const previewsWereSynced = previous.previews.length > 0 &&
+                previous.previews.every((x, i) => x.src === previous.slides[i]?.src);
             const box = d.querySelector('#myModal .modal-content');
             const anchor = box.querySelector('a.prev');
             let ref = anchor;
@@ -237,8 +243,12 @@ export const PAGE = {
             replaceMatching(box, e => e.classList.contains('mySlides'), list.filter(x => x.src).map(x => `
 <div class="mySlides">
     <img src="${esc(x.src)}" style="width:100%">${x.caption ? `
-    <div id="caption">${esc(x.caption)}</div>` : ''}
+    <div class="caption">${esc(x.caption)}</div>` : ''}
 </div>`), ref, '    ');
+            if (previewsWereSynced) {
+                PAGE.set.previews(d, list.filter(x => x.src).slice(0, previous.previews.length)
+                    .map(x => ({ src: x.src, alt: x.caption || '' })));
+            }
         },
     },
 };

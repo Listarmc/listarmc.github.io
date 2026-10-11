@@ -462,3 +462,30 @@ html, body {
     #file-select { max-width: 140px; }
     .tb-right .btn span { display: none; } /* icon-only buttons */
 }
+
+/* Editor drawer contents (rendered by editor.js) */
+#page-settings-drawer .drawer-inner, #screenshots-drawer .drawer-inner { padding:0; overflow:hidden; }
+#page-settings-drawer .drawer-body { display:grid; gap:12px; padding:18px; align-content:start; overflow:auto; }
+#page-settings-drawer .drawer-head button, #screenshots-drawer .ss-header button { background:transparent; border:0; color:var(--text); cursor:pointer; font-size:20px; }
+#screenshots-drawer .ss-header { display:flex; align-items:center; justify-content:space-between; padding:16px; border-bottom:1px solid var(--line); }
+#screenshots-drawer .ss-header h3 { margin:0; font-size:16px; }
+#screenshots-drawer .ss-list { flex:1; overflow-y:auto; padding:12px; min-height:0; }
+#screenshots-drawer .ss-row { display:grid; grid-template-columns:75px minmax(0,1fr); gap:10px; padding:12px 0; border-bottom:1px solid var(--line); }
+#screenshots-drawer .ss-row img { width:75px; height:58px; object-fit:cover; background:#121127; border-radius:5px; }
+#screenshots-drawer .ss-fields { min-width:0; display:grid; gap:7px; }
+#screenshots-drawer input { width:100%; min-width:0; box-sizing:border-box; background:rgba(0,0,0,.35); border:1px solid var(--line); border-radius:6px; color:var(--text); padding:7px; }
+#screenshots-drawer .ss-actions { grid-column:1/-1; display:flex; justify-content:flex-end; flex-wrap:wrap; gap:7px; }
+#screenshots-drawer .lmc-ctrl, #screenshots-drawer #ss-add { padding:8px 12px; border:1px solid var(--line); color:var(--text); background:var(--panel-2); cursor:pointer; border-radius:6px; }
+#screenshots-drawer #ss-add { margin:12px; color:#fff; background:var(--primary); }
+#screenshots-drawer .ss-focus { outline:1px solid var(--primary); outline-offset:-1px; }
+
+#screenshots-drawer .ss-footer { display:flex; flex-wrap:wrap; padding:8px; gap:4px; border-top:1px solid var(--line); }
+#screenshots-drawer .ss-footer .lmc-add-btn { flex:1; margin:4px; white-space:nowrap; }
+
+/* Image drawer: separate the page thumbnails from the full lightbox gallery. */
+#screenshots-drawer .ss-tabs { display:flex; gap:6px; padding:12px 12px 0; }
+#screenshots-drawer .ss-tabs button { flex:1; background:var(--panel-2); color:var(--text); padding:9px 5px; border:1px solid var(--line); border-radius:6px; cursor:pointer; }
+#screenshots-drawer .ss-tabs button.active { background:var(--primary); color:white; border-color:var(--primary); }
+#screenshots-drawer .ss-hint { margin:6px 12px; color:var(--muted); font-size:12px; }
+#screenshots-drawer .ss-footer { flex-shrink:0; }
+#screenshots-drawer .ss-footer .lmc-add-btn { flex:1 1 150px; }

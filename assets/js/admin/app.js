@@ -332,7 +332,10 @@ function handleEditorMessage(msg) {
                 // Apply the field change with the new path
                 const fromPage = msg.file !== 'index.html';
                 const newSrc = (fromPage ? '../' : '') + path;
-                applyEdit({ file: msg.file, field: msg.field, value: newSrc, index: msg.index ?? null, card: msg.card ?? null, rev: S.rev }, true);
+                applyEdit({ file: msg.file, field: msg.field, value: newSrc, index: msg.index ?? null, card: msg.card ?? null, clientId: msg.clientId, rev: S.rev }, true);
+                // Rebuild preview with staged object URLs. The canonical file
+                // keeps portable relative paths for publishing.
+                await sendState(msg.file);
                 toast('Image staged: ' + path);
             } catch (e) { toast(e.message, true); }
         })();
@@ -400,6 +403,10 @@ async function buildDisplayHtml(file) {
     const doc2 = parseHTML(serialize(f.doc));
     doc2.querySelectorAll('script').forEach(s => s.remove());
     const dir = file.replace(/[^/]+$/, '');
+    // Blob previews otherwise resolve relative image and navigation URLs against blob:.
+    const base = doc2.createElement('base');
+    base.href = new URL(dir, S.siteUrl).href;
+    doc2.head.prepend(base);
 
     // Inline local stylesheets (keep CDN ones like Font Awesome as links)
     for (const link of [...doc2.querySelectorAll('link[rel~="stylesheet"][href]')]) {
@@ -407,7 +414,11 @@ async function buildDisplayHtml(file) {
         if (/^(https?:)?\/\//.test(href)) continue;
         const path = decodeURIComponent(new URL(href, 'https://x/' + dir).pathname.slice(1));
         const css = await readCss(path);
-        if (css == null) { console.warn('[editor] stylesheet not found in repo:', path); continue; }
+        if (css == null) {
+            console.warn('[editor] stylesheet not found in repo:', path);
+            link.href = new URL(path, S.siteUrl).href;
+            continue;
+        }
         const style = doc2.createElement('style');
         style.setAttribute('data-src', path);
         style.textContent = css;
@@ -420,9 +431,21 @@ async function buildDisplayHtml(file) {
     });
 
     // Images and favicons
-    doc2.querySelectorAll('img[src]').forEach(img => img.setAttribute('src', resolveFrom(img.getAttribute('src'), dir)));
+    doc2.querySelectorAll('img[src], source[src], video[poster]').forEach(el => {
+        const a = el.hasAttribute('src') ? 'src' : 'poster';
+        el.setAttribute(a, resolveFrom(el.getAttribute(a), dir));
+    });
     doc2.querySelectorAll('link[rel~="icon"][href]').forEach(l => l.setAttribute('href', resolveFrom(l.getAttribute('href'), dir)));
 
+    // The source page scripts (analytics, advertising, etc.) stay disabled.
+    // Load only our own gallery/navigation preview runtime, served by this
+    // repository, so the lightbox works in Quick Preview despite admin CSP.
+    if (file.startsWith('Packs/')) {
+        const runtime = doc2.createElement('script');
+        runtime.src = new URL('assets/js/admin/preview-runtime.js', S.siteUrl).href;
+        runtime.defer = true;
+        doc2.body.appendChild(runtime);
+    }
     return serialize(doc2);
 }
 
@@ -444,6 +467,7 @@ async function sendState(file) {
         html,
         pending: changes.length,
         packs: S.packs.map(p => ({ file: p.file, name: packName(p) })),
+        pageData: file && S.files.get(file)?.kind === 'html' ? PAGE.get(S.files.get(file).doc) : null,
         siteUrl: S.siteUrl,
     });
 }
@@ -461,7 +485,16 @@ function applyEdit(msg, broadcast) {
 
     S.rev++;
     if (broadcast && S.channel) {
-        S.channel.send('changed', { file, field, value, index: index ?? null, card: cardFile2 ?? null, rev: S.rev });
+        // Indexed edits may insert a new screenshot or rewrite a whole list in the
+        // canonical document. Other tabs must receive the final array, not only
+        // an index that may not exist in their stale DOM.
+        const canonical = getFieldValue(file, field, null, cardFile2);
+        const arrayChange = index != null && Array.isArray(canonical);
+        S.channel.send('changed', {
+            file, field, value: arrayChange ? canonical : value,
+            index: arrayChange ? null : (index ?? null), card: cardFile2 ?? null,
+            clientId: msg.clientId || null, rev: S.rev,
+        });
     }
     // Refresh admin form if we're showing this pack
     const p = S.current;
@@ -491,7 +524,7 @@ function applyListOp(msg, broadcast) {
     _applyFieldSet(file, field, arr, null, null);
     S.rev++;
     if (broadcast && S.channel) {
-        S.channel.send('changed', { file, field, value: arr, index: null, card: null, rev: S.rev });
+        S.channel.send('changed', { file, field, value: arr, index: null, card: null, clientId: msg.clientId || null, structural: true, rev: S.rev });
     }
     updatePending();
 }
