@@ -372,23 +372,30 @@ function sendState(file) {
             // Strip scripts/ads for the editor display copy
             const doc2 = parseHTML(serialize(f.doc));
             doc2.querySelectorAll('script').forEach(s => s.remove());
-            // Resolve uploads
-            doc2.querySelectorAll('img[src]').forEach(img => {
-                const src = img.getAttribute('src');
-                if (!/^(https?:)?\/\//.test(src) && !src.startsWith('data:') && !src.startsWith('blob:')) {
-                    const fromPage = file !== 'index.html';
-                    const resolved = resolveImg(src, fromPage);
-                    if (resolved) img.setAttribute('src', resolved);
-                }
+
+            // Helper: resolve a relative URL to an absolute one (raw GitHub or upload blob)
+            const pageDir = 'https://x/' + file.replace(/[^/]+$/, '');
+            const resolveRelative = src => {
+                if (!src || /^(https?:)?\/\//.test(src) || src.startsWith('data:') || src.startsWith('blob:')) return src;
+                const path = new URL(src, pageDir).pathname.slice(1);
+                const up = S.uploads.get(decodeURIComponent(path));
+                if (up) return up.url;
+                return `https://raw.githubusercontent.com/${S.cfg.owner}/${S.cfg.repo}/${S.headSha}/${path}`;
+            };
+
+            // Resolve stylesheet hrefs so they load cross-origin inside the iframe
+            doc2.querySelectorAll('link[rel="stylesheet"][href], link[rel~="stylesheet"][href]').forEach(link => {
+                const resolved = resolveRelative(link.getAttribute('href'));
+                if (resolved) link.setAttribute('href', resolved);
             });
-            // Add base href for the editor iframe
-            const base = doc2.createElement('base');
-            const baseUrl = new URL(
-                file.replace(/[^/]+$/, ''),
-                window.location.protocol.startsWith('http') ? window.location.href : S.siteUrl
-            ).href;
-            base.href = baseUrl;
-            doc2.head.prepend(base);
+
+            // Resolve images
+            doc2.querySelectorAll('img[src]').forEach(img => {
+                const resolved = resolveRelative(img.getAttribute('src'));
+                if (resolved) img.setAttribute('src', resolved);
+            });
+
+            // No <base> needed — all URLs are now absolute
             html = serialize(doc2);
         }
     }
