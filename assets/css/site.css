@@ -1,3 +1,9 @@
+/*
+ * site.css — global theme shared by every public page
+ * Variables, header/nav, hero, pack grid, resources section, footer.
+ * Loaded by: index.html, Privacy Policy.html, Packs/*.html
+ */
+
 /* Modern CSS Reset */
 *,
 *::before,
@@ -35,7 +41,7 @@ body {
   user-select: none;
 
   /* Keep the space background */
-  background-image: url("5446991.jpg");
+  background-image: url("../../5446991.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
